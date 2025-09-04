@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CrockCrestApplication {
 
     public static void main(String[] args) {
+        EnvLoader.load();
         SpringApplication.run(CrockCrestApplication.class, args);
     }
 
