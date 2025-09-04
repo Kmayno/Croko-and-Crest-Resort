@@ -24,12 +24,6 @@ public class InventarioCamera {
     public InventarioCamera() {
     }
 
-    public InventarioCamera(Camera camera, Long idInventario, OpzionePersonalizzazione opzione) {
-        this.camera = camera;
-        this.idInventario = idInventario;
-        this.opzione = opzione;
-    }
-
     // Getters & Setters
 
     public Long getIdInventario() {

@@ -24,17 +24,6 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(String cognome, String email, Long idCliente, String nome, String passwordCliente, List<Prenotazione> prenotazioni) {
-        this.cognome = cognome;
-        this.email = email;
-        this.idCliente = idCliente;
-        this.nome = nome;
-        this.passwordCliente = passwordCliente;
-        this.prenotazioni = prenotazioni;
-    }
-
-
-
     // Getters & Setters
 
     public Long getIdCliente() {
