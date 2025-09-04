@@ -28,4 +28,9 @@ public class AdminService {
         Admin findByEmail = ar.findByEmailAndPasswordAdmin(email,password);
         return findByEmail;
     }
+
+    public Admin updateAdmin(Admin a){
+        ar.save(a);
+        return a;
+    }
 }

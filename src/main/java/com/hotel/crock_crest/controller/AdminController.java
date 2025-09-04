@@ -10,12 +10,13 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("api/admin-login")
 @CrossOrigin(origins = "*")
 public class AdminController {
     @Autowired
     private AdminService as;
 
-    @GetMapping("/getALlAdmin")
+    @GetMapping("/getAllAdmin")
     public List<Admin> getAllAdmin(){
         List<Admin> adminList = as.getAllAdmin();
         return adminList;
@@ -44,5 +45,11 @@ public class AdminController {
         a.setToken(token);
         return ResponseEntity.ok(a);
     }
+
+    @PutMapping("/update")
+    public void updateAdmin(@RequestBody Admin a){
+       as.addAdmin(a);
+    }
+
 
 }
