@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name ="dettagli_prenotazione")
 public class DettaglioPrenotazione {
+    // dati tabella
     @Id
     @GeneratedValue(stategy = GenerationType.IDENTITY)
     @Column(name = "id_dettaglio")
@@ -19,6 +20,7 @@ public class DettaglioPrenotazione {
     @JoinColumn(name = "id_opzione")
     private OpzionePersonalizzazione opzionePersonalizzazione;
 
+    // costruttore & getter/setter
     public DettaglioPrenotazione() {}
 
     public int getIdDettaglio() {

@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 @Table(name = "prenotazioni")
 public class Prenotazione {
    
+    // dati tabella
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_prenotazione")
@@ -36,6 +37,8 @@ public class Prenotazione {
 
     @OneToMany(mappedBy= "prenotazione", cascade= CascadeType.ALL)
     private List<DettaglioPrenotazione> dettagli;
+
+    //costruttore & getter/setter
     
     public Prenotazione(){};
 
