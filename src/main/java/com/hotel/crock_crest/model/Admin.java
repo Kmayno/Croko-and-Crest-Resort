@@ -18,7 +18,20 @@ public class Admin {
     @Column(name = "email")
     private String email;
 
+    @Transient
+    private String token;
+
     public Admin(){}
+
+
+
+    public Admin(String email, String passwordAdmin){
+        this.email = email;
+        this.passwordAdmin = passwordAdmin;
+    }
+
+
+
 
     public int getIdAdmin() {
         return idAdmin;
@@ -50,5 +63,13 @@ public class Admin {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

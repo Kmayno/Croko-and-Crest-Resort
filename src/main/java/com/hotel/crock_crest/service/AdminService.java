@@ -18,4 +18,14 @@ public class AdminService {
     public void addAdmin(Admin a){
         ar.save(a);
     }
+
+    public Admin getAdminById(Integer id){
+        Admin find = ar.findById(id).orElseThrow(() -> new RuntimeException("Admin non trovato con ID: " + id));
+        return find;
+    }
+
+    public Admin findByEmailAndPass(String email, String password){
+        Admin findByEmail = ar.findByEmailAndPasswordAdmin(email,password);
+        return findByEmail;
+    }
 }
