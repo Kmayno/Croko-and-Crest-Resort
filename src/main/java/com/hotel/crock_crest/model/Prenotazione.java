@@ -37,7 +37,7 @@ public class Prenotazione {
     @OneToMany(mappedBy= "prenotazione", cascade= CascadeType.ALL)
     private List<DettaglioPrenotazione> dettagli;
     
-    public Prenotazione();
+    public Prenotazione(){};
 
     public int getIdPrenotazione() {
         return idPrenotazione;
