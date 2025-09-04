@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 public class DettaglioPrenotazione {
     // dati tabella
     @Id
-    @GeneratedValue(stategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_dettaglio")
     private int idDettaglio;
 
