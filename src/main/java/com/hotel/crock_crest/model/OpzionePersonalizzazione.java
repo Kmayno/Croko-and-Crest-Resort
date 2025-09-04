@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 public class OpzionePersonalizzazione {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idOpzione;
+    private int idOpzione;
 
     private String nomeOpzione;
     private Double prezzoAggiuntivo;
