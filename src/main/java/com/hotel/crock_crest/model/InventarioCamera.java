@@ -9,7 +9,7 @@ public class InventarioCamera {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_inventario")
-    private Long idInventario;
+    private int idInventario;
 
     @ManyToOne
     @JoinColumn(name = "id_camera")
@@ -26,7 +26,7 @@ public class InventarioCamera {
 
     // Getters & Setters
 
-    public Long getIdInventario() {
+    public int getIdInventario() {
         return idInventario;
     }
 
@@ -38,7 +38,7 @@ public class InventarioCamera {
         return opzione;
     }
 
-    public void setIdInventario(Long idInventario) {
+    public void setIdInventario(int idInventario) {
         this.idInventario = idInventario;
     }
 

@@ -9,7 +9,7 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cliente")
-    private Long idCliente;
+    private int  idCliente;
 
     private String nome;
     private String cognome;
@@ -26,7 +26,7 @@ public class Cliente {
 
     // Getters & Setters
 
-    public Long getIdCliente() {
+    public int getIdCliente() {
         return idCliente;
     }
 
@@ -50,7 +50,7 @@ public class Cliente {
         return prenotazioni;
     }
 
-    public void setIdCliente(Long idCliente) {
+    public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 
