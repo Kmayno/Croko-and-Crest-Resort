@@ -27,11 +27,11 @@ public class OpzionePersonalizzazione {
     private List<DettaglioPrenotazione> dettagliPrenotazioni;
 
     //qua andrebbe int o Long --da vedere
-    public Long getIdOpzione() {
+    public int getIdOpzione() {
         return idOpzione;
     }
 
-    public void setIdOpzione(Long idOpzione) {
+    public void setIdOpzione(int idOpzione) {
         this.idOpzione = idOpzione;
     }
 
