@@ -15,10 +15,12 @@ public class Camera {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCamera;
-
     private String numeroStanza;
     private String tipoCamera;
     private String descrizione;
+    private Double prezzoBaseNotte;
+    private Integer capienzaMassima;
+    private Boolean disponibile;
 
     public int getIdCamera() {
         return idCamera;
@@ -91,11 +93,6 @@ public class Camera {
     public void setPrenotazioni(List<Prenotazione> prenotazioni) {
         this.prenotazioni = prenotazioni;
     }
-
-    private Double prezzoBaseNotte;
-    private Integer capienzaMassima;
-
-    private Boolean disponibile;
 
     @OneToMany(mappedBy = "camera", cascade = CascadeType.ALL)
     private List<InventarioCamera> inventario;
