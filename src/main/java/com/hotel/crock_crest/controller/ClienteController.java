@@ -1,6 +1,7 @@
 package com.hotel.crock_crest.controller;
 
 import com.hotel.crock_crest.model.Cliente;
+import com.hotel.crock_crest.model.Prenotazione;
 import com.hotel.crock_crest.service.ClienteService;
 
 import org.springframework.http.ResponseEntity;
@@ -36,8 +37,8 @@ public class ClienteController {
 
 	// metodo get per visualizzare le prenotazioni di un cliente tramite ricerca per id
 	 @GetMapping("/{id}/prenotazioni")
-    public List<Prenotazione> getPrenotazioniCliente(@PathVariable Integer id) {
-        return clienteService.getPrenotazioniCliente(id);
+    public List<Prenotazione> getPrenotazioniCliente(@PathVariable Integer idCliente) {
+        return clienteService.getPrenotazioniCliente(idCliente);
     }
 
 	// metodo get per visualizzare i dati del cliente tramite ricerca per id

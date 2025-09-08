@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hotel.crock_crest.model.Cliente;
+import com.hotel.crock_crest.model.Prenotazione;
 import com.hotel.crock_crest.repository.ClienteRepository;
 
 @Service
