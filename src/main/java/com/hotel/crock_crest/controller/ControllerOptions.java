@@ -20,16 +20,18 @@ public class ControllerOptions {
     @Autowired
     private OptionService os;
 
+    //METODO DI AGGIUNTA DI UNA NUOVA OPZIONE
     @PostMapping("/addOption")
     public void addOption(@RequestBody OpzionePersonalizzazione option) {
         os.addOption(option);
     }
 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+    //METODO DI RICHIESTA PER TUTTE LE OPZIONI
     @GetMapping("/getAllOptions")
     public List<OpzionePersonalizzazione> getAllOptions() {
         List<OpzionePersonalizzazione> allOptions = os.getAllOptions();
         return allOptions;
     }
-    
-
 }

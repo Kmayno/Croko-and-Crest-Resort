@@ -19,6 +19,7 @@ public class OptionService {
         return findAllOptions;
     }
 
+    //METODO PER AGGIUNGERE UN OPZIONE AL DB
     public void addOption(OpzionePersonalizzazione op){
         or.save(op);
     }

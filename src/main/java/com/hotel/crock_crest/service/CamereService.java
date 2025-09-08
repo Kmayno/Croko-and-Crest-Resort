@@ -35,7 +35,7 @@ public class CamereService {
     public String updateRoom(@PathVariable Integer idCamera, Camera updatedRoom) {
         return cr.findById(idCamera).map(r -> {
             r.setNumeroStanza(updatedRoom.getNumeroStanza());
-            r.setTipoCamera(updatedRoom.getNumeroStanza());
+            r.setTipoCamera(updatedRoom.getTipoCamera());
             r.setDescrizione(updatedRoom.getDescrizione());
             r.setPrezzoBaseNotte(updatedRoom.getPrezzoBaseNotte());
             r.setCapienzaMassima(updatedRoom.getCapienzaMassima());
