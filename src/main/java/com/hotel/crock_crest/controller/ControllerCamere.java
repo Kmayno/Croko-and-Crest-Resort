@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hotel.crock_crest.model.Camera;
 import com.hotel.crock_crest.service.CamereService;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
 
 @RestController
 @RequestMapping("api/camere")
