@@ -26,11 +26,12 @@ public class OpzionePersonalizzazione {
     @OneToMany(mappedBy = "opzione", cascade = CascadeType.ALL)
     private List<DettaglioPrenotazione> dettagliPrenotazioni;
 
-    public Long getIdOpzione() {
+    //qua andrebbe int o Long --da vedere
+    public int getIdOpzione() {
         return idOpzione;
     }
 
-    public void setIdOpzione(Long idOpzione) {
+    public void setIdOpzione(int idOpzione) {
         this.idOpzione = idOpzione;
     }
 

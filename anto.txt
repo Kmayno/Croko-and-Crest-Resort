@@ -1,0 +1,8 @@
+Per pullare modifiche dal main branch fai: git checkout master
+Così switchi il branch
+
+Pull per scaricare dal master: git pull origin master
+
+Ritorno nel mio branch: git checkout antonio
+
+Mo' je faccio er merge: git merge master
