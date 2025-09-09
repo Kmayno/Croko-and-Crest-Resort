@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista Clienti</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h1 class="mb-4">Lista Clienti</h1>
+
+      <!-- Loading spinner -->
+      <div id="loading" class="text-center" style="display: none">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Caricamento...</span>
+        </div>
+        <p>Caricamento clienti...</p>
+      </div>
+
+      <!-- Container per i clienti -->
+      <div id="clienti-container"></div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Funzione per ottenere tutti i clienti
+      async function getAllClienti() {
+        try {
+          const response = await fetch("/api/cliente/getAllClienti", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const clienti = await response.json();
+          return clienti;
+        } catch (error) {
+          console.error("Errore nel recuperare i clienti:", error);
+          return [];
+        }
+      }
+
+      // Funzione per visualizzare i clienti nella pagina
+      function displayClienti(clienti) {
+        const container = document.getElementById("clienti-container");
+
+        if (!container) {
+          console.error('Container "clienti-container" non trovato nel DOM');
+          return;
+        }
+
+        // Pulisce il container
+        container.innerHTML = "";
+
+        if (clienti.length === 0) {
+          container.innerHTML = "<p>Nessun cliente trovato</p>";
+          return;
+        }
+
+        // Crea la tabella
+        const table = document.createElement("table");
+        table.className = "table table-striped"; // Bootstrap classes
+
+        // Header della tabella
+        const thead = document.createElement("thead");
+        thead.innerHTML = `
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Azioni</th>
+        </tr>
+    `;
+        table.appendChild(thead);
+
+        // Body della tabella
+        const tbody = document.createElement("tbody");
+
+        clienti.forEach((cliente) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${cliente.id || "N/A"}</td>
+            <td>${cliente.nome || "N/A"}</td>
+            <td>${cliente.email || "N/A"}</td>
+            <td>${cliente.telefono || "N/A"}</td>
+            <td>
+                <button class="btn btn-info btn-sm" onclick="viewCliente(${
+                  cliente.id
+                })">Visualizza</button>
+                <button class="btn btn-warning btn-sm" onclick="editCliente(${
+                  cliente.id
+                })">Modifica</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteCliente(${
+                  cliente.id
+                })">Elimina</button>
+            </td>
+        `;
+          tbody.appendChild(row);
+        });
+
+        table.appendChild(tbody);
+        container.appendChild(table);
+      }
+
+      // Funzioni per i pulsanti (da implementare)
+      function viewCliente(id) {
+        alert("Visualizza cliente ID: " + id);
+      }
+
+      function editCliente(id) {
+        alert("Modifica cliente ID: " + id);
+      }
+
+      function deleteCliente(id) {
+        if (confirm("Sei sicuro di voler eliminare questo cliente?")) {
+          alert("Elimina cliente ID: " + id);
+          // Qui implementeresti la chiamata DELETE
+        }
+      }
+
+      // Funzione principale che si esegue al caricamento della pagina
+      async function loadPageData() {
+        console.log("Caricamento dati clienti...");
+
+        // Mostra loading spinner se presente
+        const loader = document.getElementById("loading");
+        if (loader) loader.style.display = "block";
+
+        try {
+          const clienti = await getAllClienti();
+          console.log(`Trovati ${clienti.length} clienti`);
+
+          // Scegli quale visualizzazione usare:
+          displayClienti(clienti); // Tabella
+        } catch (error) {
+          console.error("Errore nel caricamento:", error);
+          const container = document.getElementById("clienti-container");
+          if (container) {
+            container.innerHTML =
+              '<div class="alert alert-danger">Errore nel caricamento dei dati</div>';
+          }
+        } finally {
+          // Nascondi loading spinner
+          const loader = document.getElementById("loading");
+          if (loader) loader.style.display = "none";
+        }
+      }
+
+      // AUTO-ESECUZIONE: Carica i dati quando la pagina è pronta
+      document.addEventListener("DOMContentLoaded", loadPageData);
+    </script>
+  </body>
+</html>

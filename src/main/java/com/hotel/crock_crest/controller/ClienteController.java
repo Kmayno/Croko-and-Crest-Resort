@@ -11,9 +11,13 @@ import java.util.List;
 import java.util.Optional;
 
 import com.hotel.crock_crest.model.Cliente;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api/cliente")
+@CrossOrigin(origins="*")
 public class ClienteController {
 
 	private final ClienteService clienteService;
@@ -24,10 +28,10 @@ public class ClienteController {
 	}
 
 	// metodo post per registrare un cliente
-	 @PostMapping
-     public Cliente registraCliente(@RequestBody Cliente cliente) {
-        return clienteService.saveCliente(cliente);
-    }
+	 //@PostMapping
+     //public Cliente registraCliente(@RequestBody Cliente cliente) {
+       // return clienteService.saveCliente(cliente);
+    //}
 
 	//metodo post per il login
 	@PostMapping("/login")
@@ -58,4 +62,11 @@ public class ClienteController {
    public boolean deleteCliente(@PathVariable Integer id) {
         return clienteService.deleteCliente(id);
     }
+
+	@GetMapping("/getAllClienti")
+	public List<Cliente> getAllClienti() {
+		List<Cliente> getAll = clienteService.getAllClienti();
+		return getAll;
+	}
+	
 }
