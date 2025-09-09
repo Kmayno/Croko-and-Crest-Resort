@@ -4,164 +4,127 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lista Clienti</title>
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      .loading {
+        text-align: center;
+        color: #666;
+      }
+      .error {
+        color: #dc3545;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        border-radius: 4px;
+        padding: 10px;
+        margin: 10px 0;
+      }
+      .cliente {
+        border: 1px solid #ddd;
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #fafafa;
+      }
+      .cliente h3 {
+        margin: 0 0 10px 0;
+        color: #333;
+      }
+    </style>
   </head>
   <body>
-    <div class="container mt-4">
-      <h1 class="mb-4">Lista Clienti</h1>
-
-      <!-- Loading spinner -->
-      <div id="loading" class="text-center" style="display: none">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Caricamento...</span>
-        </div>
-        <p>Caricamento clienti...</p>
-      </div>
-
-      <!-- Container per i clienti -->
-      <div id="clienti-container"></div>
+    <div class="container">
+      <h1>Lista Clienti</h1>
+      <button onclick="fetchClienti()">Carica Clienti</button>
+      <div id="result"></div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-
     <script>
-      // Funzione per ottenere tutti i clienti
-      async function getAllClienti() {
+      async function fetchClienti() {
+        const resultDiv = document.getElementById("result");
+
+        // Mostra loading
+        resultDiv.innerHTML =
+          '<div class="loading">Caricamento clienti...</div>';
+
         try {
-          const response = await fetch("/api/cliente/getAllClienti", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          });
+          // Modifica l'URL con il tuo server
+          const response = await fetch(
+            "http://localhost:8080/api/cliente/getAllClienti"
+          );
 
           if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`Errore HTTP: ${response.status}`);
           }
 
           const clienti = await response.json();
-          return clienti;
-        } catch (error) {
-          console.error("Errore nel recuperare i clienti:", error);
-          return [];
-        }
-      }
 
-      // Funzione per visualizzare i clienti nella pagina
-      function displayClienti(clienti) {
-        const container = document.getElementById("clienti-container");
+          // Mostra i risultati
+          if (clienti.length === 0) {
+            resultDiv.innerHTML = "<p>Nessun cliente trovato.</p>";
+          } else {
+            let html = `<h2>Trovati ${clienti.length} clienti:</h2>`;
 
-        if (!container) {
-          console.error('Container "clienti-container" non trovato nel DOM');
-          return;
-        }
+            clienti.forEach((cliente) => {
+              html += `
+                            <div class="cliente">
+                                <h3>Cliente ID: ${
+                                  cliente.idCliente || "N/A"
+                                }</h3>
+                                <p><strong>Nome:</strong> ${
+                                  cliente.nome || "N/A"
+                                }</p>
+                                <p><strong>Email:</strong> ${
+                                  cliente.email || "N/A"
+                                }</p>
+                                <p><strong>Telefono:</strong> ${
+                                  cliente.telefono || "N/A"
+                                }</p>
+                            </div>
+                        `;
+            });
 
-        // Pulisce il container
-        container.innerHTML = "";
-
-        if (clienti.length === 0) {
-          container.innerHTML = "<p>Nessun cliente trovato</p>";
-          return;
-        }
-
-        // Crea la tabella
-        const table = document.createElement("table");
-        table.className = "table table-striped"; // Bootstrap classes
-
-        // Header della tabella
-        const thead = document.createElement("thead");
-        thead.innerHTML = `
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Telefono</th>
-            <th>Azioni</th>
-        </tr>
-    `;
-        table.appendChild(thead);
-
-        // Body della tabella
-        const tbody = document.createElement("tbody");
-
-        clienti.forEach((cliente) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${cliente.id || "N/A"}</td>
-            <td>${cliente.nome || "N/A"}</td>
-            <td>${cliente.email || "N/A"}</td>
-            <td>${cliente.telefono || "N/A"}</td>
-            <td>
-                <button class="btn btn-info btn-sm" onclick="viewCliente(${
-                  cliente.id
-                })">Visualizza</button>
-                <button class="btn btn-warning btn-sm" onclick="editCliente(${
-                  cliente.id
-                })">Modifica</button>
-                <button class="btn btn-danger btn-sm" onclick="deleteCliente(${
-                  cliente.id
-                })">Elimina</button>
-            </td>
-        `;
-          tbody.appendChild(row);
-        });
-
-        table.appendChild(tbody);
-        container.appendChild(table);
-      }
-
-      // Funzioni per i pulsanti (da implementare)
-      function viewCliente(id) {
-        alert("Visualizza cliente ID: " + id);
-      }
-
-      function editCliente(id) {
-        alert("Modifica cliente ID: " + id);
-      }
-
-      function deleteCliente(id) {
-        if (confirm("Sei sicuro di voler eliminare questo cliente?")) {
-          alert("Elimina cliente ID: " + id);
-          // Qui implementeresti la chiamata DELETE
-        }
-      }
-
-      // Funzione principale che si esegue al caricamento della pagina
-      async function loadPageData() {
-        console.log("Caricamento dati clienti...");
-
-        // Mostra loading spinner se presente
-        const loader = document.getElementById("loading");
-        if (loader) loader.style.display = "block";
-
-        try {
-          const clienti = await getAllClienti();
-          console.log(`Trovati ${clienti.length} clienti`);
-
-          // Scegli quale visualizzazione usare:
-          displayClienti(clienti); // Tabella
-        } catch (error) {
-          console.error("Errore nel caricamento:", error);
-          const container = document.getElementById("clienti-container");
-          if (container) {
-            container.innerHTML =
-              '<div class="alert alert-danger">Errore nel caricamento dei dati</div>';
+            resultDiv.innerHTML = html;
           }
-        } finally {
-          // Nascondi loading spinner
-          const loader = document.getElementById("loading");
-          if (loader) loader.style.display = "none";
+        } catch (error) {
+          resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>Errore:</strong> ${error.message}<br>
+                        <small>Assicurati che il server sia attivo e che l'URL sia corretto.</small>
+                    </div>
+                `;
+          console.error("Errore nel fetch:", error);
         }
       }
-
-      // AUTO-ESECUZIONE: Carica i dati quando la pagina è pronta
-      document.addEventListener("DOMContentLoaded", loadPageData);
     </script>
   </body>
 </html>
