@@ -1,16 +1,32 @@
 package com.hotel.crock_crest.controller;
 
-import com.hotel.crock_crest.model.*;
-import com.hotel.crock_crest.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.hotel.crock_crest.model.Camera;
+import com.hotel.crock_crest.model.Cliente;
+import com.hotel.crock_crest.model.Prenotazione;
+import com.hotel.crock_crest.model.PrenotazioneRequest;
+import com.hotel.crock_crest.model.PrenotazioneResponse;
+import com.hotel.crock_crest.service.CamereService;
+import com.hotel.crock_crest.service.ClienteService;
+import com.hotel.crock_crest.service.PrenotazioneService;
 
 @RestController
 @RequestMapping("/api/prenotazioni")
@@ -26,7 +42,7 @@ public class ControllerPrenotazione {
     @Autowired
     private CamereService camereService; // Cambiato da CameraService a CamereService
 
-    @PostMapping
+    @PostMapping("addPrenotazione")
     public ResponseEntity<?> creaPrenotazione(@RequestBody PrenotazioneRequest request) {
         try {
             // validazione dati in input
