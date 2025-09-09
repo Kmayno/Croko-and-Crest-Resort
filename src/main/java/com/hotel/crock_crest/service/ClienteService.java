@@ -63,4 +63,10 @@ public class ClienteService {
         }).orElse(false);
     }
 
+    //prende tutti i clienti
+    public List<Cliente> getAllClienti() {
+        List<Cliente> getAllClients = clienteRepository.findAll();
+        return getAllClients;
+    }
+
 }

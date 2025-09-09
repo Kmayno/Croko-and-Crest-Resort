@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista Clienti</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      .loading {
+        text-align: center;
+        color: #666;
+      }
+      .error {
+        color: #dc3545;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        border-radius: 4px;
+        padding: 10px;
+        margin: 10px 0;
+      }
+      .cliente {
+        border: 1px solid #ddd;
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #fafafa;
+      }
+      .cliente h3 {
+        margin: 0 0 10px 0;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Lista Clienti</h1>
+      <button onclick="fetchClienti()">Carica Clienti</button>
+      <div id="result"></div>
+    </div>
+
+    <script>
+      async function fetchClienti() {
+        const resultDiv = document.getElementById("result");
+
+        // Mostra loading
+        resultDiv.innerHTML =
+          '<div class="loading">Caricamento clienti...</div>';
+
+        try {
+          // Modifica l'URL con il tuo server
+          const response = await fetch(
+            "http://localhost:8080/api/cliente/getAllClienti"
+          );
+
+          if (!response.ok) {
+            throw new Error(`Errore HTTP: ${response.status}`);
+          }
+
+          const clienti = await response.json();
+
+          // Mostra i risultati
+          if (clienti.length === 0) {
+            resultDiv.innerHTML = "<p>Nessun cliente trovato.</p>";
+          } else {
+            let html = `<h2>Trovati ${clienti.length} clienti:</h2>`;
+
+            clienti.forEach((cliente) => {
+              html += `
+                            <div class="cliente">
+                                <h3>Cliente ID: ${
+                                  cliente.idCliente || "N/A"
+                                }</h3>
+                                <p><strong>Nome:</strong> ${
+                                  cliente.nome || "N/A"
+                                }</p>
+                                <p><strong>Email:</strong> ${
+                                  cliente.email || "N/A"
+                                }</p>
+                                <p><strong>Telefono:</strong> ${
+                                  cliente.telefono || "N/A"
+                                }</p>
+                            </div>
+                        `;
+            });
+
+            resultDiv.innerHTML = html;
+          }
+        } catch (error) {
+          resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>Errore:</strong> ${error.message}<br>
+                        <small>Assicurati che il server sia attivo e che l'URL sia corretto.</small>
+                    </div>
+                `;
+          console.error("Errore nel fetch:", error);
+        }
+      }
+    </script>
+  </body>
+</html>
