@@ -1,0 +1,246 @@
+/* CSS Navbar */
+
+.ftco_navbar {
+  background-color: #2c3e50;
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.ftco_navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo Styles */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand img {
+  max-height: 60px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+  transform: scale(1.05);
+}
+
+/* Desktop Navigation */
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  color: #ecf0f1;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: #3498db;
+  background-color: rgba(52, 152, 219, 0.1);
+  transform: translateY(-2px);
+}
+
+.nav-item.active .nav-link {
+  color: #3498db;
+  background-color: rgba(52, 152, 219, 0.2);
+}
+
+/* Dropdown Mobile Container */
+.navbar-dropdown-container {
+  display: none;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.navbar-toggler-dropdown {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-toggler-dropdown:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+.navbar-toggler-dropdown i {
+  font-size: 1.2rem;
+}
+
+/* Dropdown Menu */
+.dropdown-menu-custom {
+  background-color: #34495e;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  min-width: 200px;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+}
+
+.dropdown-item-nav {
+  display: block;
+  color: #ecf0f1;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.dropdown-item-nav:hover {
+  background-color: rgba(52, 152, 219, 0.2);
+  color: #3498db;
+  border-left-color: #3498db;
+  padding-left: 2rem;
+}
+
+.dropdown-item-nav.active {
+  background-color: rgba(52, 152, 219, 0.3);
+  color: #3498db;
+  border-left-color: #3498db;
+}
+
+/* Responsive Styles */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    display: none !important;
+  }
+
+  .navbar-dropdown-container {
+    display: block;
+  }
+
+  .ftco_navbar .container {
+    flex-wrap: wrap;
+  }
+
+  .navbar-brand img {
+    max-height: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ftco_navbar {
+    padding: 0.5rem 0;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .navbar-brand img {
+    max-height: 40px;
+  }
+
+  .navbar-toggler-dropdown {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .dropdown-menu-custom {
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ftco_navbar .container {
+    justify-content: space-between;
+  }
+
+  .navbar-brand img {
+    max-height: 35px;
+  }
+
+  .navbar-toggler-dropdown {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .dropdown-item-nav {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Animazioni */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-menu-custom.show {
+  animation: fadeIn 0.3s ease;
+}
+
+/* Utilità per navbar fissa (opzionale) */
+.navbar-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(44, 62, 80, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+/* Hover effects migliorati */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #3498db;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after,
+.nav-item.active .nav-link::after {
+  width: 80%;
+}
+
+/* Stile per il focus accessibility */
+.nav-link:focus,
+.navbar-toggler-dropdown:focus,
+.dropdown-item-nav:focus {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
