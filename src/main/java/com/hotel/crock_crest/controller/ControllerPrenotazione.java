@@ -12,13 +12,11 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping("/api/prenotazioni")
-@CrossOrigin(origins = "*") // Permette chiamate da frontend
-public class PrenotazioneController {
+@CrossOrigin(origins = "*")
+public class ControllerPrenotazione {
 
-    // prendo i service che contengono la logica business di tutti
     @Autowired
     private PrenotazioneService prenotazioneService;
     
@@ -26,7 +24,7 @@ public class PrenotazioneController {
     private ClienteService clienteService;
     
     @Autowired
-    private CameraService cameraService;
+    private CamereService camereService; // Cambiato da CameraService a CamereService
 
     @PostMapping
     public ResponseEntity<?> creaPrenotazione(@RequestBody PrenotazioneRequest request) {
@@ -42,21 +40,21 @@ public class PrenotazioneController {
                     .body("Errore: Non puoi prenotare nel passato");
             }
 
-            // verifica che cliente esista
-            Optional<Cliente> cliente = clienteService.findById(request.getIdCliente());
+            // verifica che cliente esista - usando Integer invece di Long
+            Optional<Cliente> cliente = clienteService.getClienteById(request.getIdCliente());
             if (!cliente.isPresent()) {
                 return ResponseEntity.badRequest()
                     .body("Errore: Cliente non trovato");
             }
 
             // verifica che camera esista e sia disponibile
-            Optional<Camera> camera = cameraService.findById(request.getIdCamera());
-            if (!camera.isPresent()) {
+            Camera camera = camereService.findById(request.getIdCamera());
+            if (camera == null) {
                 return ResponseEntity.badRequest()
                     .body("Errore: Camera non trovata");
             }
             
-            if (!camera.get().isDisponibile()) {
+            if (!camera.getDisponibile()) { // Cambiato da isDisponibile() a getDisponibile()
                 return ResponseEntity.badRequest()
                     .body("Errore: Camera non disponibile");
             }
@@ -75,7 +73,7 @@ public class PrenotazioneController {
 
             // calcola il prezzo totale
             long numeroNotti = ChronoUnit.DAYS.between(request.getDataInizio(), request.getDataFine());
-            double prezzoBase = camera.get().getPrezzoBase() * numeroNotti;
+            double prezzoBase = camera.getPrezzoBaseNotte() * numeroNotti; // Cambiato da getPrezzoBase()
             double prezzoOpzioni = 0;
             
             // aggiungi costo opzioni personalizzazione
@@ -88,7 +86,7 @@ public class PrenotazioneController {
             // crea la prenotazione
             Prenotazione nuovaPrenotazione = new Prenotazione();
             nuovaPrenotazione.setCliente(cliente.get());
-            nuovaPrenotazione.setCamera(camera.get());
+            nuovaPrenotazione.setCamera(camera);
             nuovaPrenotazione.setDataInizio(request.getDataInizio());
             nuovaPrenotazione.setDataFine(request.getDataFine());
             nuovaPrenotazione.setPrezzoTotale(prezzoTotale);
@@ -116,7 +114,7 @@ public class PrenotazioneController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getPrenotazione(@PathVariable Long id) {
+    public ResponseEntity<?> getPrenotazione(@PathVariable Integer id) { // Cambiato da Long a Integer
         try {
             Optional<Prenotazione> prenotazione = prenotazioneService.findById(id);
             
@@ -135,7 +133,7 @@ public class PrenotazioneController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> aggiornaStatoPrenotazione(
-            @PathVariable Long id, 
+            @PathVariable Integer id,  // Cambiato da Long a Integer
             @RequestParam boolean statoConfermato) {
         try {
             Optional<Prenotazione> prenotazioneOpt = prenotazioneService.findById(id);
@@ -165,7 +163,7 @@ public class PrenotazioneController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminaPrenotazione(@PathVariable Long id) {
+    public ResponseEntity<?> eliminaPrenotazione(@PathVariable Integer id) { // Cambiato da Long a Integer
         try {
             Optional<Prenotazione> prenotazioneOpt = prenotazioneService.findById(id);
             
@@ -175,7 +173,7 @@ public class PrenotazioneController {
 
             Prenotazione prenotazione = prenotazioneOpt.get();
             
-            // verifica che si possa ancora cancellare (almeno 24h prima) - da vedere
+            // verifica che si possa ancora cancellare (almeno 24h prima)
             if (prenotazione.getDataInizio().minusDays(1).isBefore(LocalDate.now())) {
                 return ResponseEntity.badRequest()
                     .body("Errore: Non puoi cancellare una prenotazione con meno di 24 ore di preavviso");
@@ -197,12 +195,12 @@ public class PrenotazioneController {
 
     @GetMapping
     public ResponseEntity<?> getTutteLePrenotazioni(
-            @RequestParam(required = false) Long clienteId,
+            @RequestParam(required = false) Integer clienteId, // Cambiato da Long a Integer
             @RequestParam(required = false) Boolean stato) {
         try {
             List<Prenotazione> prenotazioni;
 
-            // diltra in base ai parametri
+            // filtra in base ai parametri
             if (clienteId != null && stato != null) {
                 prenotazioni = prenotazioneService.findByClienteAndStato(clienteId, stato);
             } else if (clienteId != null) {
@@ -213,7 +211,7 @@ public class PrenotazioneController {
                 prenotazioni = prenotazioneService.findAll();
             }
 
-            // Converti in DTO per risposta - trovata on ma da studiare per bene
+            // Converti in DTO per risposta
             List<PrenotazioneResponse> response = prenotazioni.stream()
                 .map(PrenotazioneResponse::new)
                 .toList();
@@ -226,12 +224,11 @@ public class PrenotazioneController {
         }
     }
 
-
     @GetMapping("/cliente/{clienteId}")
-    public ResponseEntity<?> getPrenotazioniCliente(@PathVariable Long clienteId) {
+    public ResponseEntity<?> getPrenotazioniCliente(@PathVariable Integer clienteId) { // Cambiato da Long a Integer
         try {
             // Verifica che il cliente esista
-            if (!clienteService.findById(clienteId).isPresent()) {
+            if (!clienteService.getClienteById(clienteId).isPresent()) {
                 return ResponseEntity.notFound().build();
             }
 
