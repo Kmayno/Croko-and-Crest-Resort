@@ -311,35 +311,7 @@
     </div>
 
     <script>
-      function toggleDropdown() {
-        const dropdown = document.getElementById("dropdown-menu");
-        const isVisible = dropdown.style.display === "block";
-
-        if (isVisible) {
-          dropdown.style.display = "none";
-          dropdown.classList.remove("scale-100", "opacity-100");
-          dropdown.classList.add("scale-95", "opacity-0");
-        } else {
-          dropdown.style.display = "block";
-          dropdown.classList.remove("scale-95", "opacity-0");
-          dropdown.classList.add("scale-100", "opacity-100");
-        }
-      }
-
-      // Close dropdown when clicking outside
-      document.addEventListener("click", function (event) {
-        const dropdown = document.getElementById("dropdown-menu");
-        const button = document.getElementById("profile-button");
-
-        if (
-          !button.contains(event.target) &&
-          !dropdown.contains(event.target)
-        ) {
-          dropdown.style.display = "none";
-          dropdown.classList.remove("scale-100", "opacity-100");
-          dropdown.classList.add("scale-95", "opacity-0");
-        }
-      });
+      // Script semplificato - dropdown rimosso
     </script>
   </body>
 </html>
