@@ -58,9 +58,4 @@ public class ClienteController {
    public boolean deleteCliente(@PathVariable Integer id) {
         return clienteService.deleteCliente(id);
     }
-
-    @GetMapping("getAllClienti")
-    public List<Cliente> geAll(){
-       return clienteService.getAllClienti();
-    }
 }

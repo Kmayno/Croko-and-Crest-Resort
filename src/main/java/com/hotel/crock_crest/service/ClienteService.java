@@ -63,8 +63,4 @@ public class ClienteService {
         }).orElse(false);
     }
 
-    public List<Cliente> getAllClienti(){
-         return clienteRepository.findAll();
-    }
-
 }

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+      }
+      .login-form {
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-form">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      <div id="message" style="margin-top: 15px; color: red"></div>
+    </div>
+
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          try {
+            const response = await fetch("/api/admin-login/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              body: new URLSearchParams({
+                email: email,
+                password: password,
+              }),
+            });
+
+            if (response.ok) {
+              const admin = await response.json();
+              document.getElementById("message").style.color = "green";
+              document.getElementById("message").textContent =
+                "Login successful! Token: " + admin.token;
+            } else {
+              document.getElementById("message").textContent =
+                "Login failed! Check your credentials.";
+            }
+          } catch (error) {
+            document.getElementById("message").textContent =
+              "Error: " + error.message;
+          }
+        });
+    </script>
+  </body>
+</html>
