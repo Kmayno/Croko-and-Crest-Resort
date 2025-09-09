@@ -32,6 +32,14 @@
 
     <div id="result" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"></div>
 </div>
+
+<!-- Sezione Prenotazioni -->
+<div class="container mx-auto py-10 px-4">
+    <h2 class="text-lg text-gray-700 mb-6">Prenotazioni Clienti</h2>
+    <div id="prenotazioniResult" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"></div>
+</div>
+
+
 <!-- Modal elimina admin -->
 <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
     <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
@@ -150,7 +158,51 @@
             });
     }
 
-    window.onload = loadAdmins;
+    function loadPrenotazioni() {
+        fetch("http://localhost:8080/api/prenotazioni", { // sostituisci con l'URL corretto
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) throw new Error("Errore nel caricamento delle prenotazioni");
+                return response.json();
+            })
+            .then(prenotazioni => {
+                const prenotazioniDiv = document.getElementById("prenotazioniResult");
+                prenotazioniDiv.innerHTML = ""; // pulisco
+
+                prenotazioni.forEach(prenotazione => {
+                    const card = document.createElement("div");
+                    card.className = "bg-white shadow rounded-2xl p-6 hover:shadow-lg transition";
+
+                    card.innerHTML = `
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Prenotazione #${prenotazione.idPrenotazione}</h3>
+                <p class="text-gray-600"><span class="font-medium">Nome cliente:</span> ${prenotazione.nomeCliente}</p>
+                <p class="text-gray-600"><span class="font-medium">Data Check-in:</span> ${prenotazione.dataInizio}</p>
+                <p class="text-gray-600"><span class="font-medium">Data Check-out:</span> ${prenotazione.dataFine}</p>
+                <p class="text-gray-600"><span class="font-medium">Num Stanza:</span> ${prenotazione.numeroStanza}</p>
+                <p class="text-gray-600"><span class="font-medium">Prezzo:</span> ${prenotazione.prezzoTotale}</p>
+            `;
+
+                    prenotazioniDiv.appendChild(card);
+                });
+            })
+            .catch(err => {
+                document.getElementById("prenotazioniResult").innerHTML = `
+            <div class="bg-red-100 text-red-700 p-4 rounded-lg col-span-full">
+                ${err.message}
+            </div>
+        `;
+            });
+    }
+
+    window.onload = () => {
+        loadAdmins();
+        loadPrenotazioni();
+    };
 
 </script>
 </body>
