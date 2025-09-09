@@ -1,6 +1,7 @@
 package com.hotel.crock_crest.controller;
 
 import com.hotel.crock_crest.model.*;
+import com.hotel.crock_crest.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
