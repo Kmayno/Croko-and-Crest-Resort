@@ -3,128 +3,343 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Navbar Tailwind Dropdown</title>
+    <link rel="icon" href="../auro/homeImg/favicon.ico" />
+    <title>Croco&Crest Resort - Homepage</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+    <style>
+      .dropdown-menu {
+        display: none;
+      }
+      .dropdown:hover .dropdown-menu {
+        display: block;
+      }
+    </style>
   </head>
   <body>
-    <!-- NAVBAR -->
-    <nav class="bg-gray-900 text-white">
-      <div class="container mx-auto px-4">
-        <div class="flex items-center justify-between py-4">
-          <!-- Logo -->
-          <a href="/auro/homepage.html" class="flex-shrink-0">
-            <img
-              src="../auro/homeImg/CROCOLOGO20.png"
-              alt="crocologo"
-              class="w-[200px] h-[100px] object-contain"
-            />
-          </a>
-
-          <!-- Mobile Dropdown (hidden su desktop) -->
-          <div class="lg:hidden relative group">
+    <div class="bg-gray-900">
+      <header class="absolute inset-x-0 top-0 z-50">
+        <nav
+          aria-label="Global"
+          class="flex items-center justify-between p-6 lg:px-8"
+        >
+          <div class="flex lg:flex-1">
+            <a href="#" class="-m-1.5 p-1.5">
+              <span class="sr-only">Your Company</span>
+              <a href="/auro/homepage.html" class="flex-shrink-0">
+                <img
+                  src="../auro/homeImg/CROCOLOGO20.png"
+                  alt="crocologo"
+                  class="w-[120px] h-[120px] object-contain"
+                />
+              </a>
+            </a>
+          </div>
+          <div class="flex lg:hidden">
             <button
-              class="flex items-center space-x-2 px-4 py-2 rounded-md bg-gray-800 hover:bg-gray-700 focus:outline-none"
+              type="button"
+              command="show-modal"
+              commandfor="mobile-menu"
+              class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
             >
-              <i class="fa-solid fa-bars"></i>
-              <span>Menu</span>
+              <span class="sr-only">Open main menu</span>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                data-slot="icon"
+                aria-hidden="true"
+                class="size-6"
+              >
+                <path
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
             </button>
-
-            <!-- Dropdown Menu (CSS only) -->
-            <div
-              class="absolute right-0 top-full mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out"
+          </div>
+          <div class="hidden lg:flex lg:gap-x-12">
+            <a href="#" class="text-sm/6 font-semibold text-white">Homepage</a>
+            <a href="#" class="text-sm/6 font-semibold text-white"
+              >Le nostre stanze</a
             >
-              <a
-                href="homepage.html"
-                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-150"
+            <a href="#" class="text-sm/6 font-semibold text-white"
+              >Prenota ora</a
+            >
+            <a href="#" class="text-sm/6 font-semibold text-white">Contatti</a>
+          </div>
+          <div
+            class="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-x-4"
+          >
+            <!-- Profile dropdown -->
+            <div class="dropdown relative ml-3">
+              <button
+                class="relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                onclick="toggleDropdown()"
+                id="profile-button"
               >
-                Home
-              </a>
-              <a
-                href="/marta/Chi_Siamo.html"
-                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-150"
-              >
-                Chi siamo
-              </a>
-              <a
-                href="/Carmine/pacchettiViaggio.html"
-                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-150"
-              >
-                Le nostre stanze
-              </a>
-              <a
-                href="/anto/contatti.html"
-                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-150"
-              >
-                Contatti
-              </a>
-
-              <a href="#">
+                <span class="absolute -inset-1.5"></span>
+                <span class="sr-only">Open user menu</span>
                 <img
                   src="../auro/homeImg/reviews2.jpg"
                   alt=""
-                  class="size-8 rounded-full bg-gray-800 outline -outline-offset-1 outline-white/10"
+                  class="size-[70px] rounded-full bg-gray-800 outline outline-1 -outline-offset-1 outline-white/10"
                 />
-              </a>
+              </button>
+              <div
+                id="dropdown-menu"
+                class="dropdown-menu absolute right-0 top-10 w-56 origin-top-right rounded-md bg-gray-800 py-1 outline outline-1 -outline-offset-1 outline-white/10 shadow-lg transition-all duration-100 ease-out transform scale-95 opacity-0"
+              >
+                <!-- Titolo Area Personale -->
+                <div class="px-4 py-3 border-b border-white/10">
+                  <p class="text-sm font-semibold text-white">Area Personale</p>
+                </div>
+
+                <!-- Menu items -->
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
+                  >Il tuo profilo</a
+                >
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
+                  >Impostazioni</a
+                >
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
+                  >Logout</a
+                >
+              </div>
             </div>
           </div>
+        </nav>
+        <el-dialog>
+          <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
+            <div tabindex="0" class="fixed inset-0 focus:outline-none">
+              <el-dialog-panel
+                class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10"
+              >
+                <div class="flex items-center justify-between">
+                  <a href="#" class="-m-1.5 p-1.5">
+                    <span class="sr-only">Your Company</span>
+                    <img
+                      src="../auro/homeImg/crococroco.png"
+                      alt=""
+                      class="h-[50px] w-auto"
+                    />
+                  </a>
+                  <button
+                    type="button"
+                    command="close"
+                    commandfor="mobile-menu"
+                    class="-m-2.5 rounded-md p-2.5 text-gray-200"
+                  >
+                    <span class="sr-only">Close menu</span>
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      data-slot="icon"
+                      aria-hidden="true"
+                      class="size-6"
+                    >
+                      <path
+                        d="M6 18 18 6M6 6l12 12"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div class="mt-6 flow-root">
+                  <div class="-my-6 divide-y divide-white/10">
+                    <div class="space-y-2 py-6">
+                      <a
+                        href="#"
+                        class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                        >Homepage</a
+                      >
+                      <a
+                        href="#"
+                        class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                        >Le nostre stanze</a
+                      >
+                      <a
+                        href="#"
+                        class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                        >Prenota ora</a
+                      >
+                      <a
+                        href="#"
+                        class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                        >Contatti</a
+                      >
+                    </div>
+                    <div class="py-6">
+                      <!-- Mobile Profile Menu con titolo -->
+                      <div class="mb-4">
+                        <h3 class="px-3 text-sm font-semibold text-white mb-3">
+                          Area Personale
+                        </h3>
+                        <div class="flex items-center px-3 py-2 mb-2">
+                          <img
+                            src="../auro/homeImg/reviews2.jpg"
+                            alt=""
+                            class="size-8 rounded-full bg-gray-800 outline outline-1 -outline-offset-1 outline-white/10"
+                          />
+                          <div class="ml-3">
+                            <p class="text-sm font-medium text-white">Utente</p>
+                          </div>
+                        </div>
+                        <a
+                          href="#"
+                          class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                          >Il tuo profilo</a
+                        >
+                        <a
+                          href="#"
+                          class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                          >Impostazioni</a
+                        >
+                        <a
+                          href="#"
+                          class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                          >Logout</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </el-dialog-panel>
+            </div>
+          </dialog>
+        </el-dialog>
+      </header>
 
-          <!-- Desktop Menu (hidden su mobile) -->
-          <div class="hidden lg:flex">
-            <ul class="flex space-x-8">
-              <li>
-                <a
-                  href="homepage.html"
-                  class="text-white hover:text-gray-300 transition-colors duration-200 border-b-2 border-transparent hover:border-white pb-1"
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/marta/Chi_Siamo.html"
-                  class="text-white hover:text-gray-300 transition-colors duration-200 border-b-2 border-transparent hover:border-white pb-1"
-                >
-                  Chi siamo
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/Carmine/pacchettiViaggio.html"
-                  class="text-white hover:text-gray-300 transition-colors duration-200 border-b-2 border-transparent hover:border-white pb-1"
-                >
-                  Le nostre stanze
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/anto/contatti.html"
-                  class="text-white hover:text-gray-300 transition-colors duration-200 border-b-2 border-transparent hover:border-white pb-1"
-                >
-                  Contatti
-                </a>
-              </li>
-            </ul>
+      <div class="relative isolate px-6 pt-14 lg:px-8">
+        <div
+          aria-hidden="true"
+          class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+        >
+          <div
+            style="
+              clip-path: polygon(
+                74.1% 44.1%,
+                100% 61.6%,
+                97.5% 26.9%,
+                85.5% 0.1%,
+                80.7% 2%,
+                72.5% 32.5%,
+                60.2% 62.4%,
+                52.4% 68.1%,
+                47.5% 58.3%,
+                45.2% 34.5%,
+                27.5% 76.7%,
+                0.1% 64.9%,
+                17.9% 100%,
+                27.6% 76.8%,
+                76.1% 97.7%,
+                74.1% 44.1%
+              );
+            "
+            class="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-288.75"
+          ></div>
+        </div>
+        <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+          <div class="text-center">
+            <h1
+              class="text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl"
+            >
+              Benvenuto al Croco&Crest Resort
+            </h1>
+            <p
+              class="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8"
+            >
+              Vivi un'esperienza indimenticabile nel nostro resort di lusso.
+              Comfort, eleganza e servizi esclusivi ti aspettano per una vacanza
+              da sogno.
+            </p>
+            <div class="mt-10 flex items-center justify-center gap-x-6">
+              <a
+                href="#"
+                class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                >Prenota ora</a
+              >
+              <a href="#" class="text-sm/6 font-semibold text-white"
+                >Scopri di più <span aria-hidden="true">→</span></a
+              >
+            </div>
           </div>
         </div>
+        <div
+          aria-hidden="true"
+          class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+        >
+          <div
+            style="
+              clip-path: polygon(
+                74.1% 44.1%,
+                100% 61.6%,
+                97.5% 26.9%,
+                85.5% 0.1%,
+                80.7% 2%,
+                72.5% 32.5%,
+                60.2% 62.4%,
+                52.4% 68.1%,
+                47.5% 58.3%,
+                45.2% 34.5%,
+                27.5% 76.7%,
+                0.1% 64.9%,
+                17.9% 100%,
+                27.6% 76.8%,
+                76.1% 97.7%,
+                74.1% 44.1%
+              );
+            "
+            class="relative left-[calc(50%+3rem)] aspect-1155/678 w-144.5 -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-288.75"
+          ></div>
+        </div>
       </div>
-    </nav>
-
-    <!-- Contenuto demo -->
-    <div class="container mx-auto px-4 py-8">
-      <h1 class="text-3xl font-bold text-gray-800 mb-4">
-        Navbar con Dropdown Tailwind
-      </h1>
-      <p class="text-gray-600">
-        Il dropdown funziona solo con CSS utilizzando
-        <code>group-hover</code> di Tailwind.
-      </p>
-      <p class="text-gray-600 mt-2">
-        Su desktop vedi il menu normale, su mobile appare il dropdown.
-      </p>
     </div>
+
+    <script>
+      function toggleDropdown() {
+        const dropdown = document.getElementById("dropdown-menu");
+        const isVisible = dropdown.style.display === "block";
+
+        if (isVisible) {
+          dropdown.style.display = "none";
+          dropdown.classList.remove("scale-100", "opacity-100");
+          dropdown.classList.add("scale-95", "opacity-0");
+        } else {
+          dropdown.style.display = "block";
+          dropdown.classList.remove("scale-95", "opacity-0");
+          dropdown.classList.add("scale-100", "opacity-100");
+        }
+      }
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", function (event) {
+        const dropdown = document.getElementById("dropdown-menu");
+        const button = document.getElementById("profile-button");
+
+        if (
+          !button.contains(event.target) &&
+          !dropdown.contains(event.target)
+        ) {
+          dropdown.style.display = "none";
+          dropdown.classList.remove("scale-100", "opacity-100");
+          dropdown.classList.add("scale-95", "opacity-0");
+        }
+      });
+    </script>
   </body>
 </html>
