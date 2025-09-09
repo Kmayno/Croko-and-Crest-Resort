@@ -18,17 +18,10 @@ public class ClienteService {
     }
 
     //registra un cliente
-<<<<<<< HEAD
-     //public Cliente saveCliente(Cliente cliente) {
-       //  cliente.setPasswordCliente(passwordEncoder.encode(cliente.getPasswordCliente()));
-        //return clienteRepository.save(cliente);
-    //}
-=======
    /*  public Cliente saveCliente(Cliente cliente) {
          cliente.setPasswordCliente(passwordEncoder.encode(cliente.getPasswordCliente()));
         return clienteRepository.save(cliente);
     }*/
->>>>>>> f1243b658874451b2329dea569118f3c43a9f03f
 
     //login tramite email e password
      public Optional<Cliente> login(String email, String password) {
@@ -55,15 +48,9 @@ public class ClienteService {
             c.setCognome(updated.getCognome());
             c.setEmail(updated.getEmail());
             c.setPasswordCliente(updated.getPasswordCliente()); // hashare in realtà
-<<<<<<< HEAD
-           //  if (updated.getPasswordCliente() != null && !updated.getPasswordCliente().isBlank()) {
-             //   c.setPasswordCliente(passwordEncoder.encode(updated.getPasswordCliente()));
-            //}   
-=======
             /* if (updated.getPasswordCliente() != null && !updated.getPasswordCliente().isBlank()) {
                 c.setPasswordCliente(passwordEncoder.encode(updated.getPasswordCliente()));
             }   */
->>>>>>> f1243b658874451b2329dea569118f3c43a9f03f
             return clienteRepository.save(c);
         });
     }
