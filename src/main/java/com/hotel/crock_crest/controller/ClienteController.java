@@ -24,10 +24,10 @@ public class ClienteController {
 	}
 
 	// metodo post per registrare un cliente
-	 @PostMapping
+/*	 @PostMapping
      public Cliente registraCliente(@RequestBody Cliente cliente) {
         return clienteService.saveCliente(cliente);
-    }
+    }*/
 
 	//metodo post per il login
 	@PostMapping("/login")

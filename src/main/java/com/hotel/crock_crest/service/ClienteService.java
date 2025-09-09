@@ -3,7 +3,6 @@ package com.hotel.crock_crest.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hotel.crock_crest.model.Cliente;
@@ -13,18 +12,16 @@ import com.hotel.crock_crest.repository.ClienteRepository;
 @Service
 public class ClienteService {
     private final ClienteRepository clienteRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
 
-    public ClienteService(ClienteRepository clienteRepository, BCryptPasswordEncoder passwordEncoder) {
+    public ClienteService(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     //registra un cliente
-     public Cliente saveCliente(Cliente cliente) {
+   /*  public Cliente saveCliente(Cliente cliente) {
          cliente.setPasswordCliente(passwordEncoder.encode(cliente.getPasswordCliente()));
         return clienteRepository.save(cliente);
-    }
+    }*/
 
     //login tramite email e password
      public Optional<Cliente> login(String email, String password) {
@@ -51,9 +48,9 @@ public class ClienteService {
             c.setCognome(updated.getCognome());
             c.setEmail(updated.getEmail());
             c.setPasswordCliente(updated.getPasswordCliente()); // hashare in realtà
-             if (updated.getPasswordCliente() != null && !updated.getPasswordCliente().isBlank()) {
+            /* if (updated.getPasswordCliente() != null && !updated.getPasswordCliente().isBlank()) {
                 c.setPasswordCliente(passwordEncoder.encode(updated.getPasswordCliente()));
-            }   
+            }   */
             return clienteRepository.save(c);
         });
     }
