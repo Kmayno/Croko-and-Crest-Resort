@@ -2,24 +2,24 @@ package com.hotel.crock_crest.model;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 @Entity
 @Table(name = "camere")
 public class Camera {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_camera")
     private int idCamera;
+    @Column(name = "num_stanza")
     private String numeroStanza;
+    @Column(name = "tipo_stanza")
     private String tipoCamera;
+    @Column(name = "descrizione")
     private String descrizione;
+    @Column(name = "prezzo_base")
     private Double prezzoBaseNotte;
-    private Integer capienzaMassima;
+    @Column(name = "disponibile")
     private Boolean disponibile;
 
     public int getIdCamera() {
@@ -60,14 +60,6 @@ public class Camera {
 
     public void setPrezzoBaseNotte(Double prezzoBaseNotte) {
         this.prezzoBaseNotte = prezzoBaseNotte;
-    }
-
-    public Integer getCapienzaMassima() {
-        return capienzaMassima;
-    }
-
-    public void setCapienzaMassima(Integer capienzaMassima) {
-        this.capienzaMassima = capienzaMassima;
     }
 
     public Boolean getDisponibile() {
