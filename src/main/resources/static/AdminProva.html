@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+<h1>Lista degli Admin</h1>
+<button onclick="loadAdmins()">Carica Admin</button>
+
+<table id="adminTable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Qui verranno aggiunti gli admin -->
+    </tbody>
+</table>
+
+<script>
+    async function loadAdmins() {
+        try {
+            const response = await fetch("http://localhost:8080/api/admin-login/getAllAdmin");
+            if (!response.ok) throw new Error("Errore HTTP: " + response.status);
+
+            const admins = await response.json();
+            const tbody = document.querySelector("#adminTable tbody");
+            tbody.innerHTML = ""; // pulisco la tabella
+
+            admins.forEach(admin => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+            <td>${admin.idAdmin}</td>
+            <td>${admin.nome}</td>
+            <td>${admin.email}</td>
+          `;
+                tbody.appendChild(row);
+            });
+        } catch (err) {
+            console.error("Errore nel fetch:", err);
+            alert("Impossibile caricare gli admin");
+        }
+    }
+</script>
+</body>
+</html>

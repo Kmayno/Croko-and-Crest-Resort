@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.hotel.crock_crest.model.OpzionePersonalizzazione;
 
 @Repository
-public interface OptionsRepository extends JpaRepository<OpzionePersonalizzazione, Integer>{    
+public interface OptionsRepository extends JpaRepository<OpzionePersonalizzazione,Integer>{
     }
 
