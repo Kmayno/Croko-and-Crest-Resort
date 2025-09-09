@@ -38,7 +38,6 @@ public class CamereService {
             r.setTipoCamera(updatedRoom.getTipoCamera());
             r.setDescrizione(updatedRoom.getDescrizione());
             r.setPrezzoBaseNotte(updatedRoom.getPrezzoBaseNotte());
-            r.setCapienzaMassima(updatedRoom.getCapienzaMassima());
             r.setDisponibile(updatedRoom.getDisponibile());
             cr.save(r);
             return "Room updated";
