@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Admin</title>
+</head>
+<body>
+<h2>Login Admin</h2>
+<form id="loginForm">
+    <label>Email:</label>
+    <input type="email" id="email" required><br><br>
+
+    <label>Password:</label>
+    <input type="password" id="password" required><br><br>
+
+    <button type="submit">Login</button>
+</form>
+
+<p id="message"></p>
+
+<script>
+    const form = document.getElementById("loginForm");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        fetch(`http://localhost:8080/api/admin-login/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`)
+            .then(response => {
+                if (!response.ok) throw new Error("Email o password errati");
+                return response.json();
+            })
+            .then(admin => {
+                // Salvo token ed email nel localStorage
+                localStorage.setItem("token", admin.token);
+                localStorage.setItem("adminEmail", admin.email);
+
+                // Redirect automatico alla dashboard
+                window.location.href = "dashboardAdmin.html";
+            })
+            .catch(err => {
+                message.style.color = "red";
+                message.textContent = err.message;
+            });
+    });
+</script>
+</body>
+</html>
+

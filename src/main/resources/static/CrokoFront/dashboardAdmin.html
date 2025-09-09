@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+<h2>Benvenuto nella Dashboard</h2>
+<p id="welcome"></p>
+<button id="loadAdmins">Carica lista admin</button>
+<pre id="result"></pre>
+
+<script>
+    // Recupero token ed email salvati al login
+    const token = localStorage.getItem("token");
+    const email = localStorage.getItem("adminEmail");
+
+    // Se non c’è token, rimando alla pagina di login
+    if (!token) {
+        window.location.href = "loginAdmin.html";
+    }
+
+    document.getElementById("welcome").textContent = `Ciao ${email}, benvenuto!`;
+
+    // Chiamata protetta al backend
+    document.getElementById("loadAdmins").addEventListener("click", () => {
+        fetch("http://localhost:8080/api/admin-login/getAllAdmin", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) throw new Error("Errore nel caricamento admin");
+                return response.json();
+            })
+            .then(admins => {
+                document.getElementById("result").textContent = JSON.stringify(admins, null, 2);
+            })
+            .catch(err => {
+                document.getElementById("result").textContent = err.message;
+            });
+    });
+</script>
+</body>
+</html>
