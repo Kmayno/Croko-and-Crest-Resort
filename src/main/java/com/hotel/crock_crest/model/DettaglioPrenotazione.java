@@ -27,13 +27,12 @@ public class DettaglioPrenotazione {
     private OpzionePersonalizzazione opzionePersonalizzazione;
 
     // costruttore & getter/setter
-    public DettaglioPrenotazione() {}
 
     public int getIdDettaglio() {
         return idDettaglio;
     }
 
-    public void setIdDettaglio ( int idDettaglio) {
+    public void setIdDettaglio(int idDettaglio) {
         this.idDettaglio = idDettaglio;
     }
 
@@ -49,7 +48,8 @@ public class DettaglioPrenotazione {
         return opzionePersonalizzazione;
     }
 
-    public void setOpzionePersonalizzazione (OpzionePersonalizzazione opzionePersonalizzazione) {
+    public void setOpzionePersonalizzazione(OpzionePersonalizzazione opzionePersonalizzazione) {
         this.opzionePersonalizzazione = opzionePersonalizzazione;
     }
+   
 }

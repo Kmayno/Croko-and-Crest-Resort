@@ -23,7 +23,7 @@ public class OpzionePersonalizzazione {
     @OneToMany(mappedBy = "opzione", cascade = CascadeType.ALL)
     private List<InventarioCamera> inventario;
 
-    @OneToMany(mappedBy = "opzione", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "opzionePersonalizzazione", cascade = CascadeType.ALL)
     private List<DettaglioPrenotazione> dettagliPrenotazioni;
 
     //qua andrebbe int o Long --da vedere
