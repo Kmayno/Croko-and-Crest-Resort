@@ -51,5 +51,8 @@ public class AdminController {
        as.addAdmin(a);
     }
 
-
+    @DeleteMapping("/delete/{id}")
+    public void deleteAdmin(@PathVariable int id){
+        as.deleteAdmin(id);
+    }
 }

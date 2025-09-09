@@ -35,4 +35,8 @@ public class AdminService {
         ar.save(a);
         return a;
     }
+
+    public void deleteAdmin(int id){
+        ar.deleteById(id);
+    }
 }
