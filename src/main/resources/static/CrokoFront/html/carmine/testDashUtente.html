@@ -128,7 +128,8 @@
         const clienteAggiornato = {
             nome: document.getElementById("nome").value,
             cognome: document.getElementById("cognome").value,
-            email: document.getElementById("email").value
+            email: document.getElementById("email").value,
+            passwordCliente: document.getElementById("password").value
         };
         await fetch(`http://localhost:8080/api/cliente/${userId}`, {
             method: "PUT",
