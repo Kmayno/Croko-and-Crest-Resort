@@ -42,15 +42,22 @@ public class ClienteService {
         return clienteRepository.findById(id);
     }
 
-    //aggiorna i dati di un cliente tramite id
-     public Optional<Cliente> updateCliente(int id, Cliente updated) {
-        return clienteRepository.findById(id).map(c -> {
-            c.setNome(updated.getNome());
-            c.setCognome(updated.getCognome());
-            c.setEmail(updated.getEmail());
-            c.setPasswordCliente(updated.getPasswordCliente());
-            return clienteRepository.save(c);
-        });
+    public Optional<Cliente> updateCliente(Integer id, Cliente clienteAggiornato) {
+        Optional<Cliente> optCliente = clienteRepository.findById(id);
+        if (!optCliente.isPresent()) return Optional.empty();
+
+        Cliente cliente = optCliente.get();
+        cliente.setNome(clienteAggiornato.getNome());
+        cliente.setCognome(clienteAggiornato.getCognome());
+        cliente.setEmail(clienteAggiornato.getEmail());
+
+        // aggiorna la password solo se non vuota
+        if (clienteAggiornato.getPasswordCliente() != null && !clienteAggiornato.getPasswordCliente().isEmpty()) {
+            cliente.setPasswordCliente(clienteAggiornato.getPasswordCliente());
+        }
+
+        clienteRepository.save(cliente);
+        return Optional.of(cliente);
     }
 
     //elimina un cliente tramite id

@@ -16,6 +16,7 @@ import com.hotel.crock_crest.model.Cliente;
 
 @RestController
 @RequestMapping("/api/cliente")
+@CrossOrigin(origins = "*")
 public class ClienteController {
 
 	private final ClienteService clienteService;
@@ -26,7 +27,7 @@ public class ClienteController {
 	}
 
 	// metodo post per registrare un cliente
-	 @PostMapping
+	 @PostMapping("/addCliente")
      public void addCliente(@RequestBody Cliente cliente) {
          clienteService.addCliente(cliente);
     }
