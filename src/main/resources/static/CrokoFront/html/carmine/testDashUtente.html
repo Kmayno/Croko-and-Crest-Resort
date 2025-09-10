@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Utente</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex flex-col">
+
+<!-- NAVBAR -->
+<header class="bg-green-700 text-white shadow-md p-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">Crocodile Dashboard</h1>
+    <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg">Logout</button>
+</header>
+
+<!-- LAYOUT -->
+<div class="flex flex-1">
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-white shadow-md p-4 hidden md:block">
+        <nav class="space-y-4">
+            <a href="#" id="tabHome" class="block text-gray-700 hover:text-green-700 font-medium"> Home</a>
+            <a href="#" id="tabProfilo" class="block text-gray-700 hover:text-green-700 font-medium"> Profilo</a>
+            <a href="#" id="tabPrenotazioni" class="block text-gray-700 hover:text-green-700 font-medium"> Prenotazioni</a>
+        </nav>
+    </aside>
+
+    <!-- CONTENUTO -->
+    <main class="flex-1 p-6 space-y-6">
+
+        <!-- HOME -->
+        <section id="homeSection">
+            <h2 class="text-2xl font-semibold mb-4">Benvenuto, <span id="userName">Utente</span>  </h2>
+            <p class="text-gray-600">Questa è la tua dashboard personale.</p>
+        </section>
+
+        <!-- PROFILO -->
+        <section id="profiloSection" class="hidden">
+            <h2 class="text-2xl font-semibold mb-4">Modifica Profilo</h2>
+            <form id="updateProfileForm" class="space-y-4 max-w-md">
+                <div>
+                    <label class="block text-sm font-medium">Nome</label>
+                    <input type="text" id="nome" class="w-full border rounded-lg px-3 py-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Cognome</label>
+                    <input type="text" id="cognome" class="w-full border rounded-lg px-3 py-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Nuova Password</label>
+                    <input type="password" id="password" class="w-full border rounded-lg px-3 py-2" placeholder="Lascia vuoto per non cambiare">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Conferma Password</label>
+                    <input type="password" id="confirmPassword" class="w-full border rounded-lg px-3 py-2" placeholder="Conferma nuova password">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Email</label>
+                    <input type="email" id="email" class="w-full border rounded-lg px-3 py-2">
+                </div>
+                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                    Salva Modifiche
+                </button>
+            </form>
+        </section>
+
+        <!-- PRENOTAZIONI -->
+        <section id="prenotazioniSection" class="hidden">
+            <h2 class="text-2xl font-semibold mb-4">Le tue Prenotazioni</h2>
+            <table class="w-full bg-white rounded-2xl shadow text-left">
+                <thead class="bg-gray-200">
+                <tr>
+                    <th class="p-2">Data Inizio</th>
+                    <th class="p-2">Data Fine</th>
+                    <th class="p-2">Camera</th>
+                    <th class="p-2">Prezzo</th>
+                    <th class="p-2">Stato</th>
+                </tr>
+                </thead>
+                <tbody id="prenotazioniTable"></tbody>
+            </table>
+        </section>
+
+    </main>
+</div>
+
+<script>
+    // Simulazione ID utente (da login)
+    const token = localStorage.getItem("tokenCliente");
+    const userId = localStorage.getItem("clienteId");
+
+    // Sezioni
+    const homeSection = document.getElementById("homeSection");
+    const profiloSection = document.getElementById("profiloSection");
+    const prenotazioniSection = document.getElementById("prenotazioniSection");
+
+    // Navbar -> Switch sezioni
+    document.getElementById("tabHome").addEventListener("click", () => showSection("home"));
+    document.getElementById("tabProfilo").addEventListener("click", () => showSection("profilo"));
+    document.getElementById("tabPrenotazioni").addEventListener("click", () => {
+        showSection("prenotazioni");
+        caricaPrenotazioni();
+    });
+
+    function showSection(section) {
+        homeSection.classList.add("hidden");
+        profiloSection.classList.add("hidden");
+        prenotazioniSection.classList.add("hidden");
+
+        if (section === "home") homeSection.classList.remove("hidden");
+        if (section === "profilo") profiloSection.classList.remove("hidden");
+        if (section === "prenotazioni") prenotazioniSection.classList.remove("hidden");
+    }
+
+    // Carica dati utente dal backend
+    async function caricaProfilo() {
+        const res = await fetch(`http://localhost:8080/api/cliente/${userId}`);
+        const user = await res.json();
+        document.getElementById("userName").textContent = user.nome + " " + user.cognome;
+        document.getElementById("nome").value = user.nome;
+        document.getElementById("cognome").value = user.cognome;
+        document.getElementById("email").value = user.email;
+    }
+
+    // Aggiorna profilo
+    document.getElementById("updateProfileForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const clienteAggiornato = {
+            nome: document.getElementById("nome").value,
+            cognome: document.getElementById("cognome").value,
+            email: document.getElementById("email").value
+        };
+        await fetch(`http://localhost:8080/api/cliente/${userId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(clienteAggiornato)
+        });
+        alert("Profilo aggiornato con successo!");
+        caricaProfilo();
+    });
+
+    async function caricaPrenotazioni() {
+        const clienteId = localStorage.getItem("clienteId") // ID dell’utente loggato
+        try {
+            const res = await fetch(`http://localhost:8080/api/prenotazioni/cliente/${clienteId}`);
+            if (!res.ok) throw new Error("Errore nel recupero prenotazioni");
+            const prenotazioni = await res.json();
+
+            const table = document.getElementById("prenotazioniTable");
+            table.innerHTML = "";
+
+            prenotazioni.forEach(p => {
+                table.innerHTML += `
+                <tr class="border-b">
+                    <td class="p-2">${p.dataInizio}</td>
+                    <td class="p-2">${p.dataFine}</td>
+                    <td class="p-2">${p.numeroStanza}</td>
+                    <td class="p-2">${p.prezzoTotale.toFixed(2)} €</td>
+                    <td class="p-2">${p.statoPrenotazione ? "Confermata" : "Non Confermata"}</td>
+                </tr>
+            `;
+            });
+        } catch (err) {
+            console.error(err);
+            alert("Errore durante il caricamento delle prenotazioni");
+        }
+    }
+
+
+    // Chiamata al caricamento prenotazioni quando si apre il tab
+    document.getElementById("tabPrenotazioni").addEventListener("click", caricaPrenotazioni);
+
+
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("tokenCliente");
+        localStorage.removeItem("clienteId");
+        window.location.href = "UserLogin.html";
+    });
+
+    // Avvio
+    caricaProfilo();
+</script>
+
+</body>
+</html>
+
+
+<script>
+    // Simulazione dati utente (poi prenderai dal backend)
+    const user = {
+        nome: "Mario",
+        cognome: "Rossi",
+        email: "mario.rossi@example.com"
+    };
+
+    document.getElementById("userName").textContent = user.nome + " " + user.cognome;
+    document.getElementById("userEmail").textContent = user.email;
+
+    // Logout → torna al login
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        window.location.href = "UserLogin.html";
+    });
+</script>
+
+</body>
+</html>

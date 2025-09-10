@@ -2,10 +2,14 @@ package com.hotel.crock_crest.model;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "prenotazioni")
 public class Prenotazione {
    
@@ -36,6 +40,7 @@ public class Prenotazione {
     private Camera camera;
 
     @OneToMany(mappedBy= "prenotazione", cascade= CascadeType.ALL)
+    @JsonIgnore
     private List<DettaglioPrenotazione> dettagli;
 
     //costruttore & getter/setter
