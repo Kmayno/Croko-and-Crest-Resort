@@ -24,14 +24,14 @@
       <header class="absolute inset-x-0 top-0 z-50">
         <nav
           aria-label="Global"
-          class="flex items-center justify-between p-6 lg:px-8"
+          class="flex items-center justify-between p-4 lg:px-8"
         >
           <div class="flex lg:flex-1">
             <a href="#" class="-m-1.5 p-1.5">
               <span class="sr-only">Your Company</span>
               <a href="/auro/homepage.html" class="flex-shrink-0">
                 <img
-                  src="../auro/homeImg/CROCOLOGO20.png"
+                  src="../auro/homeImg/CROCOLOGO2.0.png"
                   alt="crocologo"
                   class="w-[120px] h-[120px] object-contain"
                 />
@@ -115,6 +115,11 @@
                   href="#"
                   class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
                   >Logout</a
+                >
+              </div>
+              <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                <a href="#" class="text-sm/6 font-semibold text-white"
+                  >Log in <span aria-hidden="true">&rarr;</span></a
                 >
               </div>
             </div>
@@ -338,6 +343,42 @@
           dropdown.style.display = "none";
           dropdown.classList.remove("scale-100", "opacity-100");
           dropdown.classList.add("scale-95", "opacity-0");
+        }
+      });
+    </script>
+    <script>
+      // Stato di login (simulato)
+      let isLoggedIn = false;
+
+      function toggleLogin() {
+        isLoggedIn = !isLoggedIn;
+        updateUI();
+      }
+
+      function updateUI() {
+        const dropdown = document.querySelector(".dropdown");
+        const loginDiv = document.querySelector(".lg\\:justify-end");
+
+        if (isLoggedIn) {
+          // Utente loggato: mostra dropdown profilo
+          dropdown.style.display = "block";
+          loginDiv.innerHTML = ""; // Rimuovi il contenuto login
+        } else {
+          // Utente sloggato: nascondi dropdown, mostra login
+          dropdown.style.display = "none";
+          loginDiv.innerHTML =
+            '<a href="#" class="text-sm/6 font-semibold text-white" onclick="toggleLogin(); return false;">Log in <span aria-hidden="true">&rarr;</span></a>';
+        }
+      }
+
+      // Inizializza UI al caricamento
+      document.addEventListener("DOMContentLoaded", updateUI);
+
+      // Aggiungi event listener al logout nel dropdown
+      document.addEventListener("click", function (e) {
+        if (e.target.textContent === "Logout" && isLoggedIn) {
+          e.preventDefault();
+          toggleLogin();
         }
       });
     </script>
