@@ -47,9 +47,12 @@ public class AdminController {
     }
 
     @PutMapping("/update")
-    public void updateAdmin(@RequestBody Admin a){
-       as.addAdmin(a);
+    public Admin updateAdmin(@RequestBody Admin a){
+       return as.updateAdmin(a);
     }
 
-
+    @DeleteMapping("/delete/{id}")
+    public void deleteAdmin(@PathVariable int id){
+        as.deleteAdmin(id);
+    }
 }

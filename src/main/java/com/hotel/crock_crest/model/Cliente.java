@@ -9,7 +9,7 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cliente")
-    private int  idCliente;
+    private int idCliente;
 
     private String nome;
     private String cognome;
@@ -21,9 +21,17 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Prenotazione> prenotazioni;
 
+    @Transient
+    private String token;
+
     public Cliente() {
     }
-
+    public Cliente(int idCliente, String nome, String cognome, String email){
+        this.idCliente = idCliente;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.email = email;
+    }
     // Getters & Setters
 
     public int getIdCliente() {
@@ -74,6 +82,12 @@ public class Cliente {
         this.prenotazioni = prenotazioni;
     }
 
+    public String getToken() {
+        return token;
+    }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
 }
  
