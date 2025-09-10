@@ -2,9 +2,11 @@ package com.hotel.crock_crest.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
+@JsonIgnoreProperties({"prenotazioni"})
 @Table(name = "camere")
 public class Camera {
     @Id
