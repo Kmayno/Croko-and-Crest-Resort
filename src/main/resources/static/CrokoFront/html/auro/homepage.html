@@ -18,6 +18,12 @@
       .dropdown:hover .dropdown-menu {
         display: block;
       }
+      .login-dropdown {
+        display: none;
+      }
+      .login-dropdown.active {
+        display: block;
+      }
     </style>
   </head>
 
@@ -75,8 +81,12 @@
         <div
           class="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-x-4"
         >
-          <!-- Profile dropdown -->
-          <div class="dropdown relative ml-3">
+          <!-- Profile dropdown (quando loggato) -->
+          <div
+            class="dropdown relative ml-3"
+            id="profile-dropdown"
+            style="display: none"
+          >
             <button
               class="relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               onclick="toggleDropdown()"
@@ -96,7 +106,9 @@
             >
               <!-- Titolo Area Personale -->
               <div class="px-4 py-3 border-b border-white/10">
-                <p class="text-sm font-semibold text-white">Area Personale</p>
+                <p class="text-sm font-semibold text-white" id="user-role">
+                  Area Personale
+                </p>
               </div>
 
               <!-- Menu items -->
@@ -113,13 +125,59 @@
               <a
                 href="#"
                 class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
+                onclick="logout(); return false;"
                 >Logout</a
               >
             </div>
-            <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-              <a href="#" class="text-sm/6 font-semibold text-white"
-                >Log in <span aria-hidden="true">&rarr;</span></a
+          </div>
+
+          <!-- Login dropdown (quando non loggato) -->
+          <div class="relative" id="login-section">
+            <button
+              onclick="toggleLoginDropdown()"
+              class="text-sm/6 font-semibold text-white flex items-center gap-1"
+              id="login-button"
+            >
+              Log in
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </button>
+            <div
+              id="login-dropdown"
+              class="login-dropdown absolute right-0 top-8 w-48 origin-top-right rounded-md bg-gray-800 py-1 outline outline-1 -outline-offset-1 outline-white/10 shadow-lg"
+            >
+              <div class="px-4 py-3 border-b border-white/10">
+                <p class="text-sm font-semibold text-white">
+                  Scegli il tipo di accesso
+                </p>
+              </div>
+              <a
+                href="#"
+                onclick="loginAs('utente'); return false;"
+                class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-white/5"
+              >
+                <i class="fas fa-user mr-3"></i>
+                Login come Utente
+              </a>
+              <a
+                href="#"
+                onclick="loginAs('admin'); return false;"
+                class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-white/5"
+              >
+                <i class="fas fa-user-shield mr-3"></i>
+                Login come Admin
+              </a>
             </div>
           </div>
         </div>
@@ -189,36 +247,70 @@
                       >
                     </div>
                     <div class="py-6">
-                      <!-- Mobile Profile Menu con titolo -->
-                      <div class="mb-4">
-                        <h3 class="px-3 text-sm font-semibold text-white mb-3">
-                          Area Personale
-                        </h3>
-                        <div class="flex items-center px-3 py-2 mb-2">
-                          <img
-                            src="../auro/homeImg/reviews2.jpg"
-                            alt=""
-                            class="size-8 rounded-full bg-gray-800 outline outline-1 -outline-offset-1 outline-white/10"
-                          />
-                          <div class="ml-3">
-                            <p class="text-sm font-medium text-white">Utente</p>
-                          </div>
+                      <!-- Mobile Login/Profile section -->
+                      <div id="mobile-login-section">
+                        <div class="mb-4">
+                          <h3
+                            class="px-3 text-sm font-semibold text-white mb-3"
+                          >
+                            Accesso
+                          </h3>
+                          <a
+                            href="#"
+                            onclick="loginAs('utente'); return false;"
+                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                            >Login come Utente</a
+                          >
+                          <a
+                            href="../carmine/AdminLogin.html"
+                            onclick="loginAs('admin'); return false;"
+                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                            >Login come Admin</a
+                          >
                         </div>
-                        <a
-                          href="#"
-                          class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                          >Il tuo profilo</a
-                        >
-                        <a
-                          href="#"
-                          class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                          >Impostazioni</a
-                        >
-                        <a
-                          href="#"
-                          class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                          >Logout</a
-                        >
+                      </div>
+
+                      <!-- Mobile Profile Menu (hidden by default) -->
+                      <div id="mobile-profile-section" style="display: none">
+                        <div class="mb-4">
+                          <h3
+                            class="px-3 text-sm font-semibold text-white mb-3"
+                            id="mobile-user-role"
+                          >
+                            Area Personale
+                          </h3>
+                          <div class="flex items-center px-3 py-2 mb-2">
+                            <img
+                              src="../auro/homeImg/reviews2.jpg"
+                              alt=""
+                              class="size-8 rounded-full bg-gray-800 outline outline-1 -outline-offset-1 outline-white/10"
+                            />
+                            <div class="ml-3">
+                              <p
+                                class="text-sm font-medium text-white"
+                                id="mobile-username"
+                              >
+                                Utente
+                              </p>
+                            </div>
+                          </div>
+                          <a
+                            href="#"
+                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                            >Il tuo profilo</a
+                          >
+                          <a
+                            href="#"
+                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                            >Impostazioni</a
+                          >
+                          <a
+                            href="#"
+                            onclick="logout(); return false;"
+                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                            >Logout</a
+                          >
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -321,6 +413,11 @@
     </div>
 
     <script>
+      // Stato di login
+      let isLoggedIn = false;
+      let userRole = null;
+
+      // Toggle del dropdown profilo quando loggato
       function toggleDropdown() {
         const dropdown = document.getElementById("dropdown-menu");
         const isVisible = dropdown.style.display === "block";
@@ -336,12 +433,83 @@
         }
       }
 
-      // Close dropdown when clicking outside
+      // Toggle del dropdown login
+      function toggleLoginDropdown() {
+        const dropdown = document.getElementById("login-dropdown");
+        dropdown.classList.toggle("active");
+      }
+
+      // Funzione per fare login come utente o admin
+      function loginAs(role) {
+        isLoggedIn = true;
+        userRole = role;
+        updateUI();
+
+        // Chiudi il dropdown del login
+        document.getElementById("login-dropdown").classList.remove("active");
+
+        // Feedback visivo (opzionale)
+        console.log(`Login effettuato come: ${role}`);
+      }
+
+      // Funzione di logout
+      function logout() {
+        isLoggedIn = false;
+        userRole = null;
+        updateUI();
+      }
+
+      // Aggiorna l'interfaccia in base allo stato di login
+      function updateUI() {
+        const profileDropdown = document.getElementById("profile-dropdown");
+        const loginSection = document.getElementById("login-section");
+        const userRoleElement = document.getElementById("user-role");
+
+        // Mobile elements
+        const mobileLoginSection = document.getElementById(
+          "mobile-login-section"
+        );
+        const mobileProfileSection = document.getElementById(
+          "mobile-profile-section"
+        );
+        const mobileUserRole = document.getElementById("mobile-user-role");
+        const mobileUsername = document.getElementById("mobile-username");
+
+        if (isLoggedIn) {
+          // Desktop: nascondi login, mostra profilo
+          loginSection.style.display = "none";
+          profileDropdown.style.display = "block";
+
+          // Aggiorna il titolo dell'area personale
+          const roleText = userRole === "admin" ? "Area Admin" : "Area Utente";
+          userRoleElement.textContent = roleText;
+
+          // Mobile: nascondi login, mostra profilo
+          mobileLoginSection.style.display = "none";
+          mobileProfileSection.style.display = "block";
+          mobileUserRole.textContent = roleText;
+          mobileUsername.textContent =
+            userRole === "admin" ? "Admin" : "Utente";
+        } else {
+          // Desktop: mostra login, nascondi profilo
+          loginSection.style.display = "block";
+          profileDropdown.style.display = "none";
+
+          // Mobile: mostra login, nascondi profilo
+          mobileLoginSection.style.display = "block";
+          mobileProfileSection.style.display = "none";
+        }
+      }
+
+      // Chiudi dropdown quando si clicca fuori
       document.addEventListener("click", function (event) {
+        // Dropdown profilo
         const dropdown = document.getElementById("dropdown-menu");
         const button = document.getElementById("profile-button");
 
         if (
+          dropdown &&
+          button &&
           !button.contains(event.target) &&
           !dropdown.contains(event.target)
         ) {
@@ -349,43 +517,23 @@
           dropdown.classList.remove("scale-100", "opacity-100");
           dropdown.classList.add("scale-95", "opacity-0");
         }
-      });
-    </script>
-    <script>
-      // Stato di login (simulato)
-      let isLoggedIn = false;
 
-      function toggleLogin() {
-        isLoggedIn = !isLoggedIn;
-        updateUI();
-      }
+        // Dropdown login
+        const loginDropdown = document.getElementById("login-dropdown");
+        const loginButton = document.getElementById("login-button");
 
-      function updateUI() {
-        const dropdown = document.querySelector(".dropdown");
-        const loginDiv = document.querySelector(".lg\\:justify-end");
-
-        if (isLoggedIn) {
-          // Utente loggato: mostra dropdown profilo
-          dropdown.style.display = "block";
-          loginDiv.innerHTML = ""; // Rimuovi il contenuto login
-        } else {
-          // Utente sloggato: nascondi dropdown, mostra login
-          dropdown.style.display = "none";
-          loginDiv.innerHTML =
-            '<a href="#" class="text-sm/6 font-semibold text-white" onclick="toggleLogin(); return false;">Log in <span aria-hidden="true">&rarr;</span></a>';
+        if (
+          loginDropdown &&
+          loginButton &&
+          !loginButton.contains(event.target) &&
+          !loginDropdown.contains(event.target)
+        ) {
+          loginDropdown.classList.remove("active");
         }
-      }
+      });
 
       // Inizializza UI al caricamento
       document.addEventListener("DOMContentLoaded", updateUI);
-
-      // Aggiungi event listener al logout nel dropdown
-      document.addEventListener("click", function (e) {
-        if (e.target.textContent === "Logout" && isLoggedIn) {
-          e.preventDefault();
-          toggleLogin();
-        }
-      });
     </script>
   </body>
 </html>

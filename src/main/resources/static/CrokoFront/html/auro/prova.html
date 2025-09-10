@@ -3,67 +3,186 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Navbar con Dropdown</title>
+    <link rel="icon" href="../auro/homeImg/favicon.ico" />
+    <title>Croco&Crest Resort - Homepage</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../auro/appa.css" />
+    <style>
+      .dropdown-menu {
+        display: none;
+      }
+      .dropdown:hover .dropdown-menu {
+        display: block;
+      }
+      .login-dropdown {
+        display: none;
+      }
+      .login-dropdown.active {
+        display: block;
+      }
+    </style>
   </head>
-  <body class="bg-gray-900 min-h-screen">
-    <!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
-    <div class="bg-gray-900">
-      <header class="absolute inset-x-0 top-0 z-50">
-        <nav
-          aria-label="Global"
-          class="flex items-center justify-between p-6 lg:px-8"
-        >
-          <div class="flex lg:flex-1">
-            <a href="#" class="-m-1.5 p-1.5">
-              <span class="sr-only">Your Company</span>
+
+  <body>
+    <div class="bg-gray-500">
+      <nav
+        aria-label="Global"
+        class="flex items-center justify-between p-4 lg:px-8 bg-[#196236] fixed w-[100%] z-[1] h-[120px]"
+      >
+        <div class="flex lg:flex-1">
+          <a href="#" class="-m-1.5 p-1.5">
+            <span class="sr-only">Your Company</span>
+            <a href="/auro/homepage.html" class="flex-shrink-0">
               <img
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                alt=""
-                class="h-8 w-auto"
+                src="../auro/homeImg/CROCOLOGO2.0.png"
+                alt="crocologo"
+                class="w-[120px] h-[120px] object-contain"
               />
             </a>
-          </div>
-          <div class="flex lg:hidden">
-            <button
-              type="button"
-              command="show-modal"
-              commandfor="mobile-menu"
-              class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
+          </a>
+        </div>
+        <div class="flex lg:hidden">
+          <button
+            type="button"
+            command="show-modal"
+            commandfor="mobile-menu"
+            class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
+          >
+            <span class="sr-only">Open main menu</span>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              data-slot="icon"
+              aria-hidden="true"
+              class="size-6"
             >
-              <span class="sr-only">Open main menu</span>
+              <path
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="hidden lg:flex lg:gap-x-12">
+          <a href="#" class="text-sm/6 font-semibold text-white">Homepage</a>
+          <a href="#" class="text-sm/6 font-semibold text-white"
+            >Le nostre stanze</a
+          >
+          <a href="#" class="text-sm/6 font-semibold text-white">Prenota ora</a>
+          <a href="#" class="text-sm/6 font-semibold text-white">Contatti</a>
+        </div>
+        <div
+          class="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-x-4"
+        >
+          <!-- Profile dropdown (quando loggato) -->
+          <div
+            class="dropdown relative ml-3"
+            id="profile-dropdown"
+            style="display: none"
+          >
+            <button
+              class="relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+              onclick="toggleDropdown()"
+              id="profile-button"
+            >
+              <span class="absolute -inset-1.5"></span>
+              <span class="sr-only">Open user menu</span>
+              <img
+                src="../auro/homeImg/reviews2.jpg"
+                alt=""
+                class="size-[70px] rounded-full bg-gray-800 outline outline-1 -outline-offset-1 outline-white/10"
+              />
+            </button>
+            <div
+              id="dropdown-menu"
+              class="dropdown-menu absolute right-0 top-10 w-56 origin-top-right rounded-md bg-gray-800 py-1 outline outline-1 -outline-offset-1 outline-white/10 shadow-lg transition-all duration-100 ease-out transform scale-95 opacity-0"
+            >
+              <!-- Titolo Area Personale -->
+              <div class="px-4 py-3 border-b border-white/10">
+                <p class="text-sm font-semibold text-white" id="user-role">
+                  Area Personale
+                </p>
+              </div>
+
+              <!-- Menu items -->
+              <a
+                href="#"
+                class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
+                >Il tuo profilo</a
+              >
+              <a
+                href="#"
+                class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
+                >Impostazioni</a
+              >
+              <a
+                href="#"
+                class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
+                onclick="logout(); return false;"
+                >Logout</a
+              >
+            </div>
+          </div>
+
+          <!-- Login dropdown (quando non loggato) -->
+          <div class="relative" id="login-section">
+            <button
+              onclick="toggleLoginDropdown(event)"
+              class="text-sm/6 font-semibold text-white flex items-center gap-1"
+              id="login-button"
+            >
+              Log in
               <svg
-                viewBox="0 0 24 24"
+                class="w-4 h-4"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="1.5"
-                data-slot="icon"
-                aria-hidden="true"
-                class="size-6"
+                viewBox="0 0 24 24"
               >
                 <path
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                />
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
               </svg>
             </button>
-          </div>
-          <div class="hidden lg:flex lg:gap-x-12">
-            <a href="#" class="text-sm/6 font-semibold text-white">Product</a>
-            <a href="#" class="text-sm/6 font-semibold text-white">Features</a>
-            <a href="#" class="text-sm/6 font-semibold text-white"
-              >Marketplace</a
+            <div
+              id="login-dropdown"
+              class="login-dropdown absolute right-0 top-8 w-48 origin-top-right rounded-md bg-gray-800 py-1 outline outline-1 -outline-offset-1 outline-white/10 shadow-lg"
             >
-            <a href="#" class="text-sm/6 font-semibold text-white">Company</a>
+              <div class="px-4 py-3 border-b border-white/10">
+                <p class="text-sm font-semibold text-white">
+                  Scegli il tipo di accesso
+                </p>
+              </div>
+              <a
+                href="#"
+                onclick="redirectToLogin('utente'); return false;"
+                class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-white/5"
+              >
+                <i class="fas fa-user mr-3"></i>
+                Login come Utente
+              </a>
+              <a
+                href="../carmine/AdminLogin.html"
+                onclick="redirectToLogin('admin'); return false;"
+                class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-white/5"
+              >
+                <i class="fas fa-user-shield mr-3"></i>
+                Login come Admin
+              </a>
+            </div>
           </div>
-          <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" class="text-sm/6 font-semibold text-white"
-              >Log in <span aria-hidden="true">&rarr;</span></a
-            >
-          </div>
-        </nav>
+        </div>
+      </nav>
+      <header class="absolute inset-x-0 top-0 z-50">
         <el-dialog>
           <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
             <div tabindex="0" class="fixed inset-0 focus:outline-none">
@@ -74,9 +193,9 @@
                   <a href="#" class="-m-1.5 p-1.5">
                     <span class="sr-only">Your Company</span>
                     <img
-                      src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                      src="../auro/homeImg/crococroco.png"
                       alt=""
-                      class="h-8 w-auto"
+                      class="h-[50px] w-auto"
                     />
                   </a>
                   <button
@@ -109,30 +228,91 @@
                       <a
                         href="#"
                         class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                        >Product</a
+                        >Homepage</a
                       >
                       <a
                         href="#"
                         class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                        >Features</a
+                        >Le nostre stanze</a
                       >
                       <a
                         href="#"
                         class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                        >Marketplace</a
+                        >Prenota ora</a
                       >
                       <a
                         href="#"
                         class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                        >Company</a
+                        >Contatti</a
                       >
                     </div>
                     <div class="py-6">
-                      <a
-                        href="#"
-                        class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
-                        >Log in</a
-                      >
+                      <!-- Mobile Login section -->
+                      <div id="mobile-login-section">
+                        <div class="mb-4">
+                          <h3
+                            class="px-3 text-sm font-semibold text-white mb-3"
+                          >
+                            Accesso
+                          </h3>
+                          <a
+                            href="#"
+                            onclick="redirectToLogin('utente'); return false;"
+                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                            >Login come Utente</a
+                          >
+                          <a
+                            href="../carmine/AdminLogin.html"
+                            onclick="redirectToLogin('admin'); return false;"
+                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                            >Login come Admin</a
+                          >
+                        </div>
+                      </div>
+
+                      <!-- Mobile Profile Menu (hidden by default) -->
+                      <div id="mobile-profile-section" style="display: none">
+                        <div class="mb-4">
+                          <h3
+                            class="px-3 text-sm font-semibold text-white mb-3"
+                            id="mobile-user-role"
+                          >
+                            Area Personale
+                          </h3>
+                          <div class="flex items-center px-3 py-2 mb-2">
+                            <img
+                              src="../auro/homeImg/reviews2.jpg"
+                              alt=""
+                              class="size-8 rounded-full bg-gray-800 outline outline-1 -outline-offset-1 outline-white/10"
+                            />
+                            <div class="ml-3">
+                              <p
+                                class="text-sm font-medium text-white"
+                                id="mobile-username"
+                              >
+                                Utente
+                              </p>
+                            </div>
+                          </div>
+                          <a
+                            href="#"
+                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                            >Il tuo profilo</a
+                          >
+                          <a
+                            href="#"
+                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                            >Impostazioni</a
+                          >
+                          <button
+                            type="button"
+                            onclick="logout()"
+                            class="w-full -mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5 text-left"
+                          >
+                            Logout
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -142,11 +322,16 @@
         </el-dialog>
       </header>
 
-      <div class="relative isolate px-6 pt-14 lg:px-8">
+      <!-- Hero section -->
+      <div class="relative isolate">
         <div
+          id="pop"
           aria-hidden="true"
-          class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+          class="absolute inset-x-0 -z-10 transform-gpu overflow-hidden sm:-top-80"
         >
+          <video class="video-bg" autoplay muted loop playsinline>
+            <source src="../auro/homeImg/herosect.mp4" type="video/mp4" />
+          </video>
           <div
             style="
               clip-path: polygon(
@@ -172,37 +357,27 @@
           ></div>
         </div>
         <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div class="hidden sm:mb-8 sm:flex sm:justify-center">
-            <div
-              class="relative rounded-full px-3 py-1 text-sm/6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20"
-            >
-              Announcing our next round of funding.
-              <a href="#" class="font-semibold text-indigo-400"
-                ><span aria-hidden="true" class="absolute inset-0"></span>Read
-                more <span aria-hidden="true">&rarr;</span></a
-              >
-            </div>
-          </div>
           <div class="text-center">
             <h1
               class="text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl"
             >
-              Data to enrich your online business
+              Benvenuto al Croco&Crest Resort
             </h1>
             <p
               class="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8"
             >
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-              lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat.
+              Vivi un'esperienza indimenticabile nel nostro resort di lusso.
+              Comfort, eleganza e servizi esclusivi ti aspettano per una vacanza
+              da sogno.
             </p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
               <a
                 href="#"
                 class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                >Get started</a
+                >Prenota ora</a
               >
               <a href="#" class="text-sm/6 font-semibold text-white"
-                >Learn more <span aria-hidden="true">→</span></a
+                >Scopri di più <span aria-hidden="true">→</span></a
               >
             </div>
           </div>
@@ -237,5 +412,158 @@
         </div>
       </div>
     </div>
+
+    <script>
+      // Stato di login (può essere settato da altre pagine tramite sessionStorage o localStorage se necessario)
+      let isLoggedIn = false;
+      let userRole = null;
+
+      // Funzione per reindirizzare alla pagina di login appropriata
+      function redirectToLogin(role) {
+        // Chiudi il dropdown del login
+        document.getElementById("login-dropdown").classList.remove("active");
+
+        // Reindirizza alla pagina di login appropriata
+        if (role === "admin") {
+          window.location.href = "../carmine/AdminLogin.html"; // Modifica il percorso se necessario
+        } else if (role === "utente") {
+          window.location.href = "../auro/user_login.html"; // Modifica il percorso se necessario
+        }
+      }
+
+      // Funzione per simulare il login (da chiamare dalle pagine di login dopo l'autenticazione)
+      function loginAs(role) {
+        isLoggedIn = true;
+        userRole = role;
+        updateUI();
+
+        // Feedback visivo (opzionale)
+        console.log(`Login effettuato come: ${role}`);
+      }
+
+      // Toggle del dropdown profilo quando loggato
+      function toggleDropdown() {
+        const dropdown = document.getElementById("dropdown-menu");
+        const isVisible = dropdown.style.display === "block";
+
+        if (isVisible) {
+          dropdown.style.display = "none";
+          dropdown.classList.remove("scale-100", "opacity-100");
+          dropdown.classList.add("scale-95", "opacity-0");
+        } else {
+          dropdown.style.display = "block";
+          dropdown.classList.remove("scale-95", "opacity-0");
+          dropdown.classList.add("scale-100", "opacity-100");
+        }
+      }
+
+      // Toggle del dropdown login
+      function toggleLoginDropdown() {
+        const dropdown = document.getElementById("login-dropdown");
+        dropdown.classList.toggle("active");
+      }
+
+      // Funzione di logout
+      function logout() {
+        isLoggedIn = false;
+        userRole = null;
+        updateUI();
+
+        // Opzionalmente, pulisci anche il sessionStorage/localStorage
+        sessionStorage.removeItem("isLoggedIn");
+        sessionStorage.removeItem("userRole");
+      }
+
+      // Aggiorna l'interfaccia in base allo stato di login
+      function updateUI() {
+        const profileDropdown = document.getElementById("profile-dropdown");
+        const loginSection = document.getElementById("login-section");
+        const userRoleElement = document.getElementById("user-role");
+
+        // Mobile elements
+        const mobileLoginSection = document.getElementById(
+          "mobile-login-section"
+        );
+        const mobileProfileSection = document.getElementById(
+          "mobile-profile-section"
+        );
+        const mobileUserRole = document.getElementById("mobile-user-role");
+        const mobileUsername = document.getElementById("mobile-username");
+
+        if (isLoggedIn) {
+          // Desktop: nascondi login, mostra profilo
+          loginSection.style.display = "none";
+          profileDropdown.style.display = "block";
+
+          // Aggiorna il titolo dell'area personale
+          const roleText = userRole === "admin" ? "Area Admin" : "Area Utente";
+          userRoleElement.textContent = roleText;
+
+          // Mobile: nascondi login, mostra profilo
+          mobileLoginSection.style.display = "none";
+          mobileProfileSection.style.display = "block";
+          mobileUserRole.textContent = roleText;
+          mobileUsername.textContent =
+            userRole === "admin" ? "Admin" : "Utente";
+        } else {
+          // Desktop: mostra login, nascondi profilo
+          loginSection.style.display = "block";
+          profileDropdown.style.display = "none";
+
+          // Mobile: mostra login, nascondi profilo
+          mobileLoginSection.style.display = "block";
+          mobileProfileSection.style.display = "none";
+        }
+      }
+
+      // Controlla se l'utente è già loggato (da sessionStorage o altre pagine)
+      function checkLoginStatus() {
+        const savedLoginStatus = sessionStorage.getItem("isLoggedIn");
+        const savedUserRole = sessionStorage.getItem("userRole");
+
+        if (savedLoginStatus === "true" && savedUserRole) {
+          isLoggedIn = true;
+          userRole = savedUserRole;
+          updateUI();
+        }
+      }
+
+      // Chiudi dropdown quando si clicca fuori
+      document.addEventListener("click", function (event) {
+        // Dropdown profilo
+        const dropdown = document.getElementById("dropdown-menu");
+        const button = document.getElementById("profile-button");
+
+        if (
+          dropdown &&
+          button &&
+          !button.contains(event.target) &&
+          !dropdown.contains(event.target)
+        ) {
+          dropdown.style.display = "none";
+          dropdown.classList.remove("scale-100", "opacity-100");
+          dropdown.classList.add("scale-95", "opacity-0");
+        }
+
+        // Dropdown login
+        const loginDropdown = document.getElementById("login-dropdown");
+        const loginButton = document.getElementById("login-button");
+
+        if (
+          loginDropdown &&
+          loginButton &&
+          !loginButton.contains(event.target) &&
+          !loginDropdown.contains(event.target)
+        ) {
+          loginDropdown.classList.remove("active");
+        }
+      });
+
+      // Inizializza UI al caricamento
+      document.addEventListener("DOMContentLoaded", function () {
+        checkLoginStatus();
+        updateUI();
+      });
+    </script>
   </body>
 </html>
