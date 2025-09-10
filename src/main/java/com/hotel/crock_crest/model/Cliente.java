@@ -21,6 +21,9 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Prenotazione> prenotazioni;
 
+    @Transient
+    private String token;
+
     public Cliente() {
     }
     public Cliente(int idCliente, String nome, String cognome, String email){
@@ -79,6 +82,12 @@ public class Cliente {
         this.prenotazioni = prenotazioni;
     }
 
+    public String getToken() {
+        return token;
+    }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
 }
  

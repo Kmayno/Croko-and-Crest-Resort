@@ -11,6 +11,7 @@ import com.hotel.crock_crest.repository.ClienteRepository;
 
 @Service
 public class ClienteService {
+
     private final ClienteRepository clienteRepository;
 
     public ClienteService(ClienteRepository clienteRepository) {
@@ -18,16 +19,16 @@ public class ClienteService {
     }
 
     //registra un cliente
-   /*  public Cliente saveCliente(Cliente cliente) {
-         cliente.setPasswordCliente(passwordEncoder.encode(cliente.getPasswordCliente()));
-        return clienteRepository.save(cliente);
-    }*/
+     public Cliente addCliente(Cliente c) {
+        return clienteRepository.save(c);
+    }
 
     //login tramite email e password
-     public Optional<Cliente> login(String email, String password) {
-        return clienteRepository.findByEmail(email)
-                .filter(c -> c.getPasswordCliente().equals(password)); //  meglio usare password hashata con BCrypt
+    public Cliente findByEmailAndPass(String email, String password){
+        Cliente foundByEmail = clienteRepository.findByEmailAndPasswordAdmin(email,password);
+        return foundByEmail;
     }
+
 
     //visualizzare tutte le prenotazioni di un cliente
     public List<Prenotazione> getPrenotazioniCliente(int idCliente) {
@@ -47,20 +48,14 @@ public class ClienteService {
             c.setNome(updated.getNome());
             c.setCognome(updated.getCognome());
             c.setEmail(updated.getEmail());
-            c.setPasswordCliente(updated.getPasswordCliente()); // hashare in realtà
-            /* if (updated.getPasswordCliente() != null && !updated.getPasswordCliente().isBlank()) {
-                c.setPasswordCliente(passwordEncoder.encode(updated.getPasswordCliente()));
-            }   */
+            c.setPasswordCliente(updated.getPasswordCliente());
             return clienteRepository.save(c);
         });
     }
 
     //elimina un cliente tramite id
-    public boolean deleteCliente(int id) {
-        return clienteRepository.findById(id).map(c -> {
-            clienteRepository.delete(c);
-            return true;
-        }).orElse(false);
+    public void deleteCliente(int id){
+        clienteRepository.deleteById(id);
     }
 
 }

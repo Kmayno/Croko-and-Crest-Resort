@@ -1,5 +1,6 @@
 package com.hotel.crock_crest.controller;
 
+import com.hotel.crock_crest.model.Admin;
 import com.hotel.crock_crest.model.Cliente;
 import com.hotel.crock_crest.model.Prenotazione;
 import com.hotel.crock_crest.service.ClienteService;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import com.hotel.crock_crest.model.Cliente;
 
@@ -24,15 +26,21 @@ public class ClienteController {
 	}
 
 	// metodo post per registrare un cliente
-/*	 @PostMapping
-     public Cliente registraCliente(@RequestBody Cliente cliente) {
-        return clienteService.saveCliente(cliente);
-    }*/
+	 @PostMapping
+     public void addCliente(@RequestBody Cliente cliente) {
+         clienteService.addCliente(cliente);
+    }
 
-	//metodo post per il login
-	@PostMapping("/login")
-   		public Optional<Cliente> loginCliente(@RequestParam String email, @RequestParam String password) {
-       	 return clienteService.login(email, password);
+    @GetMapping("/login")
+    public ResponseEntity<Cliente> login(@RequestParam String email, @RequestParam String password) {
+        Cliente c = clienteService.findByEmailAndPass(email, password);
+        if (c == null)
+            return ResponseEntity.status(404).body(null);
+        if (!password.equals(c.getPasswordCliente()))
+            return ResponseEntity.status(404).body(null);;
+        String token = UUID.randomUUID().toString();
+        c.setToken(token);
+        return ResponseEntity.ok(c);
     }
 
 	// metodo get per visualizzare le prenotazioni di un cliente tramite ricerca per id
@@ -55,7 +63,7 @@ public class ClienteController {
 
 	//metodo delete per eliminare un cliente tramite ricerca per id
 	 @DeleteMapping("/{id}")
-   public boolean deleteCliente(@PathVariable Integer id) {
-        return clienteService.deleteCliente(id);
+   public void deleteCliente(@PathVariable Integer id) {
+        clienteService.deleteCliente(id);
     }
 }
