@@ -19,11 +19,12 @@
       }
     </style>
   </head>
+
   <body>
     <div class="bg-gray-500">
       <nav
         aria-label="Global"
-        class="flex items-center justify-between p-4 lg:px-8 bg-[#196236]"
+        class="flex items-center justify-between p-4 lg:px-8 bg-[#196236] fixed w-[100%] z-[1] h-[120px]"
       >
         <div class="flex lg:flex-1">
           <a href="#" class="-m-1.5 p-1.5">
@@ -32,7 +33,7 @@
               <img
                 src="../auro/homeImg/CROCOLOGO2.0.png"
                 alt="crocologo"
-                class="w-[120px] h-[120px] mt-[20px] object-contain"
+                class="w-[120px] h-[120px] object-contain"
               />
             </a>
           </a>
@@ -233,7 +234,7 @@
           aria-hidden="true"
           class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden sm:-top-80"
         >
-          <video class="video-bg" autoplay muted loop>
+          <video class="video-bg" autoplay muted loop playsinline>
             <source src="../auro/homeImg/herosect.mp4" type="video/mp4" />
           </video>
           <div
