@@ -28,23 +28,25 @@
   </head>
 
   <body>
-    <div class="bg-gray-500">
-      <nav
+    <!-- NAVBAR CONTAINER -->
+    <nav class="navbar-container fixed w-full z-50 top-0">
+      <div
         aria-label="Global"
-        class="flex items-center justify-between p-4 lg:px-8 bg-[#196236] fixed w-[100%] z-[1] h-[120px]"
+        class="flex items-center justify-between p-4 lg:px-8 bg-[#2f794d] h-[120px]"
       >
+        <!-- Logo Section -->
         <div class="flex lg:flex-1">
-          <a href="#" class="-m-1.5 p-1.5">
-            <span class="sr-only">Your Company</span>
-            <a href="/auro/homepage.html" class="flex-shrink-0">
-              <img
-                src="../auro/homeImg/CROCOLOGO2.0.png"
-                alt="crocologo"
-                class="w-[120px] h-[120px] object-contain"
-              />
-            </a>
+          <a href="/auro/homepage.html" class="-m-1.5 p-1.5 flex-shrink-0">
+            <span class="sr-only">Croco&Crest Resort</span>
+            <img
+              src="../auro/homeImg/CROCOLOGO2.0.png"
+              alt="crocologo"
+              class="w-[120px] h-[120px] object-contain"
+            />
           </a>
         </div>
+
+        <!-- Mobile Menu Button -->
         <div class="flex lg:hidden">
           <button
             type="button"
@@ -70,14 +72,24 @@
             </svg>
           </button>
         </div>
+
+        <!-- Desktop Navigation Links -->
         <div class="hidden lg:flex lg:gap-x-12">
-          <a href="#" class="text-sm/6 font-semibold text-white">Homepage</a>
-          <a href="#" class="text-sm/6 font-semibold text-white"
+          <a href="#" class="text-sm/6 font-semibold text-[#f1fcf4]"
+            >Homepage</a
+          >
+          <a href="#" class="text-sm/6 font-semibold text-[#f1fcf4]"
             >Le nostre stanze</a
           >
-          <a href="#" class="text-sm/6 font-semibold text-white">Prenota ora</a>
-          <a href="#" class="text-sm/6 font-semibold text-white">Contatti</a>
+          <a href="#" class="text-sm/6 font-semibold text-[#f1fcf4]"
+            >Prenota ora</a
+          >
+          <a href="#" class="text-sm/6 font-semibold text-[#f1fcf4]"
+            >Contatti</a
+          >
         </div>
+
+        <!-- User Authentication Section -->
         <div
           class="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-x-4"
         >
@@ -134,7 +146,7 @@
           <!-- Login dropdown (quando non loggato) -->
           <div class="relative" id="login-section">
             <button
-              onclick="toggleLoginDropdown()"
+              onclick="toggleLoginDropdown(event)"
               class="text-sm/6 font-semibold text-white flex items-center gap-1"
               id="login-button"
             >
@@ -164,15 +176,15 @@
               </div>
               <a
                 href="#"
-                onclick="loginAs('utente'); return false;"
+                onclick="redirectToLogin('utente'); return false;"
                 class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-white/5"
               >
                 <i class="fas fa-user mr-3"></i>
                 Login come Utente
               </a>
               <a
-                href="#"
-                onclick="loginAs('admin'); return false;"
+                href="../carmine/AdminLogin.html"
+                onclick="redirectToLogin('admin'); return false;"
                 class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-white/5"
               >
                 <i class="fas fa-user-shield mr-3"></i>
@@ -181,8 +193,10 @@
             </div>
           </div>
         </div>
-      </nav>
-      <header class="absolute inset-x-0 top-0 z-50">
+      </div>
+
+      <!-- Mobile Menu Dialog -->
+      <header class="mobile-menu-header">
         <el-dialog>
           <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
             <div tabindex="0" class="fixed inset-0 focus:outline-none">
@@ -247,7 +261,7 @@
                       >
                     </div>
                     <div class="py-6">
-                      <!-- Mobile Login/Profile section -->
+                      <!-- Mobile Login section -->
                       <div id="mobile-login-section">
                         <div class="mb-4">
                           <h3
@@ -257,13 +271,13 @@
                           </h3>
                           <a
                             href="#"
-                            onclick="loginAs('utente'); return false;"
+                            onclick="redirectToLogin('utente'); return false;"
                             class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
                             >Login come Utente</a
                           >
                           <a
                             href="../carmine/AdminLogin.html"
-                            onclick="loginAs('admin'); return false;"
+                            onclick="redirectToLogin('admin'); return false;"
                             class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
                             >Login come Admin</a
                           >
@@ -304,12 +318,13 @@
                             class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
                             >Impostazioni</a
                           >
-                          <a
-                            href="#"
-                            onclick="logout(); return false;"
-                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                            >Logout</a
+                          <button
+                            type="button"
+                            onclick="logout()"
+                            class="w-full -mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5 text-left"
                           >
+                            Logout
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -320,9 +335,12 @@
           </dialog>
         </el-dialog>
       </header>
+    </nav>
 
-      <!-- Hero section -->
-      <div class="relative isolate">
+    <!-- HERO SECTION CONTAINER -->
+    <section class="hero-container bg-transparent">
+      <div class="relative isolate min-h-screen">
+        <!-- Background Video and Effects -->
         <div
           id="pop"
           aria-hidden="true"
@@ -355,35 +373,43 @@
             class="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-288.75"
           ></div>
         </div>
-        <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div class="text-center">
-            <h1
-              class="text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl"
-            >
-              Benvenuto al Croco&Crest Resort
-            </h1>
-            <p
-              class="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8"
-            >
-              Vivi un'esperienza indimenticabile nel nostro resort di lusso.
-              Comfort, eleganza e servizi esclusivi ti aspettano per una vacanza
-              da sogno.
-            </p>
-            <div class="mt-10 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
-                class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                >Prenota ora</a
+
+        <!-- Hero Content -->
+        <div
+          class="hero-content flex items-center justify-center min-h-screen pt-[120px]"
+        >
+          <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+            <div class="text-center">
+              <h1
+                class="text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl"
               >
-              <a href="#" class="text-sm/6 font-semibold text-white"
-                >Scopri di più <span aria-hidden="true">→</span></a
+                Benvenuto al Croco&Crest Resort
+              </h1>
+              <p
+                class="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8"
               >
+                Vivi un'esperienza indimenticabile nel nostro resort di lusso.
+                Comfort, eleganza e servizi esclusivi ti aspettano per una
+                vacanza da sogno.
+              </p>
+              <div class="mt-10 flex items-center justify-center gap-x-6">
+                <a
+                  href="#"
+                  class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                  >Prenota ora</a
+                >
+                <a href="#" class="text-sm/6 font-semibold text-white"
+                  >Scopri di più <span aria-hidden="true">→</span></a
+                >
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- Bottom Decorative Element -->
         <div
           aria-hidden="true"
-          class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+          class="absolute inset-x-0 bottom-0 -z-10 transform-gpu overflow-hidden blur-3xl"
         >
           <div
             style="
@@ -406,16 +432,39 @@
                 74.1% 44.1%
               );
             "
-            class="relative left-[calc(50%+3rem)] aspect-1155/678 w-144.5 -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-288.75"
+            class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
           ></div>
         </div>
       </div>
-    </div>
+    </section>
 
     <script>
-      // Stato di login
+      // Stato di login (può essere settato da altre pagine tramite sessionStorage o localStorage se necessario)
       let isLoggedIn = false;
       let userRole = null;
+
+      // Funzione per reindirizzare alla pagina di login appropriata
+      function redirectToLogin(role) {
+        // Chiudi il dropdown del login
+        document.getElementById("login-dropdown").classList.remove("active");
+
+        // Reindirizza alla pagina di login appropriata
+        if (role === "admin") {
+          window.location.href = "../carmine/AdminLogin.html"; // Modifica il percorso se necessario
+        } else if (role === "utente") {
+          window.location.href = "../auro/user_login.html"; // Modifica il percorso se necessario
+        }
+      }
+
+      // Funzione per simulare il login (da chiamare dalle pagine di login dopo l'autenticazione)
+      function loginAs(role) {
+        isLoggedIn = true;
+        userRole = role;
+        updateUI();
+
+        // Feedback visivo (opzionale)
+        console.log(`Login effettuato come: ${role}`);
+      }
 
       // Toggle del dropdown profilo quando loggato
       function toggleDropdown() {
@@ -439,24 +488,15 @@
         dropdown.classList.toggle("active");
       }
 
-      // Funzione per fare login come utente o admin
-      function loginAs(role) {
-        isLoggedIn = true;
-        userRole = role;
-        updateUI();
-
-        // Chiudi il dropdown del login
-        document.getElementById("login-dropdown").classList.remove("active");
-
-        // Feedback visivo (opzionale)
-        console.log(`Login effettuato come: ${role}`);
-      }
-
       // Funzione di logout
       function logout() {
         isLoggedIn = false;
         userRole = null;
         updateUI();
+
+        // Opzionalmente, pulisci anche il sessionStorage/localStorage
+        sessionStorage.removeItem("isLoggedIn");
+        sessionStorage.removeItem("userRole");
       }
 
       // Aggiorna l'interfaccia in base allo stato di login
@@ -501,6 +541,18 @@
         }
       }
 
+      // Controlla se l'utente è già loggato (da sessionStorage o altre pagine)
+      function checkLoginStatus() {
+        const savedLoginStatus = sessionStorage.getItem("isLoggedIn");
+        const savedUserRole = sessionStorage.getItem("userRole");
+
+        if (savedLoginStatus === "true" && savedUserRole) {
+          isLoggedIn = true;
+          userRole = savedUserRole;
+          updateUI();
+        }
+      }
+
       // Chiudi dropdown quando si clicca fuori
       document.addEventListener("click", function (event) {
         // Dropdown profilo
@@ -533,7 +585,10 @@
       });
 
       // Inizializza UI al caricamento
-      document.addEventListener("DOMContentLoaded", updateUI);
+      document.addEventListener("DOMContentLoaded", function () {
+        checkLoginStatus();
+        updateUI();
+      });
     </script>
   </body>
 </html>
