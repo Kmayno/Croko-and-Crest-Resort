@@ -19,111 +19,111 @@
       }
     </style>
   </head>
-  <body>
-    <div class="bg-gray-900">
-      <header class="absolute inset-x-0 top-0 z-50">
-        <nav
-          aria-label="Global"
-          class="flex items-center justify-between p-4 lg:px-8"
-        >
-          <div class="flex lg:flex-1">
-            <a href="#" class="-m-1.5 p-1.5">
-              <span class="sr-only">Your Company</span>
-              <a href="/auro/homepage.html" class="flex-shrink-0">
-                <img
-                  src="../auro/homeImg/CROCOLOGO2.0.png"
-                  class="w-[120px] h-[120px] object-contain"
-                />
-              </a>
-            </a>
-          </div>
-          <div class="flex lg:hidden">
-            <button
-              type="button"
-              command="show-modal"
-              commandfor="mobile-menu"
-              class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
-            >
-              <span class="sr-only">Open main menu</span>
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                data-slot="icon"
-                aria-hidden="true"
-                class="size-6"
-              >
-                <path
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
-          <div class="hidden lg:flex lg:gap-x-12">
-            <a href="#" class="text-sm/6 font-semibold text-white">Homepage</a>
-            <a href="#" class="text-sm/6 font-semibold text-white"
-              >Le nostre stanze</a
-            >
-            <a href="#" class="text-sm/6 font-semibold text-white"
-              >Prenota ora</a
-            >
-            <a href="#" class="text-sm/6 font-semibold text-white">Contatti</a>
-          </div>
-          <div
-            class="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-x-4"
-          >
-            <!-- Profile dropdown -->
-            <div class="dropdown relative ml-3">
-              <button
-                class="relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                onclick="toggleDropdown()"
-                id="profile-button"
-              >
-                <span class="absolute -inset-1.5"></span>
-                <span class="sr-only">Open user menu</span>
-                <img
-                  src="../auro/homeImg/reviews2.jpg"
-                  alt=""
-                  class="size-[70px] rounded-full bg-gray-800 outline outline-1 -outline-offset-1 outline-white/10"
-                />
-              </button>
-              <div
-                id="dropdown-menu"
-                class="dropdown-menu absolute right-0 top-10 w-56 origin-top-right rounded-md bg-gray-800 py-1 outline outline-1 -outline-offset-1 outline-white/10 shadow-lg transition-all duration-100 ease-out transform scale-95 opacity-0"
-              >
-                <!-- Titolo Area Personale -->
-                <div class="px-4 py-3 border-b border-white/10">
-                  <p class="text-sm font-semibold text-white">Area Personale</p>
-                </div>
 
-                <!-- Menu items -->
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
-                  >Il tuo profilo</a
-                >
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
-                  >Impostazioni</a
-                >
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
-                  >Logout</a
-                >
+  <body>
+    <div class="bg-gray-500">
+      <nav
+        aria-label="Global"
+        class="flex items-center justify-between p-4 lg:px-8 bg-[#196236] fixed w-[100%] z-[1] h-[120px]"
+      >
+        <div class="flex lg:flex-1">
+          <a href="#" class="-m-1.5 p-1.5">
+            <span class="sr-only">Your Company</span>
+            <a href="/auro/homepage.html" class="flex-shrink-0">
+              <img
+                src="../auro/homeImg/CROCOLOGO2.0.png"
+                alt="crocologo"
+                class="w-[120px] h-[120px] object-contain"
+              />
+            </a>
+          </a>
+        </div>
+        <div class="flex lg:hidden">
+          <button
+            type="button"
+            command="show-modal"
+            commandfor="mobile-menu"
+            class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
+          >
+            <span class="sr-only">Open main menu</span>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              data-slot="icon"
+              aria-hidden="true"
+              class="size-6"
+            >
+              <path
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="hidden lg:flex lg:gap-x-12">
+          <a href="#" class="text-sm/6 font-semibold text-white">Homepage</a>
+          <a href="#" class="text-sm/6 font-semibold text-white"
+            >Le nostre stanze</a
+          >
+          <a href="#" class="text-sm/6 font-semibold text-white">Prenota ora</a>
+          <a href="#" class="text-sm/6 font-semibold text-white">Contatti</a>
+        </div>
+        <div
+          class="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-x-4"
+        >
+          <!-- Profile dropdown -->
+          <div class="dropdown relative ml-3">
+            <button
+              class="relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+              onclick="toggleDropdown()"
+              id="profile-button"
+            >
+              <span class="absolute -inset-1.5"></span>
+              <span class="sr-only">Open user menu</span>
+              <img
+                src="../auro/homeImg/reviews2.jpg"
+                alt=""
+                class="size-[70px] rounded-full bg-gray-800 outline outline-1 -outline-offset-1 outline-white/10"
+              />
+            </button>
+            <div
+              id="dropdown-menu"
+              class="dropdown-menu absolute right-0 top-10 w-56 origin-top-right rounded-md bg-gray-800 py-1 outline outline-1 -outline-offset-1 outline-white/10 shadow-lg transition-all duration-100 ease-out transform scale-95 opacity-0"
+            >
+              <!-- Titolo Area Personale -->
+              <div class="px-4 py-3 border-b border-white/10">
+                <p class="text-sm font-semibold text-white">Area Personale</p>
               </div>
-              <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                <a href="#" class="text-sm/6 font-semibold text-white"
-                  >Log in <span aria-hidden="true">&rarr;</span></a
-                >
-              </div>
+
+              <!-- Menu items -->
+              <a
+                href="#"
+                class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
+                >Il tuo profilo</a
+              >
+              <a
+                href="#"
+                class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
+                >Impostazioni</a
+              >
+              <a
+                href="#"
+                class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
+                >Logout</a
+              >
+            </div>
+            <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+              <a href="#" class="text-sm/6 font-semibold text-white"
+                >Log in <span aria-hidden="true">&rarr;</span></a
+              >
             </div>
           </div>
-        </nav>
+        </div>
+      </nav>
+      <header class="absolute inset-x-0 top-0 z-50">
         <el-dialog>
           <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
             <div tabindex="0" class="fixed inset-0 focus:outline-none">
@@ -228,11 +228,15 @@
         </el-dialog>
       </header>
 
+      <!-- Hero section -->
       <div class="relative isolate px-6 pt-14 lg:px-8">
         <div
           aria-hidden="true"
-          class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+          class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden sm:-top-80"
         >
+          <video class="video-bg" autoplay muted loop playsinline>
+            <source src="../auro/homeImg/herosect.mp4" type="video/mp4" />
+          </video>
           <div
             style="
               clip-path: polygon(
