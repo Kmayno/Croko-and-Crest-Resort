@@ -25,7 +25,7 @@ public class ClienteService {
 
     //login tramite email e password
     public Cliente findByEmailAndPass(String email, String password){
-        Cliente foundByEmail = clienteRepository.findByEmailAndPasswordAdmin(email,password);
+        Cliente foundByEmail = clienteRepository.findByEmailAndPasswordCliente(email,password);
         return foundByEmail;
     }
 

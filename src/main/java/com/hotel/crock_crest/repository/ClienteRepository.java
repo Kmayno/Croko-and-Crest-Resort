@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     // Per login (ricerca per email e password)
-    Cliente findByEmailAndPasswordAdmin(String email, String passwordAdmin);
+    Cliente findByEmailAndPasswordCliente(String email, String passwordAdmin);
 }
