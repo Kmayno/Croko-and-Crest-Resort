@@ -54,7 +54,7 @@ public class ControllerCamere {
 
 //METODO DI RICHIESTA STANZA PER TIPO
 
-@GetMapping("/{tipo}")
+@GetMapping("getCamera/{tipo}")
 public List<Camera> getByType(@PathVariable String tipo) {
     return cs.getByType(tipo);
 }

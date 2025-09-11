@@ -223,7 +223,7 @@
           <a href="#" class="btn" onclick="getByType('singola')"
             >Controlla la disponibilità</a
           >
-          <ul id="standard"></ul>
+          <ul id="singola"></ul>
         </div>
       </div>
 
@@ -344,7 +344,7 @@
 
       //METODO PER I TIPI DI STANZA
       function getByType(tipo) {
-        fetch("http://localhost:8080/api/camere/" + tipo, {
+        fetch("http://localhost:8080/api/camere/getCamera/" + tipo, {
           method: "GET",
         })
           .then((res) => res.json())
