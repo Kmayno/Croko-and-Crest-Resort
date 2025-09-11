@@ -3,6 +3,7 @@ package com.hotel.crock_crest.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.hotel.crock_crest.model.OpzionePersonalizzazione;
@@ -24,6 +25,16 @@ public class ControllerOptions {
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    //endpoint per delete option by id
+    @DeleteMapping("/delete/{id}")
+    public void deleteById(@PathVariable Integer id){
+        os.deleteOption(id);
+    }
+    @PutMapping("/update")
+    public ResponseEntity<OpzionePersonalizzazione> updateById(@RequestBody OpzionePersonalizzazione op){
+        OpzionePersonalizzazione updated = os.updateOption(op);
+        return ResponseEntity.ok(updated);  // ritorna l'opzione aggiornata
+    }
 
     //METODO DI RICHIESTA PER TUTTE LE OPZIONI
     @GetMapping("/getAllOptions")
