@@ -1,62 +1,59 @@
+const token = localStorage.getItem("token");
+const nome = localStorage.getItem("adminNome");
 
-    const token = localStorage.getItem("token");
-    const nome = localStorage.getItem("adminNome");
-
-    if (!token) {
+if (!token) {
     window.location.href = "AdminLogin.html";
 }
 
-    document.getElementById("welcome").textContent = `Ciao ${nome}, benvenuto!`;
+document.getElementById("welcome").textContent = `Ciao ${nome}, benvenuto!`;
 
-    // Logout
-    document.getElementById("logoutBtn").addEventListener("click", () => {
+// Logout
+document.getElementById("logoutBtn").addEventListener("click", () => {
     localStorage.removeItem("token");
     localStorage.removeItem("adminNome");
     window.location.href = "AdminLogin.html";
 });
 
-    // --- MODAL ELIMINA ---
-    let adminToDelete = null;
+// --- MODAL ELIMINA ---
+let adminToDelete = null;
 
-    function openModal(admin, card) {
+function openModal(admin, card) {
     adminToDelete = {...admin, card};
     document.getElementById("modalText").textContent = `Sei sicuro di voler eliminare ${admin.nome}?`;
     document.getElementById("deleteModal").classList.remove("hidden");
 }
 
-    function closeModal() {
+function closeModal() {
     adminToDelete = null;
     document.getElementById("deleteModal").classList.add("hidden");
 }
 
-    document.getElementById("cancelDelete").addEventListener("click", closeModal);
-    document.getElementById("closeModal").addEventListener("click", closeModal);
+document.getElementById("cancelDelete").addEventListener("click", closeModal);
+document.getElementById("closeModal").addEventListener("click", closeModal);
 
-    document.getElementById("confirmDelete").addEventListener("click", () => {
+document.getElementById("confirmDelete").addEventListener("click", () => {
     if (!adminToDelete) return;
 
     fetch(`http://localhost:8080/api/admin-login/delete/${adminToDelete.idAdmin}`, {
-    method: "DELETE",
-    headers: {
-    "Authorization": `Bearer ${token}`,
-    "Content-Type": "application/json"
-}
-})
-    .then(response => {
-    if (!response.ok) throw new Error("Errore durante l'eliminazione");
-    adminToDelete.card.remove();
-    closeModal();
-})
-    .catch(err => {
-    alert(err.message);
-    closeModal();
-});
+        method: "DELETE", headers: {
+            "Authorization": `Bearer ${token}`, "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) throw new Error("Errore durante l'eliminazione");
+            adminToDelete.card.remove();
+            closeModal();
+        })
+        .catch(err => {
+            alert(err.message);
+            closeModal();
+        });
 });
 
-    // --- MODAL MODIFICA ---
-    let adminToEdit = null;
+// --- MODAL MODIFICA ---
+let adminToEdit = null;
 
-    function openEditModal(admin, card) {
+function openEditModal(admin, card) {
     adminToEdit = {...admin, card};
     document.getElementById("editId").value = admin.idAdmin;
     document.getElementById("editNome").value = admin.nome;
@@ -65,97 +62,86 @@
     document.getElementById("editModal").classList.remove("hidden");
 }
 
-    function closeEditModal() {
+function closeEditModal() {
     adminToEdit = null;
     document.getElementById("editModal").classList.add("hidden");
 }
 
-    document.getElementById("cancelEdit").addEventListener("click", closeEditModal);
-    document.getElementById("closeEditModal").addEventListener("click", closeEditModal);
+document.getElementById("cancelEdit").addEventListener("click", closeEditModal);
+document.getElementById("closeEditModal").addEventListener("click", closeEditModal);
 
-    document.getElementById("editAdminForm").addEventListener("submit", (e) => {
+document.getElementById("editAdminForm").addEventListener("submit", (e) => {
     e.preventDefault();
     if (!adminToEdit) return;
 
     const updatedAdmin = {
-    idAdmin: document.getElementById("editId").value,
-    nome: document.getElementById("editNome").value,
-    email: document.getElementById("editEmail").value,
-    passwordAdmin: document.getElementById("editPassword").value
-};
+        idAdmin: document.getElementById("editId").value, nome: document.getElementById("editNome").value, email: document.getElementById("editEmail").value, passwordAdmin: document.getElementById("editPassword").value
+    };
 
     fetch("http://localhost:8080/api/admin-login/update", {
-    method: "PUT",
-    headers: {
-    "Authorization": `Bearer ${token}`,
-    "Content-Type": "application/json"
-},
-    body: JSON.stringify(updatedAdmin)
-})
-    .then(response => {
-    if (!response.ok) throw new Error("Errore durante la modifica");
-    return response.json();
-})
-    .then(() => {
-    loadAdmins(); // ricarico lista aggiornata
-    closeEditModal();
-})
-    .catch(err => {
-    alert(err.message);
-    closeEditModal();
-});
+        method: "PUT", headers: {
+            "Authorization": `Bearer ${token}`, "Content-Type": "application/json"
+        }, body: JSON.stringify(updatedAdmin)
+    })
+        .then(response => {
+            if (!response.ok) throw new Error("Errore durante la modifica");
+            return response.json();
+        })
+        .then(() => {
+            loadAdmins(); // ricarico lista aggiornata
+            closeEditModal();
+        })
+        .catch(err => {
+            alert(err.message);
+            closeEditModal();
+        });
 });
 
-    // --- MODAL ELIMINA PRENOTAZIONE ---
-    let prenotazioneToDelete = null;
+// --- MODAL ELIMINA PRENOTAZIONE ---
+let prenotazioneToDelete = null;
 
-    function openPrenModal(prenotazione, card) {
+function openPrenModal(prenotazione, card) {
     prenotazioneToDelete = {...prenotazione, card};
-    document.getElementById("prenModalText").textContent =
-    `Sei sicuro di voler eliminare la prenotazione #${prenotazione.idPrenotazione}?`;
+    document.getElementById("prenModalText").textContent = `Sei sicuro di voler eliminare la prenotazione #${prenotazione.idPrenotazione}?`;
     document.getElementById("deletePrenModal").classList.remove("hidden");
 }
 
-    function closePrenModal() {
+function closePrenModal() {
     prenotazioneToDelete = null;
     document.getElementById("deletePrenModal").classList.add("hidden");
 }
 
-    document.getElementById("cancelPrenDelete").addEventListener("click", closePrenModal);
-    document.getElementById("closePrenModal").addEventListener("click", closePrenModal);
+document.getElementById("cancelPrenDelete").addEventListener("click", closePrenModal);
+document.getElementById("closePrenModal").addEventListener("click", closePrenModal);
 
-    document.getElementById("confirmPrenDelete").addEventListener("click", () => {
+document.getElementById("confirmPrenDelete").addEventListener("click", () => {
     if (!prenotazioneToDelete) return;
 
     fetch(`http://localhost:8080/api/prenotazioni/${prenotazioneToDelete.idPrenotazione}`, {
-    method: "DELETE",
-    headers: {
-    "Authorization": `Bearer ${token}`,
-    "Content-Type": "application/json"
-}
-})
-    .then(response => {
-    if (!response.ok) {
-    return response.text().then(msg => {
-    throw new Error(msg);
-});
-}
-    loadPrenotazioni(); // aggiorna lista
-    closePrenModal();
-})
-    .catch(err => {
-    alert("Errore: " + err.message);
-    closePrenModal();
-});
+        method: "DELETE", headers: {
+            "Authorization": `Bearer ${token}`, "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(msg => {
+                    throw new Error(msg);
+                });
+            }
+            loadPrenotazioni(); // aggiorna lista
+            closePrenModal();
+        })
+        .catch(err => {
+            alert("Errore: " + err.message);
+            closePrenModal();
+        });
 });
 
-    // --- CARICAMENTO ADMIN ---
-    function loadAdmins() {
+// --- CARICAMENTO ADMIN ---
+function loadAdmins() {
     fetch("http://localhost:8080/api/admin-login/getAllAdmin", {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
+        method: "GET", headers: {
+            "Authorization": `Bearer ${token}`, "Content-Type": "application/json"
         }
     })
         .then(response => {
@@ -199,13 +185,11 @@
         });
 }
 
-    // --- CARICAMENTO PRENOTAZIONI ---
-    function loadPrenotazioni() {
+// --- CARICAMENTO PRENOTAZIONI ---
+function loadPrenotazioni() {
     fetch("http://localhost:8080/api/prenotazioni", {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
+        method: "GET", headers: {
+            "Authorization": `Bearer ${token}`, "Content-Type": "application/json"
         }
     })
         .then(response => {
@@ -248,7 +232,7 @@
         });
 }
 
-    window.onload = () => {
+window.onload = () => {
     loadAdmins();
     loadPrenotazioni();
 };
