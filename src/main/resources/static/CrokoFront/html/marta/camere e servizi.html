@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel Master - Rooms</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #dcefe0;
+      }
+
+      .hero {
+        position: relative;
+        background: url("img/reception.jpg") no-repeat center center/cover;
+        color: #bbdfc4;
+        text-align: center;
+        padding: 6rem 1rem;
+        z-index: 1;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.3); /* overlay */
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        z-index: -1;
+      }
+      .title-card {
+        background-color: #dcefe0;
+        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        padding: 0.2rem 0.6rem; /* aggiungi un po’ di padding su verticale e orizzontale */
+        line-height: 1; /* evita spazi verticali extra */
+        font-size: 1rem; /* dimensiona il testo a piacere */
+      }
+
+      .rooms {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem;
+      }
+
+      .room-card {
+        display: flex;
+        align-items: center;
+        background-color: #5ea979;
+        border-radius: 12px;
+        overflow: hidden;
+        padding-left: 0.9rem;
+        margin-bottom: 1.5px;
+      }
+
+      .room-image {
+        width: 180px;
+        height: 180px;
+        flex-shrink: 0;
+        overflow: hidden;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .room-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .room-info {
+        padding: 2rem;
+        flex: 1px;
+      }
+
+      .room-info h3 {
+        margin: 1;
+        font-size: 1.4rem;
+        color: #193b28;
+      }
+
+      .room-info p {
+        margin: 1rem 0;
+        font-size: 1rem;
+      }
+
+      .btn1 {
+        margin: 10px;
+        padding: 15px 30px;
+        text-align: center;
+        text-transform: uppercase;
+        transition: 0.5s;
+        background-size: 200% auto;
+        color: #193b28;
+        border-radius: 10px;
+        display: block;
+        border: 0px;
+        font-weight: 700;
+        box-shadow: 0px 0px 14px -7px #dcefe0;
+        background-image: linear-gradient(
+          45deg,
+          #5ea979 0%,
+          #2f794d 51%,
+          #5ea979 100%
+        );
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+
+      .btn1:hover {
+        background-position: right center;
+        /* change the direction of the change here */
+        color: #fff;
+        text-decoration: none;
+      }
+
+      /* Modale per foto */
+      .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .modal-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .modal-content img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.5);
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-buttons {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .Tipologia {
+        text-align: center;
+        color: #1e4730;
+      }
+      .divider-section {
+        position: relative; /* fondamentale */
+        height: 120px; /* altezza per far vedere l’onda */
+        background: #dcefe0; /* colore sotto l’onda */
+      }
+      .custom-shape-divider-top-1757512142 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+      }
+      .custom-shape-divider-top-1757512142 svg {
+        position: relative;
+        display: block;
+        width: calc(133% + 1.3px);
+        height: 120px;
+      }
+      .custom-shape-divider-top-1757512142 .shape-fill {
+        fill: #5ea979; /* colore dell’onda */
+      }
+
+      .button-87:active {
+        transform: scale(0.95);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero">
+      <h1>Croco&Crest</h1>
+      <p>Ci auguriamo che il vostro soggiorno sia piacevole</p>
+      <div class="hero-buttons">
+        <a href="#rooms" class="btn1">Camere</a>
+        <a href="#services" class="btn1">Servizi</a>
+      </div>
+    </section>
+
+    <div class="Tipologie"><h1>Le tipologie di camera</h1></div>
+    <section class="rooms">
+      <div class="room-card" id="standard">
+        <div class="room-image" onclick="openModal('img/camera standard.jpg')">
+          <img src="img/camera standard.jpg" alt="Camera Standard" />
+        </div>
+        <div class="room-info">
+          <h3>Camera Standard</h3>
+          <p>SINGOLA rt essenziali.</p>
+          <a href="#" class="btn" onclick="getByType('singola')"
+            >Controlla la disponibilità</a
+          >
+          <ul id="standard"></ul>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <div class="room-image" onclick="openModal('img/camera matr.jpg')">
+          <img src="img/camera matr.jpg" alt="Camera Deluxe" />
+        </div>
+        <div class="room-info">
+          <h3>Camera Deluxe</h3>
+          <p>Spazio extra, arredamento moderno e vista panoramica.</p>
+          <a href="#" class="btn">Controlla la disponibilità</a>
+          <ul id="doppia"></ul>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <div class="room-image" onclick="openModal('img/camera suite 2.jpg')">
+          <img src="img/camera suite 2.jpg" alt="Suite" />
+        </div>
+        <div class="room-info">
+          <div class="title-card"><h3>Suite</h3></div>
+          <p>Il massimo del lusso, con area living e servizi esclusivi.</p>
+          <a
+            href="javascript:void(0)"
+            class="btn"
+            onclick="toggleDisponibilita(this)"
+            >Controlla la disponibilità</a
+          >
+          <div class="availability-list">
+            <ul id="suite"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Divider a onda -->
+    <section class="divider-section">
+      <div class="custom-shape-divider-top-1757512142">
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,
+      70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,
+      512.34,53.67,583,72.05c69.27,18,138.3,24.88,
+      209.4,13.08,36.15-6,69.85-17.84,
+      104.45-29.34C989.49,25,1113-14.29,
+      1200,52.47V0Z"
+            opacity=".25"
+            class="shape-fill"
+          ></path>
+          <path
+            d="M0,0V15.81C13,36.92,27.64,56.86,
+      47.69,72.05,99.41,111.27,165,111,
+      224.58,91.58c31.15-10.15,60.09-26.07,
+      89.67-39.8,40.92-19,84.73-46,
+      130.83-49.67,36.26-2.85,70.9,9.42,
+      98.6,31.56,31.77,25.39,62.32,62,
+      103.63,73,40.44,10.79,81.35-6.69,
+      119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,
+      113.28,22.88,168.9,38.84,30.2,8.66,
+      59,6.17,87.09-7.5,22.43-10.89,
+      48-26.93,60.65-49.24V0Z"
+            opacity=".5"
+            class="shape-fill"
+          ></path>
+          <path
+            d="M0,0V5.63C149.93,59,314.09,71.32,
+      475.83,42.57c43-7.64,84.23-20.12,
+      127.61-26.46,59-8.63,112.48,12.24,
+      165.56,35.4C827.93,77.22,886,95.24,
+      951.2,90c86.53-7,172.46-45.71,
+      248.8-84.81V0Z"
+            class="shape-fill"
+          ></path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Sezione Servizi -->
+    <div class="Tipologia"><h1>I nostri servizi</h1></div>
+    <section class="services">
+      <!-- card servizi -->
+    </section>
+
+    <!-- Modale -->
+    <div id="modal" class="modal" onclick="closeModal()">
+      <div id="modal-content" class="modal-content"></div>
+    </div>
+
+    <script>
+      function openModal(imageSrc) {
+        const modal = document.getElementById("modal");
+        const modalContent = document.getElementById("modal-content");
+        modal.style.display = "flex";
+        modalContent.innerHTML = `
+          <span class="close" onclick="closeModal()">&times;</span>
+          <img src="${imageSrc}" alt="Immagine ingrandita" />
+        `;
+      }
+
+      function closeModal() {
+        document.getElementById("modal").style.display = "none";
+      }
+
+      // --- Gestione Tendina Disponibilità ---
+      function toggleDisponibilita(button) {
+        const list = button.nextElementSibling;
+        if (list.style.display === "block") {
+          list.style.display = "none";
+        } else {
+          list.style.display = "block";
+        }
+      }
+
+      //METODO PER I TIPI DI STANZA
+      function getByType(tipo) {
+        fetch("http://localhost:8080/api/camere/" + tipo, {
+          method: "GET",
+        })
+          .then((res) => res.json())
+          .then((camere) => {
+            const container = document.getElementById(tipo);
+            container.innerHTML = "";
+            // Creo dinamicamente le card
+            camere.forEach((cam) => {
+              const card = document.createElement("li");
+              card.className = "room-card";
+              card.innerHTML = ` 
+        <div class="room-image" onclick="openModal('${cam.immagine}')">
+          <img src="${cam.immagine}" alt="${cam.nome}" />
+        </div>
+        <div class="room-info">
+          <h3>${cam.nome}</h3>
+          <p>${cam.descrizione}</p>
+          <select id="opzioni-${cam.id_camera}">
+            ${cam.opzioni
+              .map(
+                (op) =>
+                  `<option value="${op.id_opzione}">${op.nome} (+${op.prezzo}€)</option>`
+              )
+              .join("")}
+          </select>
+          <a href="#" class="btn" onclick="prenota(${
+            cam.id_camera
+          })">Controlla la disponibilità</a>
+        </div>
+      `;
+              container.appendChild(card);
+            });
+          });
+      }
+    </script>
+  </body>
+</html>

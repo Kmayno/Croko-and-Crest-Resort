@@ -3,6 +3,7 @@ package com.hotel.crock_crest.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hotel.crock_crest.model.Camera;
 import com.hotel.crock_crest.service.CamereService;
 
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("api/camere")
 public class ControllerCamere {
@@ -49,7 +51,16 @@ public class ControllerCamere {
     }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-    
+
+//METODO DI RICHIESTA STANZA PER TIPO
+
+@GetMapping("/{tipo}")
+public List<Camera> getByType(@PathVariable String tipo) {
+    return cs.getByType(tipo);
+}
+
+ // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
 //METODO DI MODIFICA PER UNA STANZA TRAMITE ID
 @PutMapping("/{id}")
 public String updateCamera(@PathVariable Integer id, @RequestBody Camera updatedCamera) {

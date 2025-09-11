@@ -21,15 +21,21 @@ public class CamereService {
         return findAllRooms;
     }
 
+     //METODO DI RICHIESTA DI UNA STANZA PER ID
+    public Camera findById(int id_camera){
+    return cr.findById(id_camera).orElse(null);
+    }
+
+    public List<Camera> getByType(String tipo) {
+        return cr.findByTipoCamera(tipo);
+    }
+
     //METODO PER AGGIUNGERE UNA STANZA AL DB
     public void addRoom(Camera c) {
         cr.save(c);
     }
 
-    //METODO DI RICHIESTA DI UNA STANZA PER ID
-    public Camera findById(int id_camera){
-    return cr.findById(id_camera).orElse(null);
-    }
+   
     
     //METODO DI MODIFICA DI UNA STANZA PER ID
     public String updateRoom(@PathVariable Integer idCamera, Camera updatedRoom) {
