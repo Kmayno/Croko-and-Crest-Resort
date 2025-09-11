@@ -20,6 +20,7 @@
         <button data-section="admins" class="menuBtn w-full text-left py-2 px-3 rounded hover:bg-green-800"> Gestione Admin</button>
         <button data-section="prenotazioni" class="menuBtn w-full text-left py-2 px-3 rounded hover:bg-green-800"> Gestione Prenotazioni</button>
         <button data-section="camere" class="menuBtn w-full text-left py-2 px-3 rounded hover:bg-green-800"> Gestione Camere</button>
+        <button data-section="aggiunte" class="menuBtn w-full text-left py-2 px-3 rounded hover:bg-green-800">Gestione Aggiunte</button>
     </nav>
 
     <div class="p-4 border-t border-green-800">
@@ -70,6 +71,23 @@
         </div>
         <div id="camereResult" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"></div>
     </div>
+
+
+    <!-- Sezione Aggiunte -->
+    <section id="section-aggiunte" class="hidden p-6">
+        <h2 class="text-lg text-gray-700 mb-6">Gestione Aggiunte</h2>
+
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold">Lista Aggiunte</h2>
+            <div class="space-x-2">
+                <button id="addOpzioneBtn" class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">+ Aggiungi Opzione</button>
+                <button id="refreshOpzioni" class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700">Aggiorna</button>
+            </div>
+        </div>
+
+        <div id="opzioniResult" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"></div>
+    </section>
+
 
 </main>
 
@@ -224,6 +242,46 @@
     </div>
 </div>
 
+<!-- MODAL elimina opzione -->
+<div id="deleteOpzioneModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
+    <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
+        <h3 class="text-lg font-bold mb-4">Conferma eliminazione</h3>
+        <p id="opzioneModalText" class="mb-6">Sei sicuro di voler eliminare questa opzione?</p>
+        <div class="flex justify-end space-x-3">
+            <button id="cancelOpzioneDelete" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Annulla</button>
+            <button id="confirmOpzioneDelete" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">Elimina</button>
+        </div>
+        <button id="closeOpzioneModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+    </div>
+</div>
+
+<!-- MODAL AGGIUNGI OPZIONE -->
+<div id="addOpzioneModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
+    <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
+        <h3 class="text-lg font-bold mb-4">Aggiungi Opzione</h3>
+
+        <form id="addOpzioneForm" class="space-y-4">
+            <div>
+                <label for="nomeOpzione" class="block text-sm font-medium text-gray-700">Nome Opzione</label>
+                <input type="text" id="nomeOpzione" name="nomeOpzione"
+                       class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm" required>
+            </div>
+
+            <div>
+                <label for="prezzoAggiuntivo" class="block text-sm font-medium text-gray-700">Prezzo Aggiuntivo (€)</label>
+                <input type="number" step="0.01" id="prezzoAggiuntivo" name="prezzoAggiuntivo"
+                       class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm" required>
+            </div>
+        </form>
+
+        <div class="flex justify-end space-x-3 mt-6">
+            <button id="cancelAddOpzione" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Annulla</button>
+            <button type="submit" form="addOpzioneForm" id="confirmAddOpzione" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Inserisci</button>
+        </div>
+
+        <button id="closeAddOpzioneModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+    </div>
+</div>
 
 <script>
     /*
@@ -671,6 +729,135 @@
                 .catch(err => showBanner(err.message, "red"));
         });
 
+
+
+        /////// gestione senzione personalizzazioni
+        const addOpzioneModal = document.getElementById("addOpzioneModal");
+        const addOpzioneBtn = document.getElementById("addOpzioneBtn");
+        const cancelAddOpzione = document.getElementById("cancelAddOpzione");
+        const closeAddOpzioneModal = document.getElementById("closeAddOpzioneModal");
+
+        function openAddOpzioneModal() {
+            document.getElementById("addOpzioneForm").reset();
+            addOpzioneModal.classList.remove("hidden");
+        }
+
+        function closeAddOpzioneModalFn() {
+            addOpzioneModal.classList.add("hidden");
+        }
+
+        addOpzioneBtn.addEventListener("click", openAddOpzioneModal);
+        cancelAddOpzione.addEventListener("click", closeAddOpzioneModalFn);
+        closeAddOpzioneModal.addEventListener("click", closeAddOpzioneModalFn);
+
+
+        document.getElementById("addOpzioneForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const newOpzione = {
+                nomeOpzione: document.getElementById("nomeOpzione").value,
+                prezzoAggiuntivo: parseFloat(document.getElementById("prezzoAggiuntivo").value)
+            };
+
+            const token = localStorage.getItem("token");
+
+            fetch("http://localhost:8080/api/options/addOption", {
+                method: "POST",
+                headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
+                body: JSON.stringify(newOpzione)
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error("Errore durante l'inserimento dell'opzione");
+                    closeAddOpzioneModalFn();
+                    loadOpzioni(); // ricarica lista opzioni
+                    showBanner("Opzione aggiunta con successo", "green");
+                })
+                .catch(err => showBanner(err.message, "red"));
+        });
+
+        let opzioneToDelete = null;
+
+        // Mostra la sezione
+        sections.aggiunte = document.getElementById('section-aggiunte');
+
+        document.getElementById('refreshOpzioni').addEventListener('click', loadOpzioni);
+
+        // Funzione per caricare le opzioni
+        function loadOpzioni() {
+            const resultDiv = document.getElementById('opzioniResult');
+            resultDiv.innerHTML = `<div class="col-span-full text-gray-500">Caricamento...</div>`;
+            const token = localStorage.getItem('token');
+
+            fetch('http://localhost:8080/api/options/getAllOptions', {
+                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
+            })
+                .then(res => res.ok ? res.json() : Promise.reject('Errore caricamento opzioni'))
+                .then(opzioni => renderOpzioni(opzioni))
+                .catch(err => {
+                    console.error(err);
+                    showBanner('Errore caricamento opzioni: ' + err, 'red');
+                    resultDiv.innerHTML = '';
+                });
+        }
+
+            // Renderizza le card delle opzioni
+        function renderOpzioni(opzioni) {
+            const resultDiv = document.getElementById('opzioniResult');
+            resultDiv.innerHTML = '';
+
+            opzioni.forEach(o => {
+                const card = document.createElement('div');
+                card.className = 'bg-white shadow rounded-2xl p-6 hover:shadow-lg transition';
+                card.innerHTML = `
+            <h3 class="text-lg font-bold text-gray-800 mb-2">${o.nomeOpzione}</h3>
+            <p class="text-gray-600 mb-2"><span class="font-medium">Prezzo aggiuntivo:</span> €${o.prezzoAggiuntivo}</p>
+            <div class="mt-4 flex justify-end space-x-2">
+                <button class="deleteOpzioneBtn bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg">Elimina</button>
+            </div>
+        `;
+
+                card.querySelector('.deleteOpzioneBtn').addEventListener('click', () => openDeleteOpzione(o, card));
+                resultDiv.appendChild(card);
+            });
+        }
+
+        // Modal elimina opzione
+        function openDeleteOpzione(opzione, card) {
+            opzioneToDelete = { ...opzione, card };
+            document.getElementById('opzioneModalText').textContent =
+                `Sei sicuro di voler eliminare l'opzione "${opzione.nomeOpzione}"?`;
+            document.getElementById('deleteOpzioneModal').classList.remove('hidden');
+        }
+
+        function closeDeleteOpzione() {
+            opzioneToDelete = null;
+            document.getElementById('deleteOpzioneModal').classList.add('hidden');
+        }
+
+        document.getElementById('cancelOpzioneDelete').addEventListener('click', closeDeleteOpzione);
+        document.getElementById('closeOpzioneModal').addEventListener('click', closeDeleteOpzione);
+
+        document.getElementById('confirmOpzioneDelete').addEventListener('click', async () => {
+            if (!opzioneToDelete) return;
+            const token = localStorage.getItem('token');
+
+            try {
+                const res = await fetch(`http://localhost:8080/api/opzioni/${opzioneToDelete.idOpzione}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
+                });
+
+                if (!res.ok) throw new Error(`Errore server (${res.status})`);
+
+                // rimuovi card dalla UI
+                opzioneToDelete.card.remove();
+                closeDeleteOpzione();
+                showBanner(`Opzione "${opzioneToDelete.nomeOpzione}" eliminata con successo`, 'green');
+
+            } catch (err) {
+                showBanner('Errore eliminazione: ' + err.message, 'red');
+            }
+        });
 
 
         // ===== HELPERS =====
