@@ -24,6 +24,17 @@ public class OptionService {
         or.save(op);
     }
 
+    public OpzionePersonalizzazione updateOption(OpzionePersonalizzazione op){
+        OpzionePersonalizzazione ex = or.findById(op.getIdOpzione())
+                .orElseThrow(() -> new RuntimeException("Opzione non trovata."));
+        ex.setNomeOpzione(op.getNomeOpzione());
+        ex.setPrezzoAggiuntivo(op.getPrezzoAggiuntivo());
+        return or.save(ex);  // ritorna l'entità salvata
+    }
+    //metodo per eliminare
+    public void deleteOption(Integer id){
+        or.deleteById(id);
+    }
 
 
 }
