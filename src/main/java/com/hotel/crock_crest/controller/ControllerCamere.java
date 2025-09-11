@@ -54,8 +54,8 @@ public String updateCamera(@PathVariable Integer id, @RequestBody Camera updated
     
 //METODO DI ELIMINAZIONE DI UNA STANZA TRAMITE ID
 @DeleteMapping("/{id}")
-public void deleteRoom (@PathVariable Integer idCamera) {
-    cs.deleteRoom(idCamera);
+public void deleteRoom (@PathVariable Integer id) {
+    cs.deleteRoom(id);
 }
 
 }
