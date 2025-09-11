@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="it">
   <head>
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hotel Master - Rooms</title>
@@ -38,7 +39,11 @@
         padding: 0.2rem 0.6rem; /* aggiungi un po’ di padding su verticale e orizzontale */
         line-height: 1; /* evita spazi verticali extra */
         font-size: 1rem; /* dimensiona il testo a piacere */
+          box-shadow: 0px 6px 24px 0px #0d2116(0, 0, 0, 0.2);
       }
+      .shadow10 {
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
 
       .rooms {
         display: flex;
@@ -89,7 +94,7 @@
         font-size: 1rem;
       }
 
-      .btn1 {
+      button.btn1 {
         margin: 10px;
         padding: 15px 30px;
         text-align: center;
@@ -114,12 +119,72 @@
         touch-action: manipulation;
       }
 
-      .btn1:hover {
+      button.btn1:hover {
         background-position: right center;
         /* change the direction of the change here */
         color: #fff;
         text-decoration: none;
       }
+button.btn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background:#dcefe0;
+  font-family: "Montserrat", sans-serif;
+  box-shadow: 0px 6px 24px 0px #0d2116(0, 0, 0, 0.2);
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+}
+
+button.btn:after {
+  content: " ";
+  width: 0%;
+  height: 100%;
+  background:#0d2116;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  right: 0;
+}
+
+button.btn:hover::after {
+  right: auto;
+  left: 0;
+  width: 100%;
+}
+
+button.btn span {
+  text-align: center;
+  text-decoration: none;
+  width: 80%;
+  padding: 18px 25px;
+  color: #2f794d;
+  font-size: 1.135em;
+  font-weight: 600;
+  z-index: 70;
+  transition: all 0.3s ease-in-out;
+}
+
+button.btn:hover span {
+  color:#2f794d;
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
 
       /* Modale per foto */
       .modal {
@@ -171,6 +236,7 @@
 
       .Tipologia {
         text-align: center;
+        display: flex;
         color: #1e4730;
       }
       .divider-section {
@@ -196,9 +262,7 @@
         fill: #5ea979; /* colore dell’onda */
       }
 
-      .button-87:active {
-        transform: scale(0.95);
-      }
+      
       /* slider orizzontale <<< AGGIUNTA */
 .slider {
   display: flex;
@@ -211,6 +275,25 @@
   flex-shrink: 0;
   padding: 2rem;
   box-sizing: border-box;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.service-card {
+  background: #5ea979;
+  color: #193b28;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
 }
     </style>
   </head>
@@ -272,73 +355,158 @@
       </section>
 
     <!-- SLIDER  -->
+<!-- SLIDER  -->
 <div id="slider" class="slider">
 
-  <!-- Pagina Camere  -->
+<!-- Pagina Camere -->
   <section class="page">
-      <section id="rooms" class="page">
-        <div class="Tipologie"><h1>Le tipologie di camera</h1></div>
-        <div class="rooms">
-          <div class="room-card" id="standard">
-            <div
-              class="room-image"
-              onclick="openModal('../marta/img/standard3.jpg')"
-            >
-              <img src="../marta/img/standard3.jpg" alt="Camera Standard" />
-            </div>
-            <div class="room-info">
-              <div class="title-card"><h3>Camera Standard</h3></div>
-              <p>SINGOLA rt essenziali.</p>
-              <a href="#" class="btn" onclick="getByType('singola')"
-                >Controlla la disponibilità</a
-              >
-              <ul id="singola"></ul>
-            </div>
-          </div>
-
-          <div class="room-card" id="deluxe">
-            <div
-              class="room-image"
-              onclick="openModal('../marta/img/camera matr.jpg')"
-            >
-              <img src="../marta/img/camera matr.jpg" alt="Camera Deluxe" />
-            </div>
-            <div class="room-info">
-              <div class="title-card"><h3>Camera Deluxe</h3></div>
-              <p>Spazio extra, arredamento moderno e vista panoramica.</p>
-              <a href="#" class="btn" onclick="getByType('doppia')"
-                >Controlla la disponibilità</a
-              >
-              <ul id="doppia"></ul>
-            </div>
-          </div>
-
-          <div class="room-card" id="suiteId">
-            <div
-              class="room-image"
-              onclick="openModal('../marta/img/camera suite 2.jpg')"
-            >
-              <img src="../marta/img/camera suite 2.jpg" alt="Suite" />
-            </div>
-            <div class="room-info">
-              <div class="title-card"><h3>Suite</h3></div>
-              <p>Il massimo del lusso, con area living e servizi esclusivi.</p>
-              <a href="#" class="btn" onclick="getByType('suite')"
-                >Controlla la disponibilità</a
-              >
-              <ul id="suite"></ul>
-            </div>
-          </div>
+    <div class="Tipologie"><h1>Le tipologie di camera</h1></div>
+    <div class="rooms">
+      <div class="room-card" id="standard">
+        <div class="room-image" onclick="openModal('../marta/img/standard3.jpg')">
+          <img src="../marta/img/standard3.jpg" alt="Camera Standard" />
         </div>
-      </section>
+        <div class="room-info">
+  <div class="title-card"><h3>Camera Standard</h3></div>
+
+  <!-- Icone-->
+  <div class="feature-icon">
+    <lord-icon 
+      src=../marta/img/bagno.json
+      trigger="hover"
+      style="width:70px;height:70px;">
+    </lord-icon>
+    <lord-icon 
+      src=../marta/img/pulizie.json
+      trigger="hover"
+      style="width:70px;height:68px;">
+    </lord-icon>
+    <lord-icon 
+      src=../marta/img/kit.json
+      trigger="hover"
+      style="width:70px;height:67px;">
+    </lord-icon>
+  </div>
+
+  <p>Camera dotata di: letto singolo, bagno, servizio pulizie, kit bagno e gli essenziali comfort.</p>
+
+  <button class="btn" onclick="getByType('singola'); toggleDisponibilita(this);">
+    <span>Visualizza tutte le camere standard</span>
+  </button>
+  <ul id="singola"></ul>
+</div>
+      </div>
+      <div class="room-card" id="deluxe">
+        <div class="room-image" onclick="openModal('../marta/img/camera matr.jpg')">
+          <img src="../marta/img/camera matr.jpg" alt="Camera Deluxe" />
+        </div>
+        <div class="room-info">
+          <div class="title-card"><h3>Camera Deluxe</h3></div>
+
+          <!-- Icone-->
+  <div class="feature-icon">
+    <lord-icon 
+      src=../marta/img/bagno.json
+      trigger="hover"
+      style="width:70px;height:70px;">
+    </lord-icon>
+    <lord-icon 
+      src=../marta/img/pulizie.json
+      trigger="hover"
+      style="width:70px;height:68px;">
+    </lord-icon>
+      <lord-icon 
+      src=../marta/img/kit.json
+      trigger="hover"
+      style="width:70px;height:67px;">
+    </lord-icon>
+  <lord-icon 
+      src=../marta/img/sveglia.json
+      trigger="hover"
+      style="width:68px;height:66px;">
+    </lord-icon>
+  </div>
+          <p>Camera dotata di: letto matrimoniale, bagno, servizio pulizie, kit bagno, sveglia, spazio extra e balcone.</p>
+           <button class="btn" onclick="getByType('doppia'); toggleDisponibilita(this);">
+      <span>Visualizza tutte le camere deluxe</span>
+    </button>
+          <ul id="doppia"></ul>
+        </div>
+      </div>
+      <div class="room-card" id="suiteId">
+        <div class="room-image" onclick="openModal('../marta/img/camera suite 2.jpg')">
+          <img src="../marta/img/camera suite 2.jpg" alt="Suite" />
+        </div>
+        <div class="room-info">
+          <div class="title-card"><h3>Suite</h3></div>
+          <!-- Icone-->
+  <div class="feature-icon">
+    <lord-icon 
+      src=../marta/img/bagno.json
+      trigger="hover"
+      style="width:70px;height:70px;">
+    </lord-icon>
+    <lord-icon 
+      src=../marta/img/pulizie.json
+      trigger="hover"
+      style="width:70px;height:68px;">
+    </lord-icon>
+      <lord-icon 
+      src=../marta/img/kit.json
+      trigger="hover"
+      style="width:70px;height:67px;">
+    </lord-icon>
+     <lord-icon 
+      src=../marta/img/notte.json
+      trigger="hover"
+      style="width:70px;height:68px;">
+    </lord-icon>
+    <lord-icon 
+      src=../marta/img/sofa.json
+      trigger="hover"
+      style="width:70px;height:68px;">
+    </lord-icon>
+  </div>
+          <p>Include in dotazione: letto matrimoniale, bagno, servizio pulizie, kit bagno, materasso extra comfort e area living.</p>
+           <button class="btn" onclick="getByType('suite'); toggleDisponibilita(this);">
+      <span>Visualizza tutte le suite</span>
+    </button>
+          <ul id="suite"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
    
 
-     <!-- Pagina Servizi <<< AGGIUNTA -->
+  
+  <!-- Pagina Servizi -->
   <section class="page">
-    <div class="Tipologia"><h1>I nostri servizi</h1></div>
-    <section class="services">
-      <!-- qui ci metti le card servizi -->
-    </section>
+    <div class="Tipologie"><h1>I nostri servizi</h1></div>
+    <div class="rooms">
+      <div class="room-card">
+        <div class="room-info">
+          <div class="title-card"><h3>Reception 24h</h3></div>
+          <div class="title-card"><h3>Ristorante</h3></div>
+          <div class="title-card"><h3>Parcheggio</h3></div>
+          <div class="title-card"><h3>Servizio Bagagli</h3></div>
+          <div class="title-card"><h3>Piscina</h3></div>
+          <div class="title-card"><h3>Area fitness</h3></div>
+    </div>
+      </div class="Servizi agg"><h1>I servizi aggiuntivi</h1></div>
+      <p>Il prezzo è fisso e non viene calcolato in base alle giornate di utilizzo.</p>
+      <div class="rooms">
+      <div class="room-card">
+      <div class="room-info">
+      <div class="title-card"><h3>WIFI premium</h3></div>
+      <div class="title-card"><h3>Zona Lavoro</h3></div>
+      <div class="title-card"><h3>Colazione in camera</h3></div>
+      <div class="title-card"><h3>Accesso spa</h3></div>
+    <div class="title-card"><h3>Pacchetto spa completo</h3></div>
+    <div class="title-card"><h3>Noleggio bike</h3></div>
+   <div class="title-card"><h3>Servizio lavanderia</h3></div>
+  <div class="title-card"><h3>Accesso area fitness</h3></div>
+ <div class="title-card"><h3>Angolo colazioni</h3></div>
+  <div class="title-card"><h3>Accesso buffet</h3></div>
   </section>
 
 </div>
@@ -364,7 +532,7 @@
       }
 
       // --- Slider Pages ---
-      function showSlide(index) {      // <<< AGGIUNTA
+      function showSlide(index) {  
   const slider = document.getElementById("slider");
   slider.style.transform = `translateX(-${index * 100}%)`;
 }
@@ -421,6 +589,27 @@
             });
           });
       }
+
+      const roomImages = {
+  standard: ["../marta/img/standard3.jpg", "../marta/img/bagno standard.jpg", "../marta/img/standard2.jpg", "../marta/img/camera standard.jpg"],
+  deluxe: ["../marta/img/camera matr.jpg", "../marta/img/deluxe balcone.jpg", "../marta/img/bagno deluxe.jpg", "../marta/img/camera balc.jpg"],
+  suiteId: ["../marta/img/suite4.jpg", "../marta/img/bagno suite.jpg", "../marta/img/suite natalizia.jpg", "../marta/img/ssuite.jpg"]
+};
+
+const currentImageIndex = { standard: 0, deluxe: 0, suiteId: 0 };
+
+function startCarousel(roomId, interval = 3000) {
+  const imgElement = document.querySelector(`#${roomId} .room-image img`);
+  setInterval(() => {
+    currentImageIndex[roomId] = (currentImageIndex[roomId] + 1) % roomImages[roomId].length;
+    imgElement.src = roomImages[roomId][currentImageIndex[roomId]];
+  }, interval);
+}
+
+// Avvia il carosello per ogni stanza
+startCarousel("standard");
+startCarousel("deluxe");
+startCarousel("suiteId");
     </script>
   </body>
 </html>
