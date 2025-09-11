@@ -199,6 +199,19 @@
       .button-87:active {
         transform: scale(0.95);
       }
+      /* slider orizzontale <<< AGGIUNTA */
+.slider {
+  display: flex;
+  width: 200%;         /* 2 pagine: camere e servizi */
+  transition: transform 0.7s ease-in-out;
+}
+
+.page {               /* <<< AGGIUNTA */
+  width: 100%;
+  flex-shrink: 0;
+  padding: 2rem;
+  box-sizing: border-box;
+}
     </style>
   </head>
   <body>
@@ -206,88 +219,32 @@
       <h1>Croco&Crest</h1>
       <p>Ci auguriamo che il vostro soggiorno sia piacevole</p>
       <div class="hero-buttons">
-        <a href="#rooms" class="btn1">Camere</a>
-        <a href="#services" class="btn1">Servizi</a>
+        <button class="btn1" onclick="showSlide(0)">Camere</button>
+<button class="btn1" onclick="showSlide(1)">Servizi</button>
+          
+        </button>
       </div>
-    </section>
-
-    <div class="Tipologie"><h1>Le tipologie di camera</h1></div>
-    <section class="rooms">
-      <div class="room-card" id="standard">
-        <div
-          class="room-image"
-          onclick="openModal('../marta/img/standard3.jpg')"
-        >
-          <img src="../marta/img/standard3.jpg" alt="Camera Standard" />
-        </div>
-        <div class="room-info">
-          <div class="title-card"><h3>Camera Standard</h3></div>
-          <p>SINGOLA rt essenziali.</p>
-          <a href="#" class="btn" onclick="getByType('singola')"
-            >Controlla la disponibilità</a
+    </section>   <!-- Divider a onda -->
+      <section class="divider-section">
+        <div class="custom-shape-divider-top-1757512142">
+          <svg
+            data-name="Layer 1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
           >
-          <ul id="singola"></ul>
-        </div>
-      </div>
-
-      <div class="room-card" id="deluxe">
-        <div
-          class="room-image"
-          onclick="openModal('../marta/img/camera matr.jpg')"
-        >
-          <img src="../marta/img/camera matr.jpg" alt="Camera Deluxe" />
-        </div>
-        <div class="room-info">
-          <div class="title-card"><h3>Camera Deluxe</h3></div>
-          <p>Spazio extra, arredamento moderno e vista panoramica.</p>
-          <a href="#" class="btn" onclick="getByType('doppia')"
-            >Controlla la disponibilità</a
-          >
-          <ul id="doppia"></ul>
-        </div>
-      </div>
-
-      <div class="room-card" id="suiteId">
-        <div
-          class="room-image"
-          onclick="openModal('../marta/img/camera suite 2.jpg')"
-        >
-          <img src="../marta/img/camera suite 2.jpg" alt="Suite" />
-        </div>
-         
-        <div class="room-info">
-          <div class="title-card"><h3>Suite</h3></div>
-          <p>Il massimo del lusso, con area living e servizi esclusivi.</p>
-          <a href="#" class="btn" onclick="getByType('suite')"
-            >Controlla la disponibilità</a
-          >
-            <ul id="suite"></ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Divider a onda -->
-    <section class="divider-section">
-      <div class="custom-shape-divider-top-1757512142">
-        <svg
-          data-name="Layer 1"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,
+            <path
+              d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,
       70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,
       512.34,53.67,583,72.05c69.27,18,138.3,24.88,
       209.4,13.08,36.15-6,69.85-17.84,
       104.45-29.34C989.49,25,1113-14.29,
       1200,52.47V0Z"
-            opacity=".25"
-            class="shape-fill"
-          ></path>
-          <path
-            d="M0,0V15.81C13,36.92,27.64,56.86,
+              opacity=".25"
+              class="shape-fill"
+            ></path>
+            <path
+              d="M0,0V15.81C13,36.92,27.64,56.86,
       47.69,72.05,99.41,111.27,165,111,
       224.58,91.58c31.15-10.15,60.09-26.07,
       89.67-39.8,40.92-19,84.73-46,
@@ -298,27 +255,93 @@
       113.28,22.88,168.9,38.84,30.2,8.66,
       59,6.17,87.09-7.5,22.43-10.89,
       48-26.93,60.65-49.24V0Z"
-            opacity=".5"
-            class="shape-fill"
-          ></path>
-          <path
-            d="M0,0V5.63C149.93,59,314.09,71.32,
+              opacity=".5"
+              class="shape-fill"
+            ></path>
+            <path
+              d="M0,0V5.63C149.93,59,314.09,71.32,
       475.83,42.57c43-7.64,84.23-20.12,
       127.61-26.46,59-8.63,112.48,12.24,
       165.56,35.4C827.93,77.22,886,95.24,
       951.2,90c86.53-7,172.46-45.71,
       248.8-84.81V0Z"
-            class="shape-fill"
-          ></path>
-        </svg>
-      </div>
-    </section>
+              class="shape-fill"
+            ></path>
+          </svg>
+        </div>
+      </section>
 
-    <!-- Sezione Servizi -->
+    <!-- SLIDER  -->
+<div id="slider" class="slider">
+
+  <!-- Pagina Camere  -->
+  <section class="page">
+      <section id="rooms" class="page">
+        <div class="Tipologie"><h1>Le tipologie di camera</h1></div>
+        <div class="rooms">
+          <div class="room-card" id="standard">
+            <div
+              class="room-image"
+              onclick="openModal('../marta/img/standard3.jpg')"
+            >
+              <img src="../marta/img/standard3.jpg" alt="Camera Standard" />
+            </div>
+            <div class="room-info">
+              <div class="title-card"><h3>Camera Standard</h3></div>
+              <p>SINGOLA rt essenziali.</p>
+              <a href="#" class="btn" onclick="getByType('singola')"
+                >Controlla la disponibilità</a
+              >
+              <ul id="singola"></ul>
+            </div>
+          </div>
+
+          <div class="room-card" id="deluxe">
+            <div
+              class="room-image"
+              onclick="openModal('../marta/img/camera matr.jpg')"
+            >
+              <img src="../marta/img/camera matr.jpg" alt="Camera Deluxe" />
+            </div>
+            <div class="room-info">
+              <div class="title-card"><h3>Camera Deluxe</h3></div>
+              <p>Spazio extra, arredamento moderno e vista panoramica.</p>
+              <a href="#" class="btn" onclick="getByType('doppia')"
+                >Controlla la disponibilità</a
+              >
+              <ul id="doppia"></ul>
+            </div>
+          </div>
+
+          <div class="room-card" id="suiteId">
+            <div
+              class="room-image"
+              onclick="openModal('../marta/img/camera suite 2.jpg')"
+            >
+              <img src="../marta/img/camera suite 2.jpg" alt="Suite" />
+            </div>
+            <div class="room-info">
+              <div class="title-card"><h3>Suite</h3></div>
+              <p>Il massimo del lusso, con area living e servizi esclusivi.</p>
+              <a href="#" class="btn" onclick="getByType('suite')"
+                >Controlla la disponibilità</a
+              >
+              <ul id="suite"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+   
+
+     <!-- Pagina Servizi <<< AGGIUNTA -->
+  <section class="page">
     <div class="Tipologia"><h1>I nostri servizi</h1></div>
     <section class="services">
-      <!-- card servizi -->
+      <!-- qui ci metti le card servizi -->
     </section>
+  </section>
+
+</div>
 
     <!-- Modale -->
     <div id="modal" class="modal" onclick="closeModal()">
@@ -340,6 +363,13 @@
         document.getElementById("modal").style.display = "none";
       }
 
+      // --- Slider Pages ---
+      function showSlide(index) {      // <<< AGGIUNTA
+  const slider = document.getElementById("slider");
+  slider.style.transform = `translateX(-${index * 100}%)`;
+}
+
+
       // --- Gestione Tendina Disponibilità ---
       function toggleDisponibilita(button) {
         const list = button.nextElementSibling;
@@ -351,6 +381,7 @@
       }
 
       //METODO PER I TIPI DI STANZA
+      // --- Fetch camere ---
       function getByType(tipo) {
         fetch("http://localhost:8080/api/camere/getCamera/" + tipo, {
           method: "GET",
