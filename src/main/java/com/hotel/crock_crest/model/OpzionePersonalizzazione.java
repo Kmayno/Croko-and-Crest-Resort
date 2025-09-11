@@ -2,6 +2,7 @@ package com.hotel.crock_crest.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,9 +22,11 @@ public class OpzionePersonalizzazione {
     private Double prezzoAggiuntivo;
 
     @OneToMany(mappedBy = "opzione", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<InventarioCamera> inventario;
 
     @OneToMany(mappedBy = "opzionePersonalizzazione", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<DettaglioPrenotazione> dettagliPrenotazioni;
 
     //qua andrebbe int o Long --da vedere

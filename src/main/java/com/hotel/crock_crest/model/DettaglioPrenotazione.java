@@ -1,5 +1,6 @@
 package com.hotel.crock_crest.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +25,7 @@ public class DettaglioPrenotazione {
 
     @ManyToOne
     @JoinColumn(name = "id_opzione")
+    @JsonBackReference
     private OpzionePersonalizzazione opzionePersonalizzazione;
 
     // costruttore & getter/setter
