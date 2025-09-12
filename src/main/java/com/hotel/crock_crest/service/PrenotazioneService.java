@@ -1,14 +1,19 @@
 package com.hotel.crock_crest.service;
 
-import com.hotel.crock_crest.model.*;
-import com.hotel.crock_crest.repository.*;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import com.hotel.crock_crest.model.DettaglioPrenotazione;
+import com.hotel.crock_crest.model.OpzionePersonalizzazione;
+import com.hotel.crock_crest.model.Prenotazione;
+import com.hotel.crock_crest.repository.DettaglioPrenotazioneRepository;
+import com.hotel.crock_crest.repository.OptionsRepository;
+import com.hotel.crock_crest.repository.PrenotazioneRepository;
 
 @Service
 public class PrenotazioneService {
@@ -22,7 +27,7 @@ public class PrenotazioneService {
     @Autowired
     private DettaglioPrenotazioneRepository dettaglioPrenotazioneRepository;
 
-    @Transactional
+    @Transactional // oggetti che non deve mappare sul database
     public Prenotazione save(Prenotazione prenotazione) {
         return prenotazioneRepository.save(prenotazione);
     }

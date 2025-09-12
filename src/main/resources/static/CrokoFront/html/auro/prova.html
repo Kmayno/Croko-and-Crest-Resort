@@ -1,241 +1,209 @@
-<!DOCTYPE html>
-<html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Navbar con Dropdown</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-gray-900 min-h-screen">
-    <!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
-    <div class="bg-gray-900">
-      <header class="absolute inset-x-0 top-0 z-50">
-        <nav
-          aria-label="Global"
-          class="flex items-center justify-between p-6 lg:px-8"
-        >
-          <div class="flex lg:flex-1">
-            <a href="#" class="-m-1.5 p-1.5">
-              <span class="sr-only">Your Company</span>
-              <img
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                alt=""
-                class="h-8 w-auto"
-              />
-            </a>
-          </div>
-          <div class="flex lg:hidden">
-            <button
-              type="button"
-              command="show-modal"
-              commandfor="mobile-menu"
-              class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
-            >
-              <span class="sr-only">Open main menu</span>
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                data-slot="icon"
-                aria-hidden="true"
-                class="size-6"
-              >
-                <path
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
-          <div class="hidden lg:flex lg:gap-x-12">
-            <a href="#" class="text-sm/6 font-semibold text-white">Product</a>
-            <a href="#" class="text-sm/6 font-semibold text-white">Features</a>
-            <a href="#" class="text-sm/6 font-semibold text-white"
-              >Marketplace</a
-            >
-            <a href="#" class="text-sm/6 font-semibold text-white">Company</a>
-          </div>
-          <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" class="text-sm/6 font-semibold text-white"
-              >Log in <span aria-hidden="true">&rarr;</span></a
-            >
-          </div>
-        </nav>
-        <el-dialog>
-          <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
-            <div tabindex="0" class="fixed inset-0 focus:outline-none">
-              <el-dialog-panel
-                class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10"
-              >
-                <div class="flex items-center justify-between">
-                  <a href="#" class="-m-1.5 p-1.5">
-                    <span class="sr-only">Your Company</span>
-                    <img
-                      src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                      alt=""
-                      class="h-8 w-auto"
-                    />
-                  </a>
-                  <button
-                    type="button"
-                    command="close"
-                    commandfor="mobile-menu"
-                    class="-m-2.5 rounded-md p-2.5 text-gray-200"
-                  >
-                    <span class="sr-only">Close menu</span>
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      data-slot="icon"
-                      aria-hidden="true"
-                      class="size-6"
-                    >
-                      <path
-                        d="M6 18 18 6M6 6l12 12"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </button>
-                </div>
-                <div class="mt-6 flow-root">
-                  <div class="-my-6 divide-y divide-white/10">
-                    <div class="space-y-2 py-6">
-                      <a
-                        href="#"
-                        class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                        >Product</a
-                      >
-                      <a
-                        href="#"
-                        class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                        >Features</a
-                      >
-                      <a
-                        href="#"
-                        class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                        >Marketplace</a
-                      >
-                      <a
-                        href="#"
-                        class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                        >Company</a
-                      >
-                    </div>
-                    <div class="py-6">
-                      <a
-                        href="#"
-                        class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
-                        >Log in</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </el-dialog-panel>
-            </div>
-          </dialog>
-        </el-dialog>
-      </header>
+<!-- FOOTER SECTION -->
+<footer>
+  <div class="relative mt-16 bg-[#193b28]">
+    <!-- parte "tonda" -->
+    <svg
+      class="absolute top-0 w-full h-6 -mt-5 sm:-mt-10 sm:h-16 text-purple-700"
+      preserveAspectRatio="none"
+      viewBox="0 0 1440 54"
+    >
+      <path
+        fill="#193b28"
+        d="M0 22L120 16.7C240 11 480 1.00001 720 0.700012C960 1.00001 1200 11 1320 16.7L1440 22V54H1320C1200 54 960 54 720 54C480 54 240 54 120 54H0V22Z"
+      ></path>
+    </svg>
 
-      <div class="relative isolate px-6 pt-14 lg:px-8">
-        <div
-          aria-hidden="true"
-          class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-        >
-          <div
-            style="
-              clip-path: polygon(
-                74.1% 44.1%,
-                100% 61.6%,
-                97.5% 26.9%,
-                85.5% 0.1%,
-                80.7% 2%,
-                72.5% 32.5%,
-                60.2% 62.4%,
-                52.4% 68.1%,
-                47.5% 58.3%,
-                45.2% 34.5%,
-                27.5% 76.7%,
-                0.1% 64.9%,
-                17.9% 100%,
-                27.6% 76.8%,
-                76.1% 97.7%,
-                74.1% 44.1%
-              );
-            "
-            class="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-288.75"
-          ></div>
-        </div>
-        <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div class="hidden sm:mb-8 sm:flex sm:justify-center">
-            <div
-              class="relative rounded-full px-3 py-1 text-sm/6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20"
-            >
-              Announcing our next round of funding.
-              <a href="#" class="font-semibold text-indigo-400"
-                ><span aria-hidden="true" class="absolute inset-0"></span>Read
-                more <span aria-hidden="true">&rarr;</span></a
-              >
-            </div>
-          </div>
-          <div class="text-center">
-            <h1
-              class="text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl"
-            >
-              Data to enrich your online business
-            </h1>
-            <p
-              class="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8"
-            >
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-              lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat.
+    <div
+      class="px-4 pt-12 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8"
+    >
+      <div class="grid gap-16 row-gap-10 mb-8 lg:grid-cols-6">
+        <!-- Logo + descrizione -->
+        <div class="md:max-w-md lg:col-span-2">
+          <a
+            href="../auro/homepage.html"
+            aria-label="Go home"
+            title="Company"
+            class="inline-flex items-center"
+          >
+            <img
+              src="../auro/homeImg/CROCOLOGO2.0.png"
+              alt="crocologo"
+              class="w-[120px] h-[120px] object-contain"
+            />
+          </a>
+          <div class="mt-4 lg:max-w-sm">
+            <p class="text-sm text-purple-50">
+              Un’oasi esclusiva dove il lusso incontra la serenità. Immerso tra
+              panorami mozzafiato e atmosfere raffinate, il resort offre un
+              soggiorno indimenticabile fatto di comfort moderni, esperienze
+              culinarie ricercate e momenti di autentico relax. A Croco&Crest
+              ogni dettaglio è pensato per rendere la tua vacanza unica.
             </p>
-            <div class="mt-10 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
-                class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                >Get started</a
-              >
-              <a href="#" class="text-sm/6 font-semibold text-white"
-                >Learn more <span aria-hidden="true">→</span></a
-              >
-            </div>
           </div>
         </div>
+
+        <!-- Colonne link -->
         <div
-          aria-hidden="true"
-          class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+          class="grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-4"
         >
-          <div
-            style="
-              clip-path: polygon(
-                74.1% 44.1%,
-                100% 61.6%,
-                97.5% 26.9%,
-                85.5% 0.1%,
-                80.7% 2%,
-                72.5% 32.5%,
-                60.2% 62.4%,
-                52.4% 68.1%,
-                47.5% 58.3%,
-                45.2% 34.5%,
-                27.5% 76.7%,
-                0.1% 64.9%,
-                17.9% 100%,
-                27.6% 76.8%,
-                76.1% 97.7%,
-                74.1% 44.1%
-              );
-            "
-            class="relative left-[calc(50%+3rem)] aspect-1155/678 w-144.5 -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-288.75"
-          ></div>
+          <div></div>
+          <div>
+            <p class="font-semibold tracking-wide text-[#8ec7a0]">Supporto</p>
+            <ul class="mt-2 space-y-2">
+              <li>
+                <a
+                  href="../auro/contatti.html"
+                  class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]"
+                  >Contatta l'assistenza Clienti</a
+                >
+              </li>
+              <li>
+                <a
+                  href="../auro/contatti.html"
+                  class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]"
+                  >Numeri utili</a
+                >
+              </li>
+              <li>
+                <a
+                  href="../auro/contatti.html"
+                  class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]"
+                  >Indirizzi</a
+                >
+              </li>
+              <li>
+                <a
+                  href="../auro/contatti.html"
+                  class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]"
+                  >Uffici</a
+                >
+              </li>
+              <li>
+                <a
+                  href="../auro/contatti.html"
+                  class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]"
+                  >Telefoni gratuiti</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold tracking-wide text-[#8ec7a0]">
+              Termini e impostazioni
+            </p>
+            <ul class="mt-2 space-y-2">
+              <li>
+                <a
+                  href="/"
+                  class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]"
+                  >Gestisci le impostazioni sui cookie</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/"
+                  class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]"
+                  >Privacy e cookie</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/"
+                  class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]"
+                  >Termini di Servizio</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/"
+                  class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]"
+                  >Risoluzione controversie</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/"
+                  class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]"
+                  >Gestisci i suggerimenti personalizzati</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold tracking-wide text-[#8ec7a0]">
+              I nostri partners
+            </p>
+            <ul class="mt-2 space-y-2">
+              <li>
+                <a
+                  href="../../../../../../../../../esercizi carini/crocosina/aerei-carini/auro/homepage.html"
+                  class="transition-colors duration-300 text-[#5ea979] hover:text-[#2f794d]"
+                  >CrocoTravels</a
+                >
+              </li>
+              <p class="text-sm text-[#f0f9f2]">
+                Grazie alla partnership con CrocoTravels, raggiungere il
+                Croco&Crest Resort è ancora più semplice ed esclusivo: voli
+                diretti sul celebre aereo a forma di coccodrillo, con comfort a
+                bordo e arrivo direttamente nel cuore del relax.
+              </p>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div
+        class="flex flex-col justify-between pt-5 pb-10 border-t border-purple-200 sm:flex-row"
+      >
+        <p class="text-sm text-gray-100">
+          © Copyright 2025 Croco&Crest Resort. All rights reserved.
+        </p>
+        <div class="flex items-center mt-4 space-x-4 sm:mt-0">
+          <a
+            href="/"
+            class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]"
+          >
+            <!-- Twitter -->
+            <svg viewBox="0 0 24 24" fill="currentColor" class="h-5">
+              <path
+                d="M24,4.6c-0.9,0.4-1.8,0.7-2.8,0.8c1-0.6,1.8-1.6,2.2-2.7c-1,0.6-2,1-3.1,1.2c-0.9-1-2.2-1.6-3.6-1.6 
+                    c-2.7,0-4.9,2.2-4.9,4.9c0,0.4,0,0.8,0.1,1.1C7.7,8.1,4.1,6.1,1.7,3.1C1.2,3.9,1,4.7,1,5.6c0,1.7,0.9,3.2,2.2,4.1 
+                    C2.4,9.7,1.6,9.5,1,9.1c0,0,0,0,0,0.1c0,2.4,1.7,4.4,3.9,4.8c-0.4,0.1-0.8,0.2-1.3,0.2c-0.3,0-0.6,0-0.9-0.1
+                    c0.6,2,2.4,3.4,4.6,3.4c-1.7,1.3-3.8,2.1-6.1,2.1c-0.4,0-0.8,0-1.2-0.1c2.2,1.4,4.8,2.2,7.5,2.2c9.1,0,14-7.5,14-14
+                    c0-0.2,0-0.4,0-0.6C22.5,6.4,23.3,5.5,24,4.6z"
+              ></path>
+            </svg>
+          </a>
+          <a
+            href="/"
+            class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]"
+          >
+            <!-- Instagram -->
+            <svg viewBox="0 0 30 30" fill="currentColor" class="h-6">
+              <circle cx="15" cy="15" r="4"></circle>
+              <path
+                d="M19.999,3h-10C6.14,3,3,6.141,3,10.001v10C3,23.86,6.141,27,10.001,27h10C23.86,27,27,23.859,27,19.999v-10   
+                    C27,6.14,23.859,3,19.999,3z M15,21c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S18.309,21,15,21z M22,9c-0.552,0-1-0.448-1-1   
+                    c0-0.552,0.448-1,1-1s1,0.448,1,1C23,8.552,22.552,9,22,9z"
+              ></path>
+            </svg>
+          </a>
+          <a
+            href="/"
+            class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]"
+          >
+            <!-- Facebook -->
+            <svg viewBox="0 0 24 24" fill="currentColor" class="h-5">
+              <path
+                d="M22,0H2C0.895,0,0,0.895,0,2v20c0,1.105,0.895,2,2,2h11v-9h-3v-4h3V8.413c0-3.1,1.893-4.788,4.659-4.788 
+                    c1.325,0,2.463,0.099,2.795,0.143v3.24l-1.918,0.001c-1.504,0-1.795,0.715-1.795,1.763V11h4.44l-1,4h-3.44v9H22c1.105,0,2-0.895,2-2 
+                    V2C24,0.895,23.105,0,22,0z"
+              ></path>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
-  </body>
-</html>
+  </div>
+</footer>
