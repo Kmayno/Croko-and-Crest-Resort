@@ -28,22 +28,23 @@ import com.hotel.crock_crest.service.CamereService;
 import com.hotel.crock_crest.service.ClienteService;
 import com.hotel.crock_crest.service.PrenotazioneService;
 
-@RestController
-@RequestMapping("/api/prenotazioni")
-@CrossOrigin(origins = "*")
+@RestController // setta gli endpoint che saranno chiamati dal client
+@RequestMapping("/api/prenotazioni") // mappa l'endpoint generale
+@CrossOrigin(origins = "*") // evita le politiche di cors (evita chiamate ad endpoint per sicurezza), possiamo fare delle chiamate al server da localhost
 public class ControllerPrenotazione {
 
-    @Autowired
+    @Autowired // dependency injection, invece di una classe che crea direttamente le sue dipendenze, queste le vengono "iniettate" dall'esterno
     private PrenotazioneService prenotazioneService;
     
     @Autowired
     private ClienteService clienteService;
     
     @Autowired
-    private CamereService camereService; // Cambiato da CameraService a CamereService
+    private CamereService camereService; 
 
     @PostMapping("addPrenotazione")
-    public ResponseEntity<?> creaPrenotazione(@RequestBody PrenotazioneRequest request) {
+    // reqEntity wrapper per risposte http, ci da controllo su body headers etc.
+    public ResponseEntity<?> creaPrenotazione(@RequestBody PrenotazioneRequest request) { // reqBody si pija il json
         try {
             // validazione dati in input
             if (request.getDataInizio().isAfter(request.getDataFine())) {
@@ -149,8 +150,8 @@ public class ControllerPrenotazione {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> aggiornaStatoPrenotazione(
-            @PathVariable Integer id,  // Cambiato da Long a Integer
-            @RequestParam boolean statoConfermato) {
+            @PathVariable Integer id,  // accetta dei parametri dall
+            @RequestParam boolean statoConfermato) { // accetta dei paramentri che sono nella querystring
         try {
             Optional<Prenotazione> prenotazioneOpt = prenotazioneService.findById(id);
             
