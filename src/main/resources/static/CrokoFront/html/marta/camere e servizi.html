@@ -517,31 +517,34 @@ button.btn:hover span {
     </div>
 
     <script>
-      function openModal(imageSrc) {
-        const modal = document.getElementById("modal");
-        const modalContent = document.getElementById("modal-content");
-        modal.style.display = "flex";
-        modalContent.innerHTML = `
-          <span class="close" onclick="closeModal()">&times;</span>
-          <img src="${imageSrc}" alt="Immagine ingrandita" />
-        `;
-      }
+  // --- Funzione per aprire la modale ---
+  function openModal(imageSrc) {
+    const modal = document.getElementById("modal"); // recupera il contenitore della modale
+    const modalContent = document.getElementById("modal-content"); // recupera il contenuto interno della modale
+    modal.style.display = "flex"; // mostra la modale
+    // inserisce dentro la modale la X per chiuderla e l'immagine ingrandita
+    modalContent.innerHTML = `
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img src="${imageSrc}" alt="Immagine ingrandita" />
+    `;
+  }
 
-      function closeModal() {
-        document.getElementById("modal").style.display = "none";
-      }
+  // --- Funzione per chiudere la modale ---
+  function closeModal() {
+    document.getElementById("modal").style.display = "none"; // nasconde la modale
+  }
 
       // --- Slider Pages ---
       function showSlide(index) {  
-  const slider = document.getElementById("slider");
-  slider.style.transform = `translateX(-${index * 100}%)`;
+  const slider = document.getElementById("slider");    
+  slider.style.transform = `translateX(-${index * 100}%)`;//sposta lo slider in base all’indice (effetto scorrimento orizzontale)
 }
 
 
       // --- Gestione Tendina Disponibilità ---
       function toggleDisponibilita(button) {
-        const list = button.nextElementSibling;
-        if (list.style.display === "block") {
+        const list = button.nextElementSibling;   // prende la lista subito dopo il bottone
+        if (list.style.display === "block") {  // Controlla se la lista è già visibile (display = "block"):
           list.style.display = "none";
         } else {
           list.style.display = "block";
@@ -549,33 +552,22 @@ button.btn:hover span {
       }
 
       //METODO PER I TIPI DI STANZA
-      // --- Fetch camere ---
+      // --- FUNZIONE: recupera dal server tutte le camere di un certo tipo ---
       function getByType(tipo) {
         fetch("http://localhost:8080/api/camere/getCamera/" + tipo, {
           method: "GET",
         })
-          .then((res) => res.json())
+          .then((res) => res.json()) // converte la risposta JSON in array di camere
           .then((camere) => {
             console.log("Dati ricevuti dal server:", camere);
-            const container = document.getElementById(tipo);
+            const container = document.getElementById(tipo);// contenitore delle camere
             container.innerHTML = "";
 
-            camere.forEach((cam) => {
+            camere.forEach((cam) => {   // Cicla su ogni camera ricevuta dal backend
               console.log("Singola camera:", cam);
               console.log("Opzioni di questa camera:", cam.opzioni);
 
-              // Crei la variabile opzioniHTML (corretto)
-              /*const opzioniHTML =
-                cam.opzioni && cam.opzioni.length > 0
-                  ? cam.opzioni
-                      .map(
-                        (op) =>
-                          `<option value="${op.id_opzione}">${op.nome} (+${op.prezzo}€)</option>`
-                      )
-                      .join("")
-                  : '<option value="">Nessuna opzione disponibile</option>';*/
-
-              const card = document.createElement("li");
+              const card = document.createElement("li"); // Crea una card <li> per la camera
               card.className = "room-card";
               card.innerHTML = ` 
           <div class="room-info">
@@ -585,24 +577,27 @@ button.btn:hover span {
             
           </div>
         `;
-              container.appendChild(card);
+              container.appendChild(card); // aggiunge la card al contenitore
             });
           });
       }
 
+        // --- Oggetto che contiene le immagini di ogni tipo di stanza ---
       const roomImages = {
   standard: ["../marta/img/standard3.jpg", "../marta/img/bagno standard.jpg", "../marta/img/standard2.jpg", "../marta/img/camera standard.jpg"],
   deluxe: ["../marta/img/camera matr.jpg", "../marta/img/deluxe balcone.jpg", "../marta/img/bagno deluxe.jpg", "../marta/img/camera balc.jpg"],
   suiteId: ["../marta/img/suite4.jpg", "../marta/img/bagno suite.jpg", "../marta/img/suite natalizia.jpg", "../marta/img/ssuite.jpg"]
 };
-
+  // Tiene traccia dell'indice dell'immagine corrente per ogni tipo di stanza
 const currentImageIndex = { standard: 0, deluxe: 0, suiteId: 0 };
 
-function startCarousel(roomId, interval = 3000) {
+ // --- FUNZIONE: avvia il carosello di immagini automatico ---
+function startCarousel(roomId, interval = 3000) { // cambia immagine ogni intervallo di millisecondi
   const imgElement = document.querySelector(`#${roomId} .room-image img`);
   setInterval(() => {
+     // Aggiorna l’indice (scorre ciclicamente tra le immagini disponibili)
     currentImageIndex[roomId] = (currentImageIndex[roomId] + 1) % roomImages[roomId].length;
-    imgElement.src = roomImages[roomId][currentImageIndex[roomId]];
+    imgElement.src = roomImages[roomId][currentImageIndex[roomId]]; // cambia l’immagine visualizzata nel carosello
   }, interval);
 }
 
