@@ -1,6 +1,12 @@
 package com.hotel.crock_crest.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "admin")
@@ -18,7 +24,7 @@ public class Admin {
     @Column(name = "email")
     private String email;
 
-    @Transient
+    @Transient 
     private String token;
 
     public Admin(){}
