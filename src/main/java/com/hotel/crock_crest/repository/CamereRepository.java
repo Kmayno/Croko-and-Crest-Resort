@@ -11,4 +11,5 @@ import com.hotel.crock_crest.model.Camera;
 public interface CamereRepository extends JpaRepository<Camera, Integer> {
 
     List<Camera> findByTipoCamera(String tipo);
+    
 }
