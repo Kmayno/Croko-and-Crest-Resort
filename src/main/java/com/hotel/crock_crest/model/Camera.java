@@ -24,6 +24,21 @@ public class Camera {
     @Column(name = "disponibile")
     private Boolean disponibile;
 
+    public Camera(int idCamera, String numeroStanza, String tipoCamera, String descrizione, Double prezzoBaseNotte,
+            Boolean disponibile, List<InventarioCamera> inventario, List<Prenotazione> prenotazioni) {
+        this.idCamera = idCamera;
+        this.numeroStanza = numeroStanza;
+        this.tipoCamera = tipoCamera;
+        this.descrizione = descrizione;
+        this.prezzoBaseNotte = prezzoBaseNotte;
+        this.disponibile = disponibile;
+        this.inventario = inventario;
+        this.prenotazioni = prenotazioni;
+    }
+
+    public Camera() {
+    }
+
     public int getIdCamera() {
         return idCamera;
     }
