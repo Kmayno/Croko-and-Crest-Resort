@@ -194,12 +194,46 @@ document.addEventListener('DOMContentLoaded', () => {
         <p class="text-gray-600"><span class="font-medium">Check-out:</span> ${pr.dataFine}</p>
         <p class="text-gray-600"><span class="font-medium">Stanza:</span> ${pr.numeroStanza}</p>
         <p class="text-gray-600"><span class="font-medium">Prezzo:</span> ${pr.prezzoTotale}</p>
+        <p class="text-gray-600 flex items-center space-x-2">
+            <span class="font-medium">Stato:</span> 
+                <input 
+                    type="checkbox" 
+                    class="togglePrenotazione" 
+                    data-id="${pr.idPrenotazione}" 
+                    ${pr.statoPrenotazione ? "checked" : ""}>
+            <span>${pr.statoPrenotazione ? "Confermata" : "Non confermata"}</span>
+        </p>
+
         <div class="mt-4 flex justify-end">
           <button class="deletePrenBtn bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg">Elimina</button>
         </div>
       `;
             card.querySelector('.deletePrenBtn').addEventListener('click', () => openDeletePren(pr, card));
             prenDiv.appendChild(card);
+        });
+        document.querySelectorAll(".togglePrenotazione").forEach(chk => {
+            chk.addEventListener("change", async (e) => {
+                const id = e.target.dataset.id;
+                const nuovoStato = e.target.checked; // true/false
+
+                try {
+                    const res = await fetch(`http://localhost:8080/api/prenotazioni/${id}?statoConfermato=${nuovoStato}`, {
+                        method: "PUT",
+                        headers: { "Authorization": `Bearer ${token}` }
+                    });
+
+                    if (!res.ok) throw new Error("Errore aggiornamento stato");
+
+                    showBanner(
+                        `Prenotazione #${id} aggiornata a ${nuovoStato ? "Confermata" : "Non confermata"}`,
+                        "green"
+                    );
+                    loadPrenotazioni(); // ricarica la lista aggiornata
+                } catch (err) {
+                    showBanner("Errore: " + err.message, "red");
+                    e.target.checked = !nuovoStato; // rollback se fallisce
+                }
+            });
         });
     }
 
