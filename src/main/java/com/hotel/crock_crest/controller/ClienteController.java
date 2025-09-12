@@ -1,27 +1,22 @@
 package com.hotel.crock_crest.controller;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.hotel.crock_crest.model.Admin;
 import com.hotel.crock_crest.model.Cliente;
 import com.hotel.crock_crest.model.Prenotazione;
 import com.hotel.crock_crest.service.ClienteService;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import com.hotel.crock_crest.model.Cliente;
 
 @RestController
 @RequestMapping("/api/cliente")
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public class ClienteController {
 
 	private final ClienteService clienteService;
@@ -32,15 +27,21 @@ public class ClienteController {
 	}
 
 	// metodo post per registrare un cliente
-/*	 @PostMapping
-     public Cliente registraCliente(@RequestBody Cliente cliente) {
-        return clienteService.saveCliente(cliente);
-    }*/
+	 @PostMapping("/addCliente")
+     public void addCliente(@RequestBody Cliente cliente) {
+         clienteService.addCliente(cliente);
+    }
 
-	//metodo post per il login
-	@PostMapping("/login")
-   		public Optional<Cliente> loginCliente(@RequestParam String email, @RequestParam String password) {
-       	 return clienteService.login(email, password);
+    @GetMapping("/login")
+    public ResponseEntity<Cliente> login(@RequestParam String email, @RequestParam String password) {
+        Cliente c = clienteService.findByEmailAndPass(email, password);
+        if (c == null)
+            return ResponseEntity.status(404).body(null);
+        if (!password.equals(c.getPasswordCliente()))
+            return ResponseEntity.status(404).body(null);;
+        String token = UUID.randomUUID().toString();
+        c.setToken(token);
+        return ResponseEntity.ok(c);
     }
 
 	// metodo get per visualizzare le prenotazioni di un cliente tramite ricerca per id
@@ -63,14 +64,7 @@ public class ClienteController {
 
 	//metodo delete per eliminare un cliente tramite ricerca per id
 	 @DeleteMapping("/{id}")
-   public boolean deleteCliente(@PathVariable Integer id) {
-        return clienteService.deleteCliente(id);
+   public void deleteCliente(@PathVariable Integer id) {
+        clienteService.deleteCliente(id);
     }
-
-	@GetMapping("/getAllClienti")
-	public List<Cliente> getAllClienti() {
-		List<Cliente> getAll = clienteService.getAllClienti();
-		return getAll;
-	}
-	
 }

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrazione</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-green-700 via-green-800 to-green-900 flex items-center justify-center h-screen">
+
+<div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+    <div class="flex justify-center mb-6">
+        <img src="CROCOLOGO20.png" alt="Logo" class="w-full h-32 object-contain mb-6">
+    </div>
+
+    <form id="registerForm" class="space-y-5">
+        <div>
+            <label for="name" class="block text-sm font-medium text-gray-700">Nome</label>
+            <input type="text" id="name" required
+                   class="mt-1 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+        </div>
+
+        <div>
+            <label for="cognome" class="block text-sm font-medium text-gray-700">Cognome</label>
+            <input type="text" id="cognome" required
+                   class="mt-1 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+        </div>
+
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input type="email" id="email" required
+                   class="mt-1 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+        </div>
+
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <input type="password" id="password" required
+                   class="mt-1 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+        </div>
+
+        <div>
+            <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Conferma Password</label>
+            <input type="password" id="confirmPassword" required
+                   class="mt-1 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+        </div>
+
+        <button type="submit"
+                class="w-full bg-green-600 text-white py-2 px-4 rounded-lg shadow hover:bg-green-700 transition duration-200">
+            Registrati
+        </button>
+    </form>
+
+    <!-- Link per tornare al login -->
+    <div class="mt-4 text-center">
+        <a href="UserLogin.html" class="text-sm text-green-700 hover:underline">Hai già un account? Accedi</a>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+    <div class="bg-white rounded-2xl p-6 max-w-sm w-full text-center shadow-lg">
+        <h2 class="text-xl font-semibold text-green-700 mb-4">Registrazione avvenuta con successo!</h2>
+        <button id="closeModal"
+                class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-200">
+            Chiudi
+        </button>
+    </div>
+</div>
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const nome = document.getElementById("name").value;
+        const cognome = document.getElementById("cognome").value;
+        const email = document.getElementById("email").value;
+        const passwordCliente = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (passwordCliente !== confirmPassword) {
+            alert("Le password non coincidono!");
+            return;
+        }
+
+        const cliente = { nome, cognome, email, passwordCliente };
+
+        try {
+            const response = await fetch("http://localhost:8080/api/cliente/addCliente", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(cliente)
+            });
+
+            if (response.ok) {
+                document.getElementById("successModal").classList.remove("hidden");
+                document.getElementById("successModal").classList.add("flex");
+            } else {
+                alert("Errore durante la registrazione");
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Errore di connessione al server");
+        }
+    });
+
+    document.getElementById("closeModal").addEventListener("click", function() {
+        // Chiudo il modal
+        document.getElementById("successModal").classList.add("hidden");
+        // Reindirizzo al login
+        window.location.href = "UserLogin.html";
+    });
+</script>
+
+
+</body>
+</html>

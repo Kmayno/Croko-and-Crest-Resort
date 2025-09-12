@@ -3,15 +3,7 @@ package com.hotel.crock_crest.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hotel.crock_crest.model.Camera;
 import com.hotel.crock_crest.service.CamereService;
@@ -19,6 +11,7 @@ import com.hotel.crock_crest.service.CamereService;
 @CrossOrigin(origins="*")
 @RestController
 @RequestMapping("api/camere")
+@CrossOrigin(origins = "*")
 public class ControllerCamere {
 
     @Autowired
@@ -71,8 +64,8 @@ public String updateCamera(@PathVariable Integer id, @RequestBody Camera updated
     
 //METODO DI ELIMINAZIONE DI UNA STANZA TRAMITE ID
 @DeleteMapping("/{id}")
-public void deleteRoom (@PathVariable Integer idCamera) {
-    cs.deleteRoom(idCamera);
+public void deleteRoom (@PathVariable Integer id) {
+    cs.deleteRoom(id);
 }
 
 }

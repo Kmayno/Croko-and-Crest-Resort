@@ -51,8 +51,8 @@ public class CamereService {
     }
 
     //METODO DI ELIMINAZIONE DI UNA STANZA PER ID
-    public void deleteRoom (@PathVariable Integer idCamera) {
-        cr.deleteById(idCamera);
+    public void deleteRoom (@PathVariable Integer id) {
+        cr.deleteById(id);
     }
 
 }
