@@ -1,13 +1,3 @@
 #pop {
   margin-top: 320px;
 }
-
-.video-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Mantiene proporzioni e riempie l'area */
-  z-index: -1; /* Sta dietro al contenuto */
-}
