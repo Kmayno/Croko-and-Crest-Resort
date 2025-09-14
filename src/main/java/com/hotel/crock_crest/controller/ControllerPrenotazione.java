@@ -263,6 +263,54 @@ public class ControllerPrenotazione {
         }
     }
 
+    // Endpoint per calcolare il prezzo di una prenotazione
+    @PostMapping("/calculatePrice")
+    public ResponseEntity<?> calculatePrice(@RequestBody PrenotazioneRequest request) {
+        try {
+            // Validazione dati in input
+            if (request.getDataInizio().isAfter(request.getDataFine())) {
+                return ResponseEntity.badRequest()
+                    .body("Errore: La data di inizio non può essere successiva alla data di fine");
+            }
+            
+            if (request.getDataInizio().isBefore(LocalDate.now())) {
+                return ResponseEntity.badRequest()
+                    .body("Errore: Non puoi prenotare nel passato");
+            }
+
+            // verifica che camera esista
+            Camera camera = camereService.findById(request.getIdCamera());
+            if (camera == null) {
+                return ResponseEntity.badRequest()
+                    .body("Errore: Camera non trovata");
+            }
+            
+            if (!camera.getDisponibile()) {
+                return ResponseEntity.badRequest()
+                    .body("Errore: Camera non disponibile");
+            }
+
+            // calcola il prezzo totale
+            long numeroNotti = ChronoUnit.DAYS.between(request.getDataInizio(), request.getDataFine());
+            double prezzoBase = camera.getPrezzoBaseNotte() * numeroNotti;
+            double prezzoOpzioni = 0;
+            
+            // aggiungi costo opzioni personalizzazione
+            if (request.getOpzioniIds() != null) {
+                prezzoOpzioni = prenotazioneService.calcolaPrezzoOpzioni(request.getOpzioniIds());
+            }
+            
+            double prezzoTotale = prezzoBase + prezzoOpzioni;
+
+            // Restituisci il prezzo calcolato
+            return ResponseEntity.ok(prezzoTotale);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Errore interno del server: " + e.getMessage());
+        }
+    }
+
     // Endpoint di test per verificare la connessione
     @GetMapping("/test")
     public ResponseEntity<String> testConnection() {

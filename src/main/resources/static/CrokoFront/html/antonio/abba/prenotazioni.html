@@ -10,100 +10,400 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <style>
+      /* Tema Croco&Crest Resort */
+      :root {
+        --croco-green: #2f794d;
+        --croco-dark-green: #1e5a3a;
+        --croco-light-green: #4a9d6a;
+        --croco-gold: #d4af37;
+        --croco-brown: #8b4513;
+        --croco-cream: #f5f5dc;
+        --croco-water: #87ceeb;
+      }
+
+      body {
+        background: linear-gradient(
+          135deg,
+          var(--croco-water) 0%,
+          var(--croco-cream) 100%
+        );
+        min-height: 100vh;
+        font-family: "Arial", sans-serif;
+      }
+
       .wizard-step {
         display: none;
+        animation: fadeIn 0.5s ease-in-out;
       }
       .wizard-step.active {
         display: block;
       }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
       .step-indicator {
         transition: all 0.3s ease;
+        background: var(--croco-green);
+        border: 3px solid var(--croco-gold);
+        box-shadow: 0 4px 15px rgba(47, 121, 77, 0.3);
       }
       .step-indicator.completed {
-        background-color: #10b981;
+        background: var(--croco-light-green);
         color: white;
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(74, 157, 106, 0.4);
       }
       .step-indicator.current {
-        background-color: #3b82f6;
-        color: white;
+        background: var(--croco-gold);
+        color: var(--croco-dark-green);
+        animation: pulse 2s infinite;
       }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
       .room-card {
         transition: all 0.3s ease;
         cursor: pointer;
+        background: linear-gradient(145deg, #ffffff, #f0f0f0);
+        border: 2px solid var(--croco-green);
+        border-radius: 15px;
+        position: relative;
+        overflow: hidden;
+      }
+      .room-card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(212, 175, 55, 0.1),
+          transparent
+        );
+        transform: rotate(45deg);
+        transition: all 0.5s ease;
+        opacity: 0;
+      }
+      .room-card:hover::before {
+        opacity: 1;
+        animation: shimmer 1.5s ease-in-out;
       }
       .room-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(47, 121, 77, 0.2);
+        border-color: var(--croco-gold);
       }
       .room-card.selected {
-        border-color: #3b82f6;
-        background-color: #eff6ff;
+        border-color: var(--croco-gold);
+        background: linear-gradient(145deg, #fff8dc, #f0f8ff);
+        box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        transform: scale(1.02);
       }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+        100% {
+          transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+      }
+
       .option-card {
         transition: all 0.3s ease;
         cursor: pointer;
+        background: linear-gradient(145deg, #ffffff, #f8f8f8);
+        border: 2px solid var(--croco-light-green);
+        border-radius: 12px;
+        position: relative;
+        overflow: hidden;
+      }
+      .option-card::after {
+        content: "🐊";
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 1.2em;
+        opacity: 0;
+        transition: all 0.3s ease;
       }
       .option-card:hover {
-        transform: translateY(-1px);
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 10px 25px rgba(74, 157, 106, 0.2);
+        border-color: var(--croco-gold);
+      }
+      .option-card:hover::after {
+        opacity: 1;
+        animation: bounce 0.6s ease-in-out;
       }
       .option-card.selected {
-        border-color: #10b981;
-        background-color: #f0fdf4;
+        border-color: var(--croco-gold);
+        background: linear-gradient(145deg, #f0fdf4, #e6fffa);
+        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        transform: scale(1.02);
       }
+      .option-card.selected::after {
+        opacity: 1;
+        content: "✅";
+        animation: none;
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-10px);
+        }
+        60% {
+          transform: translateY(-5px);
+        }
+      }
+
       .loading {
         display: none;
       }
       .loading.show {
         display: flex;
       }
+
+      .croco-header {
+        background: linear-gradient(
+          135deg,
+          var(--croco-green) 0%,
+          var(--croco-dark-green) 100%
+        );
+        border-bottom: 4px solid var(--croco-gold);
+        box-shadow: 0 4px 20px rgba(47, 121, 77, 0.3);
+      }
+
+      .croco-card {
+        background: linear-gradient(145deg, #ffffff, #f8f8f8);
+        border: 2px solid var(--croco-green);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(47, 121, 77, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .croco-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--croco-green),
+          var(--croco-gold),
+          var(--croco-light-green)
+        );
+      }
+
+      .croco-button {
+        background: linear-gradient(
+          135deg,
+          var(--croco-green) 0%,
+          var(--croco-light-green) 100%
+        );
+        border: 2px solid var(--croco-gold);
+        color: white;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .croco-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .croco-button:hover::before {
+        left: 100%;
+      }
+
+      .croco-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(47, 121, 77, 0.3);
+        background: linear-gradient(
+          135deg,
+          var(--croco-light-green) 0%,
+          var(--croco-green) 100%
+        );
+      }
+
+      .croco-button:active {
+        transform: translateY(0);
+      }
+
+      .croco-input {
+        border: 2px solid var(--croco-light-green);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        background: linear-gradient(145deg, #ffffff, #f8f8f8);
+      }
+
+      .croco-input:focus {
+        border-color: var(--croco-gold);
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        outline: none;
+        background: #ffffff;
+      }
+
+      .croco-progress {
+        background: linear-gradient(
+          90deg,
+          var(--croco-green),
+          var(--croco-gold)
+        );
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(47, 121, 77, 0.3);
+      }
+
+      .croco-text {
+        color: var(--croco-dark-green);
+      }
+
+      .croco-accent {
+        color: var(--croco-gold);
+      }
+
+      .croco-water-bg {
+        background: linear-gradient(
+          135deg,
+          var(--croco-water) 0%,
+          var(--croco-cream) 100%
+        );
+      }
+
+      .floating-croco {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        font-size: 2em;
+        animation: float 3s ease-in-out infinite;
+        z-index: 1000;
+        cursor: pointer;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .croco-success {
+        background: linear-gradient(135deg, #10b981, #059669);
+        border: 2px solid #34d399;
+        color: white;
+      }
+
+      .croco-error {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        border: 2px solid #f87171;
+        color: white;
+      }
     </style>
   </head>
-  <body class="bg-gray-50 min-h-screen">
-    <!-- Header -->
-    <header class="bg-white shadow-sm border-b">
+  <body class="croco-water-bg min-h-screen">
+    <!-- Header Croco -->
+    <header class="croco-header shadow-lg">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center py-4">
+        <div class="flex justify-between items-center py-6">
           <div class="flex items-center">
             <img
               src="../../../auro/homeImg/CROCOLOGO2.0.png"
-              alt="Logo"
-              class="h-12 w-auto"
+              alt="Croco&Crest Logo"
+              class="h-16 w-auto mr-4 animate-pulse"
             />
-            <h1 class="ml-3 text-2xl font-bold text-gray-900">Prenotazione</h1>
+            <div>
+              <h1 class="text-3xl font-bold text-white">
+                🐊 Prenotazione Croco
+              </h1>
+              <p class="text-yellow-200 text-sm">
+                Il tuo soggiorno perfetto ti aspetta!
+              </p>
+            </div>
           </div>
           <a
             href="../../../auro/homepage.html"
-            class="text-gray-600 hover:text-gray-900"
+            class="croco-button px-6 py-3 rounded-lg text-white hover:scale-105 transition-all duration-300"
           >
-            <i class="fas fa-home text-xl"></i>
+            <i class="fas fa-home mr-2"></i>
+            Torna alla Home
           </a>
         </div>
       </div>
     </header>
 
-    <!-- Progress Indicator -->
-    <div class="bg-white border-b">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Progress Indicator Croco -->
+    <div class="croco-card mx-4 mt-6 border-4 border-yellow-300">
+      <div class="max-w-4xl mx-auto px-6 py-8">
         <div class="flex items-center justify-between">
           <div class="flex items-center">
             <div
-              class="step-indicator current w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center text-sm font-medium"
+              class="step-indicator current w-12 h-12 rounded-full text-white flex items-center justify-center text-lg font-bold"
               data-step="1"
             >
               <i class="fas fa-calendar-alt"></i>
             </div>
             <div class="ml-4">
-              <p class="text-sm font-medium text-gray-900">Date e Ospiti</p>
-              <p class="text-xs text-gray-500">
+              <p class="text-sm font-bold croco-text">📅 Date e Ospiti</p>
+              <p class="text-xs croco-accent">
                 Seleziona le date del soggiorno
               </p>
             </div>
           </div>
 
           <div class="flex-1 mx-4">
-            <div class="h-1 bg-gray-200 rounded-full">
+            <div class="h-2 bg-gray-200 rounded-full">
               <div
-                class="h-1 bg-blue-500 rounded-full transition-all duration-300"
+                class="h-2 croco-progress transition-all duration-300"
                 style="width: 25%"
               ></div>
             </div>
@@ -111,21 +411,21 @@
 
           <div class="flex items-center">
             <div
-              class="step-indicator w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center text-sm font-medium"
+              class="step-indicator w-12 h-12 rounded-full text-gray-600 flex items-center justify-center text-lg font-bold"
               data-step="2"
             >
               <i class="fas fa-bed"></i>
             </div>
             <div class="ml-4">
-              <p class="text-sm font-medium text-gray-500">Camera</p>
+              <p class="text-sm font-bold text-gray-500">🛏️ Camera</p>
               <p class="text-xs text-gray-400">Scegli la tua camera</p>
             </div>
           </div>
 
           <div class="flex-1 mx-4">
-            <div class="h-1 bg-gray-200 rounded-full">
+            <div class="h-2 bg-gray-200 rounded-full">
               <div
-                class="h-1 bg-gray-200 rounded-full transition-all duration-300"
+                class="h-2 bg-gray-200 rounded-full transition-all duration-300"
                 style="width: 0%"
               ></div>
             </div>
@@ -133,21 +433,21 @@
 
           <div class="flex items-center">
             <div
-              class="step-indicator w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center text-sm font-medium"
+              class="step-indicator w-12 h-12 rounded-full text-gray-600 flex items-center justify-center text-lg font-bold"
               data-step="3"
             >
               <i class="fas fa-plus"></i>
             </div>
             <div class="ml-4">
-              <p class="text-sm font-medium text-gray-500">Opzioni</p>
+              <p class="text-sm font-bold text-gray-500">✨ Opzioni</p>
               <p class="text-xs text-gray-400">Servizi aggiuntivi</p>
             </div>
           </div>
 
           <div class="flex-1 mx-4">
-            <div class="h-1 bg-gray-200 rounded-full">
+            <div class="h-2 bg-gray-200 rounded-full">
               <div
-                class="h-1 bg-gray-200 rounded-full transition-all duration-300"
+                class="h-2 bg-gray-200 rounded-full transition-all duration-300"
                 style="width: 0%"
               ></div>
             </div>
@@ -155,13 +455,13 @@
 
           <div class="flex items-center">
             <div
-              class="step-indicator w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center text-sm font-medium"
+              class="step-indicator w-12 h-12 rounded-full text-gray-600 flex items-center justify-center text-lg font-bold"
               data-step="4"
             >
               <i class="fas fa-check"></i>
             </div>
             <div class="ml-4">
-              <p class="text-sm font-medium text-gray-500">Conferma</p>
+              <p class="text-sm font-bold text-gray-500">🎉 Conferma</p>
               <p class="text-xs text-gray-400">Riepilogo e pagamento</p>
             </div>
           </div>
@@ -173,75 +473,78 @@
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Step 1: Date e Ospiti -->
       <div class="wizard-step active" id="step-1">
-        <div class="bg-white rounded-lg shadow-sm border p-6">
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">
-            Seleziona le date del tuo soggiorno
-          </h2>
+        <div class="croco-card p-8">
+          <div class="text-center mb-8">
+            <h2 class="text-4xl font-bold croco-text mb-2">
+              🐊 Seleziona le date del tuo soggiorno
+            </h2>
+            <p class="text-lg croco-accent">Il tuo viaggio croco inizia qui!</p>
+          </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2"
-                >Data di arrivo</label
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="text-center">
+              <label class="block text-lg font-bold croco-text mb-3"
+                >📅 Data di arrivo</label
               >
               <input
                 type="date"
                 id="checkin-date"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                class="croco-input w-full px-4 py-3 text-center text-lg font-semibold"
                 required
               />
             </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2"
-                >Data di partenza</label
+            <div class="text-center">
+              <label class="block text-lg font-bold croco-text mb-3"
+                >📅 Data di partenza</label
               >
               <input
                 type="date"
                 id="checkout-date"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                class="croco-input w-full px-4 py-3 text-center text-lg font-semibold"
                 required
               />
             </div>
           </div>
 
-          <div class="mt-6">
-            <label class="block text-sm font-medium text-gray-700 mb-2"
-              >Numero di ospiti</label
+          <div class="mt-8 text-center">
+            <label class="block text-lg font-bold croco-text mb-3"
+              >👥 Numero di ospiti</label
             >
             <select
               id="guests"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              class="croco-input w-full px-4 py-3 text-center text-lg font-semibold"
             >
-              <option value="1">1 ospite</option>
-              <option value="2" selected>2 ospiti</option>
-              <option value="3">3 ospiti</option>
-              <option value="4">4 ospiti</option>
-              <option value="5">5 ospiti</option>
-              <option value="6">6 ospiti</option>
+              <option value="1">🐊 1 ospite</option>
+              <option value="2" selected>🐊🐊 2 ospiti</option>
+              <option value="3">🐊🐊🐊 3 ospiti</option>
+              <option value="4">🐊🐊🐊🐊 4 ospiti</option>
+              <option value="5">🐊🐊🐊🐊🐊 5 ospiti</option>
+              <option value="6">🐊🐊🐊🐊🐊🐊 6 ospiti</option>
             </select>
           </div>
 
-          <div class="mt-6">
-            <label class="block text-sm font-medium text-gray-700 mb-2"
-              >ID Cliente</label
+          <div class="mt-8 text-center">
+            <label class="block text-lg font-bold croco-text mb-3"
+              >🆔 ID Cliente</label
             >
             <input
               type="number"
               id="cliente-id"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              class="croco-input w-full px-4 py-3 text-center text-lg font-semibold"
               placeholder="Inserisci il tuo ID cliente"
               required
             />
-            <p class="text-xs text-gray-500 mt-1">
-              Se non hai un ID cliente, contatta l'assistenza
+            <p class="text-sm croco-accent mt-2">
+              💡 Se non hai un ID cliente, contatta l'assistenza croco!
             </p>
           </div>
 
-          <div class="mt-8 flex justify-end">
+          <div class="mt-10 flex justify-center">
             <button
               onclick="nextStep()"
-              class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors"
+              class="croco-button px-8 py-4 text-xl rounded-xl hover:scale-105 transition-all duration-300"
             >
-              Continua <i class="fas fa-arrow-right ml-2"></i>
+              Continua il Viaggio 🐊 <i class="fas fa-arrow-right ml-3"></i>
             </button>
           </div>
         </div>
@@ -249,41 +552,51 @@
 
       <!-- Step 2: Selezione Camera -->
       <div class="wizard-step" id="step-2">
-        <div class="bg-white rounded-lg shadow-sm border p-6">
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">
-            Scegli la tua camera
-          </h2>
+        <div class="croco-card p-8">
+          <div class="text-center mb-8">
+            <h2 class="text-4xl font-bold croco-text mb-2">
+              🛏️ Scegli la tua camera croco
+            </h2>
+            <p class="text-lg croco-accent">La tua tana perfetta ti aspetta!</p>
+          </div>
 
           <div class="loading" id="rooms-loading">
-            <div class="flex items-center justify-center w-full py-8">
-              <i class="fas fa-spinner fa-spin text-2xl text-blue-500 mr-3"></i>
-              <span class="text-gray-600"
-                >Caricamento camere disponibili...</span
-              >
+            <div class="flex items-center justify-center w-full py-12">
+              <div class="text-center">
+                <i
+                  class="fas fa-spinner fa-spin text-4xl croco-accent mb-4"
+                ></i>
+                <p class="text-xl croco-text font-semibold">
+                  🐊 Caricamento camere disponibili...
+                </p>
+                <p class="text-sm croco-accent mt-2">
+                  I nostri coccodrilli stanno preparando tutto!
+                </p>
+              </div>
             </div>
           </div>
 
           <div
             id="rooms-container"
-            class="grid grid-cols-1 md:grid-cols-2 gap-6"
+            class="grid grid-cols-1 md:grid-cols-2 gap-8"
           >
             <!-- Le camere verranno caricate dinamicamente -->
           </div>
 
-          <div class="mt-8 flex justify-between">
+          <div class="mt-10 flex justify-between">
             <button
               onclick="prevStep()"
-              class="bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition-colors"
+              class="bg-gray-400 text-white px-6 py-3 rounded-lg hover:bg-gray-500 transition-all duration-300 font-semibold"
             >
               <i class="fas fa-arrow-left mr-2"></i> Indietro
             </button>
             <button
               onclick="nextStep()"
               id="continue-room"
-              class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+              class="croco-button px-8 py-3 rounded-lg transition-all duration-300 disabled:bg-gray-300 disabled:cursor-not-allowed font-semibold"
               disabled
             >
-              Continua <i class="fas fa-arrow-right ml-2"></i>
+              Continua 🐊 <i class="fas fa-arrow-right ml-2"></i>
             </button>
           </div>
         </div>
@@ -291,42 +604,51 @@
 
       <!-- Step 3: Opzioni Aggiuntive -->
       <div class="wizard-step" id="step-3">
-        <div class="bg-white rounded-lg shadow-sm border p-6">
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">
-            Servizi aggiuntivi
-          </h2>
-          <p class="text-gray-600 mb-6">
-            Personalizza il tuo soggiorno con i nostri servizi esclusivi
-          </p>
+        <div class="croco-card p-8">
+          <div class="text-center mb-8">
+            <h2 class="text-4xl font-bold croco-text mb-2">
+              ✨ Servizi aggiuntivi croco
+            </h2>
+            <p class="text-lg croco-accent">
+              Personalizza il tuo soggiorno con i nostri servizi esclusivi!
+            </p>
+          </div>
 
           <div class="loading" id="options-loading">
-            <div class="flex items-center justify-center w-full py-8">
-              <i class="fas fa-spinner fa-spin text-2xl text-blue-500 mr-3"></i>
-              <span class="text-gray-600"
-                >Caricamento opzioni disponibili...</span
-              >
+            <div class="flex items-center justify-center w-full py-12">
+              <div class="text-center">
+                <i
+                  class="fas fa-spinner fa-spin text-4xl croco-accent mb-4"
+                ></i>
+                <p class="text-xl croco-text font-semibold">
+                  🐊 Caricamento opzioni disponibili...
+                </p>
+                <p class="text-sm croco-accent mt-2">
+                  I nostri coccodrilli stanno preparando le sorprese!
+                </p>
+              </div>
             </div>
           </div>
 
           <div
             id="options-container"
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             <!-- Le opzioni verranno caricate dinamicamente -->
           </div>
 
-          <div class="mt-8 flex justify-between">
+          <div class="mt-10 flex justify-between">
             <button
               onclick="prevStep()"
-              class="bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition-colors"
+              class="bg-gray-400 text-white px-6 py-3 rounded-lg hover:bg-gray-500 transition-all duration-300 font-semibold"
             >
               <i class="fas fa-arrow-left mr-2"></i> Indietro
             </button>
             <button
               onclick="nextStep()"
-              class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors"
+              class="croco-button px-8 py-3 rounded-lg transition-all duration-300 font-semibold"
             >
-              Continua <i class="fas fa-arrow-right ml-2"></i>
+              Continua 🐊 <i class="fas fa-arrow-right ml-2"></i>
             </button>
           </div>
         </div>
@@ -334,54 +656,99 @@
 
       <!-- Step 4: Conferma e Riepilogo -->
       <div class="wizard-step" id="step-4">
-        <div class="bg-white rounded-lg shadow-sm border p-6">
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">
-            Riepilogo prenotazione
-          </h2>
+        <div class="croco-card p-8">
+          <div class="text-center mb-8">
+            <h2 class="text-4xl font-bold croco-text mb-2">
+              🎉 Riepilogo prenotazione croco
+            </h2>
+            <p class="text-lg croco-accent">
+              Quasi tutto pronto per il tuo soggiorno!
+            </p>
+          </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Riepilogo -->
-            <div>
-              <h3 class="text-lg font-semibold text-gray-900 mb-4">
-                Dettagli prenotazione
+            <div class="croco-card p-6">
+              <h3 class="text-2xl font-bold croco-text mb-6 text-center">
+                📋 Dettagli prenotazione
               </h3>
 
               <div class="space-y-4">
-                <div class="flex justify-between py-2 border-b">
-                  <span class="text-gray-600">Check-in:</span>
-                  <span class="font-medium" id="summary-checkin"></span>
+                <div
+                  class="flex justify-between py-3 border-b-2 border-yellow-200"
+                >
+                  <span class="text-lg croco-text font-semibold"
+                    >📅 Check-in:</span
+                  >
+                  <span
+                    class="font-bold croco-accent text-lg"
+                    id="summary-checkin"
+                  ></span>
                 </div>
-                <div class="flex justify-between py-2 border-b">
-                  <span class="text-gray-600">Check-out:</span>
-                  <span class="font-medium" id="summary-checkout"></span>
+                <div
+                  class="flex justify-between py-3 border-b-2 border-yellow-200"
+                >
+                  <span class="text-lg croco-text font-semibold"
+                    >📅 Check-out:</span
+                  >
+                  <span
+                    class="font-bold croco-accent text-lg"
+                    id="summary-checkout"
+                  ></span>
                 </div>
-                <div class="flex justify-between py-2 border-b">
-                  <span class="text-gray-600">Notti:</span>
-                  <span class="font-medium" id="summary-nights"></span>
+                <div
+                  class="flex justify-between py-3 border-b-2 border-yellow-200"
+                >
+                  <span class="text-lg croco-text font-semibold"
+                    >🌙 Notti:</span
+                  >
+                  <span
+                    class="font-bold croco-accent text-lg"
+                    id="summary-nights"
+                  ></span>
                 </div>
-                <div class="flex justify-between py-2 border-b">
-                  <span class="text-gray-600">Ospiti:</span>
-                  <span class="font-medium" id="summary-guests"></span>
+                <div
+                  class="flex justify-between py-3 border-b-2 border-yellow-200"
+                >
+                  <span class="text-lg croco-text font-semibold"
+                    >👥 Ospiti:</span
+                  >
+                  <span
+                    class="font-bold croco-accent text-lg"
+                    id="summary-guests"
+                  ></span>
                 </div>
-                <div class="flex justify-between py-2 border-b">
-                  <span class="text-gray-600">Camera:</span>
-                  <span class="font-medium" id="summary-room"></span>
+                <div
+                  class="flex justify-between py-3 border-b-2 border-yellow-200"
+                >
+                  <span class="text-lg croco-text font-semibold"
+                    >🛏️ Camera:</span
+                  >
+                  <span
+                    class="font-bold croco-accent text-lg"
+                    id="summary-room"
+                  ></span>
                 </div>
-                <div class="flex justify-between py-2 border-b">
-                  <span class="text-gray-600">Prezzo camera:</span>
-                  <span class="font-medium" id="summary-room-price"></span>
+                <div
+                  class="flex justify-between py-3 border-b-2 border-yellow-200"
+                >
+                  <span class="text-lg croco-text font-semibold"
+                    >💰 Prezzo camera:</span
+                  >
+                  <span
+                    class="font-bold croco-accent text-lg"
+                    id="summary-room-price"
+                  ></span>
                 </div>
                 <div id="options-summary" class="space-y-2">
                   <!-- Le opzioni selezionate verranno mostrate qui -->
                 </div>
                 <div
-                  class="flex justify-between py-3 border-t-2 border-gray-200"
+                  class="flex justify-between py-4 border-t-4 border-yellow-300 bg-yellow-50 rounded-lg px-4"
                 >
-                  <span class="text-lg font-semibold text-gray-900"
-                    >Totale:</span
-                  >
+                  <span class="text-2xl font-bold croco-text">🎯 Totale:</span>
                   <span
-                    class="text-lg font-bold text-blue-600"
+                    class="text-2xl font-bold croco-accent"
                     id="summary-total"
                   ></span>
                 </div>
@@ -389,101 +756,112 @@
             </div>
 
             <!-- Form di conferma -->
-            <div>
-              <h3 class="text-lg font-semibold text-gray-900 mb-4">
-                Conferma prenotazione
+            <div class="croco-card p-6">
+              <h3 class="text-2xl font-bold croco-text mb-6 text-center">
+                ✅ Conferma prenotazione
               </h3>
 
-              <div class="space-y-4">
-                <div class="bg-green-50 border border-green-200 rounded-md p-4">
-                  <div class="flex">
-                    <i
-                      class="fas fa-check-circle text-green-400 text-xl mr-3"
-                    ></i>
+              <div class="space-y-6">
+                <div class="croco-success rounded-lg p-6">
+                  <div class="flex items-center">
+                    <i class="fas fa-check-circle text-3xl mr-4"></i>
                     <div>
-                      <h4 class="text-sm font-medium text-green-800">
-                        Prenotazione confermata
+                      <h4 class="text-lg font-bold">
+                        🐊 Prenotazione confermata
                       </h4>
-                      <p class="text-sm text-green-700 mt-1">
+                      <p class="text-sm mt-2">
                         La tua prenotazione è stata elaborata con successo!
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
-                  <h4 class="text-sm font-medium text-blue-800 mb-2">
-                    Informazioni importanti:
+                <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-6">
+                  <h4 class="text-lg font-bold text-blue-800 mb-4">
+                    📢 Informazioni importanti:
                   </h4>
-                  <ul class="text-sm text-blue-700 space-y-1">
-                    <li>• Riceverai una email di conferma</li>
-                    <li>• Il check-in è disponibile dalle 15:00</li>
-                    <li>• Il check-out è entro le 11:00</li>
-                    <li>• Cancellazione gratuita fino a 24h prima</li>
+                  <ul class="text-sm text-blue-700 space-y-2">
+                    <li>📧 Riceverai una email di conferma</li>
+                    <li>🕐 Il check-in è disponibile dalle 15:00</li>
+                    <li>🕚 Il check-out è entro le 11:00</li>
+                    <li>❌ Cancellazione gratuita fino a 24h prima</li>
                   </ul>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="mt-8 flex justify-between">
+          <div class="mt-10 flex justify-between">
             <button
               onclick="prevStep()"
-              class="bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition-colors"
+              class="bg-gray-400 text-white px-6 py-3 rounded-lg hover:bg-gray-500 transition-all duration-300 font-semibold"
             >
               <i class="fas fa-arrow-left mr-2"></i> Indietro
             </button>
             <button
               onclick="confirmBooking()"
-              class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition-colors"
+              class="croco-success px-8 py-4 text-xl rounded-lg hover:scale-105 transition-all duration-300 font-bold"
             >
-              <i class="fas fa-check mr-2"></i> Conferma Prenotazione
+              <i class="fas fa-check mr-2"></i> Conferma Prenotazione 🐊
             </button>
           </div>
         </div>
       </div>
     </main>
 
-    <!-- Loading Overlay -->
+    <!-- Loading Overlay Croco -->
     <div
       id="loading-overlay"
       class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
     >
-      <div class="bg-white rounded-lg p-6 flex items-center">
-        <i class="fas fa-spinner fa-spin text-2xl text-blue-500 mr-3"></i>
-        <span class="text-gray-600">Elaborazione prenotazione...</span>
+      <div class="croco-card p-8 flex items-center max-w-md mx-4">
+        <i class="fas fa-spinner fa-spin text-4xl croco-accent mr-4"></i>
+        <div>
+          <p class="text-xl croco-text font-bold">
+            🐊 Elaborazione prenotazione...
+          </p>
+          <p class="text-sm croco-accent">
+            I nostri coccodrilli stanno lavorando!
+          </p>
+        </div>
       </div>
     </div>
 
-    <!-- Success Modal -->
+    <!-- Success Modal Croco -->
     <div
       id="success-modal"
       class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
     >
-      <div class="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
+      <div class="croco-card p-8 max-w-lg mx-4 text-center">
+        <div class="text-8xl mb-6">🐊</div>
         <i class="fas fa-check-circle text-green-500 text-6xl mb-4"></i>
-        <h3 class="text-2xl font-bold text-gray-900 mb-2">
-          Prenotazione Confermata!
+        <h3 class="text-3xl font-bold croco-text mb-4">
+          🎉 Prenotazione Confermata!
         </h3>
-        <p class="text-gray-600 mb-6">
-          La tua prenotazione è stata creata con successo. Riceverai una email
+        <p class="text-lg croco-accent mb-8">
+          La tua prenotazione è stata creata con successo! Riceverai una email
           di conferma a breve.
         </p>
-        <div class="space-y-3">
+        <div class="space-y-4">
           <button
             onclick="closeSuccessModal()"
-            class="w-full bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors"
+            class="w-full croco-button px-6 py-3 rounded-lg transition-all duration-300"
           >
             Chiudi
           </button>
           <button
             onclick="goToHomepage()"
-            class="w-full bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition-colors"
+            class="w-full bg-gray-400 text-white px-6 py-3 rounded-lg hover:bg-gray-500 transition-all duration-300"
           >
             Torna alla Homepage
           </button>
         </div>
       </div>
+    </div>
+
+    <!-- Coccodrillo Flottante -->
+    <div class="floating-croco" onclick="scrollToTop()" title="Torna in cima">
+      🐊
     </div>
 
     <script>
@@ -575,7 +953,7 @@
       }
 
       function updateProgress() {
-        const progressBar = document.querySelector(".h-1.bg-blue-500");
+        const progressBar = document.querySelector(".croco-progress");
         const percentage = ((currentStep - 1) / 3) * 100;
         progressBar.style.width = `${percentage}%`;
 
@@ -592,6 +970,14 @@
               indicator.classList.add("current");
             }
           });
+      }
+
+      // Funzione per tornare in cima
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
       }
 
       // Validazione
@@ -749,7 +1135,8 @@
             new Date(bookingData.checkinDate)) /
             (1000 * 60 * 60 * 24)
         );
-        const totalPrice = room.prezzoBaseNotte * nights;
+        // Calcolo approssimativo solo per anteprima - il prezzo ufficiale viene dal backend
+        const estimatedPrice = room.prezzoBaseNotte * nights;
 
         card.innerHTML = `
                 <div class="flex justify-between items-start mb-3">
@@ -766,10 +1153,10 @@
                         <span class="text-sm text-gray-500">€${
                           room.prezzoBaseNotte
                         }/notte</span>
-                        <div class="text-lg font-bold text-blue-600">€${totalPrice.toFixed(
+                        <div class="text-lg font-bold text-blue-600">~€${estimatedPrice.toFixed(
                           2
                         )}</div>
-                        <span class="text-xs text-gray-500">per ${nights} notti</span>
+                        <span class="text-xs text-gray-500">per ${nights} notti (stima)</span>
                     </div>
                     <i class="fas fa-check-circle text-gray-300 text-xl"></i>
                 </div>
@@ -875,21 +1262,13 @@
         }
       }
 
-      // Aggiorna riepilogo
-      function updateSummary() {
+      // Aggiorna riepilogo usando il calcolo del backend
+      async function updateSummary() {
         const nights = Math.ceil(
           (new Date(bookingData.checkoutDate) -
             new Date(bookingData.checkinDate)) /
             (1000 * 60 * 60 * 24)
         );
-        const roomPrice = bookingData.selectedRoom.prezzoBaseNotte * nights;
-        const optionsPrice = bookingData.selectedOptions.reduce(
-          (sum, option) => sum + option.prezzoAggiuntivo,
-          0
-        );
-        const totalPrice = roomPrice + optionsPrice;
-
-        bookingData.totalPrice = totalPrice;
 
         // Aggiorna i campi del riepilogo
         document.getElementById("summary-checkin").textContent = formatDate(
@@ -907,12 +1286,79 @@
         document.getElementById(
           "summary-room"
         ).textContent = `${bookingData.selectedRoom.tipoCamera} - Stanza ${bookingData.selectedRoom.numeroStanza}`;
-        document.getElementById(
-          "summary-room-price"
-        ).textContent = `€${roomPrice.toFixed(2)}`;
-        document.getElementById(
-          "summary-total"
-        ).textContent = `€${totalPrice.toFixed(2)}`;
+
+        // Calcola il prezzo ufficiale dal backend
+        try {
+          const requestData = {
+            idCliente: bookingData.clienteId,
+            idCamera: bookingData.selectedRoom.idCamera,
+            dataInizio: bookingData.checkinDate,
+            dataFine: bookingData.checkoutDate,
+            opzioniIds: bookingData.selectedOptions.map(
+              (option) => option.idOpzione
+            ),
+          };
+
+          const response = await fetch(
+            "http://localhost:8080/api/prenotazioni/calculatePrice",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(requestData),
+            }
+          );
+
+          if (response.ok) {
+            const officialPrice = await response.json();
+            bookingData.totalPrice = officialPrice;
+
+            // Mostra il prezzo ufficiale
+            document.getElementById(
+              "summary-total"
+            ).textContent = `€${officialPrice.toFixed(2)}`;
+
+            // Calcola prezzo camera (approssimativo per display)
+            const roomPrice = bookingData.selectedRoom.prezzoBaseNotte * nights;
+            document.getElementById(
+              "summary-room-price"
+            ).textContent = `€${roomPrice.toFixed(2)}`;
+          } else {
+            // Fallback al calcolo locale se il backend non risponde
+            const roomPrice = bookingData.selectedRoom.prezzoBaseNotte * nights;
+            const optionsPrice = bookingData.selectedOptions.reduce(
+              (sum, option) => sum + option.prezzoAggiuntivo,
+              0
+            );
+            const totalPrice = roomPrice + optionsPrice;
+            bookingData.totalPrice = totalPrice;
+
+            document.getElementById(
+              "summary-room-price"
+            ).textContent = `€${roomPrice.toFixed(2)}`;
+            document.getElementById(
+              "summary-total"
+            ).textContent = `€${totalPrice.toFixed(2)} (stima)`;
+          }
+        } catch (error) {
+          console.error("Errore nel calcolo prezzo:", error);
+          // Fallback al calcolo locale
+          const roomPrice = bookingData.selectedRoom.prezzoBaseNotte * nights;
+          const optionsPrice = bookingData.selectedOptions.reduce(
+            (sum, option) => sum + option.prezzoAggiuntivo,
+            0
+          );
+          const totalPrice = roomPrice + optionsPrice;
+          bookingData.totalPrice = totalPrice;
+
+          document.getElementById(
+            "summary-room-price"
+          ).textContent = `€${roomPrice.toFixed(2)}`;
+          document.getElementById(
+            "summary-total"
+          ).textContent = `€${totalPrice.toFixed(2)} (stima)`;
+        }
 
         // Aggiorna opzioni selezionate
         const optionsSummary = document.getElementById("options-summary");
