@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prenotazione - Croco&Crest Resort</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      .wizard-step {
+        display: none;
+      }
+      .wizard-step.active {
+        display: block;
+      }
+      .step-indicator {
+        transition: all 0.3s ease;
+      }
+      .step-indicator.completed {
+        background-color: #10b981;
+        color: white;
+      }
+      .step-indicator.current {
+        background-color: #3b82f6;
+        color: white;
+      }
+      .room-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      .room-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+      .room-card.selected {
+        border-color: #3b82f6;
+        background-color: #eff6ff;
+      }
+      .option-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      .option-card:hover {
+        transform: translateY(-1px);
+      }
+      .option-card.selected {
+        border-color: #10b981;
+        background-color: #f0fdf4;
+      }
+      .loading {
+        display: none;
+      }
+      .loading.show {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+          <div class="flex items-center">
+            <img
+              src="../../../auro/homeImg/CROCOLOGO2.0.png"
+              alt="Logo"
+              class="h-12 w-auto"
+            />
+            <h1 class="ml-3 text-2xl font-bold text-gray-900">Prenotazione</h1>
+          </div>
+          <a
+            href="../../../auro/homepage.html"
+            class="text-gray-600 hover:text-gray-900"
+          >
+            <i class="fas fa-home text-xl"></i>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Progress Indicator -->
+    <div class="bg-white border-b">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <div
+              class="step-indicator current w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center text-sm font-medium"
+              data-step="1"
+            >
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-900">Date e Ospiti</p>
+              <p class="text-xs text-gray-500">
+                Seleziona le date del soggiorno
+              </p>
+            </div>
+          </div>
+
+          <div class="flex-1 mx-4">
+            <div class="h-1 bg-gray-200 rounded-full">
+              <div
+                class="h-1 bg-blue-500 rounded-full transition-all duration-300"
+                style="width: 25%"
+              ></div>
+            </div>
+          </div>
+
+          <div class="flex items-center">
+            <div
+              class="step-indicator w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center text-sm font-medium"
+              data-step="2"
+            >
+              <i class="fas fa-bed"></i>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-500">Camera</p>
+              <p class="text-xs text-gray-400">Scegli la tua camera</p>
+            </div>
+          </div>
+
+          <div class="flex-1 mx-4">
+            <div class="h-1 bg-gray-200 rounded-full">
+              <div
+                class="h-1 bg-gray-200 rounded-full transition-all duration-300"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+
+          <div class="flex items-center">
+            <div
+              class="step-indicator w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center text-sm font-medium"
+              data-step="3"
+            >
+              <i class="fas fa-plus"></i>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-500">Opzioni</p>
+              <p class="text-xs text-gray-400">Servizi aggiuntivi</p>
+            </div>
+          </div>
+
+          <div class="flex-1 mx-4">
+            <div class="h-1 bg-gray-200 rounded-full">
+              <div
+                class="h-1 bg-gray-200 rounded-full transition-all duration-300"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+
+          <div class="flex items-center">
+            <div
+              class="step-indicator w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center text-sm font-medium"
+              data-step="4"
+            >
+              <i class="fas fa-check"></i>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-500">Conferma</p>
+              <p class="text-xs text-gray-400">Riepilogo e pagamento</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Step 1: Date e Ospiti -->
+      <div class="wizard-step active" id="step-1">
+        <div class="bg-white rounded-lg shadow-sm border p-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">
+            Seleziona le date del tuo soggiorno
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Data di arrivo</label
+              >
+              <input
+                type="date"
+                id="checkin-date"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Data di partenza</label
+              >
+              <input
+                type="date"
+                id="checkout-date"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Numero di ospiti</label
+            >
+            <select
+              id="guests"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="1">1 ospite</option>
+              <option value="2" selected>2 ospiti</option>
+              <option value="3">3 ospiti</option>
+              <option value="4">4 ospiti</option>
+              <option value="5">5 ospiti</option>
+              <option value="6">6 ospiti</option>
+            </select>
+          </div>
+
+          <div class="mt-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >ID Cliente</label
+            >
+            <input
+              type="number"
+              id="cliente-id"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="Inserisci il tuo ID cliente"
+              required
+            />
+            <p class="text-xs text-gray-500 mt-1">
+              Se non hai un ID cliente, contatta l'assistenza
+            </p>
+          </div>
+
+          <div class="mt-8 flex justify-end">
+            <button
+              onclick="nextStep()"
+              class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors"
+            >
+              Continua <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Selezione Camera -->
+      <div class="wizard-step" id="step-2">
+        <div class="bg-white rounded-lg shadow-sm border p-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">
+            Scegli la tua camera
+          </h2>
+
+          <div class="loading" id="rooms-loading">
+            <div class="flex items-center justify-center w-full py-8">
+              <i class="fas fa-spinner fa-spin text-2xl text-blue-500 mr-3"></i>
+              <span class="text-gray-600"
+                >Caricamento camere disponibili...</span
+              >
+            </div>
+          </div>
+
+          <div
+            id="rooms-container"
+            class="grid grid-cols-1 md:grid-cols-2 gap-6"
+          >
+            <!-- Le camere verranno caricate dinamicamente -->
+          </div>
+
+          <div class="mt-8 flex justify-between">
+            <button
+              onclick="prevStep()"
+              class="bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition-colors"
+            >
+              <i class="fas fa-arrow-left mr-2"></i> Indietro
+            </button>
+            <button
+              onclick="nextStep()"
+              id="continue-room"
+              class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+              disabled
+            >
+              Continua <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Opzioni Aggiuntive -->
+      <div class="wizard-step" id="step-3">
+        <div class="bg-white rounded-lg shadow-sm border p-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">
+            Servizi aggiuntivi
+          </h2>
+          <p class="text-gray-600 mb-6">
+            Personalizza il tuo soggiorno con i nostri servizi esclusivi
+          </p>
+
+          <div class="loading" id="options-loading">
+            <div class="flex items-center justify-center w-full py-8">
+              <i class="fas fa-spinner fa-spin text-2xl text-blue-500 mr-3"></i>
+              <span class="text-gray-600"
+                >Caricamento opzioni disponibili...</span
+              >
+            </div>
+          </div>
+
+          <div
+            id="options-container"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+          >
+            <!-- Le opzioni verranno caricate dinamicamente -->
+          </div>
+
+          <div class="mt-8 flex justify-between">
+            <button
+              onclick="prevStep()"
+              class="bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition-colors"
+            >
+              <i class="fas fa-arrow-left mr-2"></i> Indietro
+            </button>
+            <button
+              onclick="nextStep()"
+              class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors"
+            >
+              Continua <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Conferma e Riepilogo -->
+      <div class="wizard-step" id="step-4">
+        <div class="bg-white rounded-lg shadow-sm border p-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">
+            Riepilogo prenotazione
+          </h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Riepilogo -->
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                Dettagli prenotazione
+              </h3>
+
+              <div class="space-y-4">
+                <div class="flex justify-between py-2 border-b">
+                  <span class="text-gray-600">Check-in:</span>
+                  <span class="font-medium" id="summary-checkin"></span>
+                </div>
+                <div class="flex justify-between py-2 border-b">
+                  <span class="text-gray-600">Check-out:</span>
+                  <span class="font-medium" id="summary-checkout"></span>
+                </div>
+                <div class="flex justify-between py-2 border-b">
+                  <span class="text-gray-600">Notti:</span>
+                  <span class="font-medium" id="summary-nights"></span>
+                </div>
+                <div class="flex justify-between py-2 border-b">
+                  <span class="text-gray-600">Ospiti:</span>
+                  <span class="font-medium" id="summary-guests"></span>
+                </div>
+                <div class="flex justify-between py-2 border-b">
+                  <span class="text-gray-600">Camera:</span>
+                  <span class="font-medium" id="summary-room"></span>
+                </div>
+                <div class="flex justify-between py-2 border-b">
+                  <span class="text-gray-600">Prezzo camera:</span>
+                  <span class="font-medium" id="summary-room-price"></span>
+                </div>
+                <div id="options-summary" class="space-y-2">
+                  <!-- Le opzioni selezionate verranno mostrate qui -->
+                </div>
+                <div
+                  class="flex justify-between py-3 border-t-2 border-gray-200"
+                >
+                  <span class="text-lg font-semibold text-gray-900"
+                    >Totale:</span
+                  >
+                  <span
+                    class="text-lg font-bold text-blue-600"
+                    id="summary-total"
+                  ></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form di conferma -->
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                Conferma prenotazione
+              </h3>
+
+              <div class="space-y-4">
+                <div class="bg-green-50 border border-green-200 rounded-md p-4">
+                  <div class="flex">
+                    <i
+                      class="fas fa-check-circle text-green-400 text-xl mr-3"
+                    ></i>
+                    <div>
+                      <h4 class="text-sm font-medium text-green-800">
+                        Prenotazione confermata
+                      </h4>
+                      <p class="text-sm text-green-700 mt-1">
+                        La tua prenotazione è stata elaborata con successo!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
+                  <h4 class="text-sm font-medium text-blue-800 mb-2">
+                    Informazioni importanti:
+                  </h4>
+                  <ul class="text-sm text-blue-700 space-y-1">
+                    <li>• Riceverai una email di conferma</li>
+                    <li>• Il check-in è disponibile dalle 15:00</li>
+                    <li>• Il check-out è entro le 11:00</li>
+                    <li>• Cancellazione gratuita fino a 24h prima</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 flex justify-between">
+            <button
+              onclick="prevStep()"
+              class="bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition-colors"
+            >
+              <i class="fas fa-arrow-left mr-2"></i> Indietro
+            </button>
+            <button
+              onclick="confirmBooking()"
+              class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition-colors"
+            >
+              <i class="fas fa-check mr-2"></i> Conferma Prenotazione
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div
+      id="loading-overlay"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <div class="bg-white rounded-lg p-6 flex items-center">
+        <i class="fas fa-spinner fa-spin text-2xl text-blue-500 mr-3"></i>
+        <span class="text-gray-600">Elaborazione prenotazione...</span>
+      </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div
+      id="success-modal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <div class="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
+        <i class="fas fa-check-circle text-green-500 text-6xl mb-4"></i>
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+          Prenotazione Confermata!
+        </h3>
+        <p class="text-gray-600 mb-6">
+          La tua prenotazione è stata creata con successo. Riceverai una email
+          di conferma a breve.
+        </p>
+        <div class="space-y-3">
+          <button
+            onclick="closeSuccessModal()"
+            class="w-full bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors"
+          >
+            Chiudi
+          </button>
+          <button
+            onclick="goToHomepage()"
+            class="w-full bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition-colors"
+          >
+            Torna alla Homepage
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Stato globale dell'applicazione
+      let currentStep = 1;
+      let bookingData = {
+        checkinDate: null,
+        checkoutDate: null,
+        guests: 2,
+        clienteId: null,
+        selectedRoom: null,
+        selectedOptions: [],
+        totalPrice: 0,
+      };
+
+      // Inizializzazione
+      document.addEventListener("DOMContentLoaded", function () {
+        // Imposta la data minima a oggi
+        const today = new Date().toISOString().split("T")[0];
+        document.getElementById("checkin-date").min = today;
+        document.getElementById("checkout-date").min = today;
+
+        // Event listeners per le date
+        document
+          .getElementById("checkin-date")
+          .addEventListener("change", updateCheckoutMinDate);
+        document
+          .getElementById("checkout-date")
+          .addEventListener("change", validateDates);
+
+        // Test connessione API
+        testApiConnection();
+      });
+
+      // Test connessione API
+      async function testApiConnection() {
+        try {
+          console.log("Test connessione API...");
+          const response = await fetch(
+            "http://localhost:8080/api/camere/getAllRooms"
+          );
+          console.log("Test API - Status:", response.status);
+          if (response.ok) {
+            console.log("✅ API camere funziona correttamente");
+          } else {
+            console.log("❌ API camere non risponde correttamente");
+          }
+        } catch (error) {
+          console.log("❌ Errore connessione API:", error.message);
+        }
+      }
+
+      // Funzioni di navigazione
+      function nextStep() {
+        if (validateCurrentStep()) {
+          if (currentStep < 4) {
+            currentStep++;
+            showStep(currentStep);
+            updateProgress();
+
+            // Carica dati specifici per ogni step
+            if (currentStep === 2) {
+              loadAvailableRooms();
+            } else if (currentStep === 3) {
+              loadOptions();
+            } else if (currentStep === 4) {
+              updateSummary();
+            }
+          }
+        }
+      }
+
+      function prevStep() {
+        if (currentStep > 1) {
+          currentStep--;
+          showStep(currentStep);
+          updateProgress();
+        }
+      }
+
+      function showStep(step) {
+        // Nascondi tutti gli step
+        document.querySelectorAll(".wizard-step").forEach((el) => {
+          el.classList.remove("active");
+        });
+
+        // Mostra lo step corrente
+        document.getElementById(`step-${step}`).classList.add("active");
+      }
+
+      function updateProgress() {
+        const progressBar = document.querySelector(".h-1.bg-blue-500");
+        const percentage = ((currentStep - 1) / 3) * 100;
+        progressBar.style.width = `${percentage}%`;
+
+        // Aggiorna indicatori
+        document
+          .querySelectorAll(".step-indicator")
+          .forEach((indicator, index) => {
+            const stepNumber = index + 1;
+            indicator.classList.remove("current", "completed");
+
+            if (stepNumber < currentStep) {
+              indicator.classList.add("completed");
+            } else if (stepNumber === currentStep) {
+              indicator.classList.add("current");
+            }
+          });
+      }
+
+      // Validazione
+      function validateCurrentStep() {
+        switch (currentStep) {
+          case 1:
+            return validateStep1();
+          case 2:
+            return validateStep2();
+          case 3:
+            return true; // Le opzioni sono opzionali
+          case 4:
+            return true;
+          default:
+            return false;
+        }
+      }
+
+      function validateStep1() {
+        const checkinDate = document.getElementById("checkin-date").value;
+        const checkoutDate = document.getElementById("checkout-date").value;
+        const clienteId = document.getElementById("cliente-id").value;
+
+        if (!checkinDate || !checkoutDate || !clienteId) {
+          alert("Per favore, compila tutti i campi obbligatori.");
+          return false;
+        }
+
+        if (!validateDates()) {
+          return false;
+        }
+
+        // Salva i dati
+        bookingData.checkinDate = checkinDate;
+        bookingData.checkoutDate = checkoutDate;
+        bookingData.guests = parseInt(document.getElementById("guests").value);
+        bookingData.clienteId = parseInt(clienteId);
+
+        return true;
+      }
+
+      function validateStep2() {
+        if (!bookingData.selectedRoom) {
+          alert("Per favore, seleziona una camera.");
+          return false;
+        }
+        return true;
+      }
+
+      function validateDates() {
+        const checkinDate = document.getElementById("checkin-date").value;
+        const checkoutDate = document.getElementById("checkout-date").value;
+
+        if (checkinDate && checkoutDate) {
+          const checkin = new Date(checkinDate);
+          const checkout = new Date(checkoutDate);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+          if (checkin < today) {
+            alert("La data di check-in non può essere nel passato.");
+            return false;
+          }
+
+          if (checkout <= checkin) {
+            alert("La data di check-out deve essere successiva al check-in.");
+            return false;
+          }
+
+          const nights = Math.ceil(
+            (checkout - checkin) / (1000 * 60 * 60 * 24)
+          );
+          if (nights > 30) {
+            alert("La prenotazione non può superare i 30 giorni.");
+            return false;
+          }
+        }
+
+        return true;
+      }
+
+      function updateCheckoutMinDate() {
+        const checkinDate = document.getElementById("checkin-date").value;
+        if (checkinDate) {
+          const nextDay = new Date(checkinDate);
+          nextDay.setDate(nextDay.getDate() + 1);
+          document.getElementById("checkout-date").min = nextDay
+            .toISOString()
+            .split("T")[0];
+        }
+      }
+
+      // Caricamento camere
+      async function loadAvailableRooms() {
+        const loading = document.getElementById("rooms-loading");
+        const container = document.getElementById("rooms-container");
+
+        loading.classList.add("show");
+        container.innerHTML = "";
+
+        try {
+          console.log("Caricamento camere in corso...");
+          const response = await fetch(
+            "http://localhost:8080/api/camere/getAllRooms"
+          );
+          console.log("Response status:", response.status);
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const rooms = await response.json();
+          console.log("Camere caricate:", rooms);
+
+          loading.classList.remove("show");
+
+          if (rooms.length === 0) {
+            container.innerHTML =
+              '<p class="text-gray-500 text-center col-span-2">Nessuna camera disponibile nel database.</p>';
+            return;
+          }
+
+          let availableRooms = 0;
+          rooms.forEach((room) => {
+            console.log("Camera:", room);
+            if (room.disponibile) {
+              const roomCard = createRoomCard(room);
+              container.appendChild(roomCard);
+              availableRooms++;
+            }
+          });
+
+          if (availableRooms === 0) {
+            container.innerHTML =
+              '<p class="text-yellow-500 text-center col-span-2">Tutte le camere sono attualmente occupate. Riprova più tardi.</p>';
+          }
+        } catch (error) {
+          loading.classList.remove("show");
+          container.innerHTML =
+            '<p class="text-red-500 text-center col-span-2">Errore nel caricamento delle camere: ' +
+            error.message +
+            "</p>";
+          console.error("Errore dettagliato:", error);
+        }
+      }
+
+      function createRoomCard(room) {
+        const card = document.createElement("div");
+        card.className =
+          "room-card border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all";
+        card.onclick = () => selectRoom(room, card);
+
+        const nights = Math.ceil(
+          (new Date(bookingData.checkoutDate) -
+            new Date(bookingData.checkinDate)) /
+            (1000 * 60 * 60 * 24)
+        );
+        const totalPrice = room.prezzoBaseNotte * nights;
+
+        card.innerHTML = `
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="text-lg font-semibold text-gray-900">${
+                      room.tipoCamera
+                    }</h3>
+                    <span class="text-sm text-gray-500">Stanza ${
+                      room.numeroStanza
+                    }</span>
+                </div>
+                <p class="text-gray-600 text-sm mb-3">${room.descrizione}</p>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="text-sm text-gray-500">€${
+                          room.prezzoBaseNotte
+                        }/notte</span>
+                        <div class="text-lg font-bold text-blue-600">€${totalPrice.toFixed(
+                          2
+                        )}</div>
+                        <span class="text-xs text-gray-500">per ${nights} notti</span>
+                    </div>
+                    <i class="fas fa-check-circle text-gray-300 text-xl"></i>
+                </div>
+            `;
+
+        return card;
+      }
+
+      function selectRoom(room, cardElement) {
+        // Rimuovi selezione precedente
+        document.querySelectorAll(".room-card").forEach((card) => {
+          card.classList.remove("selected");
+          card.querySelector(".fa-check-circle").className =
+            "fas fa-check-circle text-gray-300 text-xl";
+        });
+
+        // Seleziona nuova camera
+        cardElement.classList.add("selected");
+        cardElement.querySelector(".fa-check-circle").className =
+          "fas fa-check-circle text-blue-500 text-xl";
+
+        bookingData.selectedRoom = room;
+        document.getElementById("continue-room").disabled = false;
+      }
+
+      // Caricamento opzioni
+      async function loadOptions() {
+        const loading = document.getElementById("options-loading");
+        const container = document.getElementById("options-container");
+
+        loading.classList.add("show");
+        container.innerHTML = "";
+
+        try {
+          const response = await fetch(
+            "http://localhost:8080/api/options/getAllOptions"
+          );
+          const options = await response.json();
+
+          loading.classList.remove("show");
+
+          if (options.length === 0) {
+            container.innerHTML =
+              '<p class="text-gray-500 text-center col-span-3">Nessuna opzione disponibile.</p>';
+            return;
+          }
+
+          options.forEach((option) => {
+            const optionCard = createOptionCard(option);
+            container.appendChild(optionCard);
+          });
+        } catch (error) {
+          loading.classList.remove("show");
+          container.innerHTML =
+            '<p class="text-red-500 text-center col-span-3">Errore nel caricamento delle opzioni.</p>';
+          console.error("Errore:", error);
+        }
+      }
+
+      function createOptionCard(option) {
+        const card = document.createElement("div");
+        card.className =
+          "option-card border border-gray-200 rounded-lg p-4 hover:shadow-md transition-all";
+        card.onclick = () => toggleOption(option, card);
+
+        card.innerHTML = `
+                <div class="flex justify-between items-start mb-2">
+                    <h4 class="font-medium text-gray-900">${
+                      option.nomeOpzione
+                    }</h4>
+                    <i class="fas fa-plus-circle text-gray-300 text-lg"></i>
+                </div>
+                <p class="text-sm text-gray-600 mb-3">Servizio aggiuntivo</p>
+                <div class="text-right">
+                    <span class="text-lg font-bold text-green-600">+€${option.prezzoAggiuntivo.toFixed(
+                      2
+                    )}</span>
+                </div>
+            `;
+
+        return card;
+      }
+
+      function toggleOption(option, cardElement) {
+        const isSelected = bookingData.selectedOptions.some(
+          (opt) => opt.idOpzione === option.idOpzione
+        );
+
+        if (isSelected) {
+          // Rimuovi opzione
+          bookingData.selectedOptions = bookingData.selectedOptions.filter(
+            (opt) => opt.idOpzione !== option.idOpzione
+          );
+          cardElement.classList.remove("selected");
+          cardElement.querySelector(".fa-plus-circle").className =
+            "fas fa-plus-circle text-gray-300 text-lg";
+        } else {
+          // Aggiungi opzione
+          bookingData.selectedOptions.push(option);
+          cardElement.classList.add("selected");
+          cardElement.querySelector(".fa-plus-circle").className =
+            "fas fa-check-circle text-green-500 text-lg";
+        }
+      }
+
+      // Aggiorna riepilogo
+      function updateSummary() {
+        const nights = Math.ceil(
+          (new Date(bookingData.checkoutDate) -
+            new Date(bookingData.checkinDate)) /
+            (1000 * 60 * 60 * 24)
+        );
+        const roomPrice = bookingData.selectedRoom.prezzoBaseNotte * nights;
+        const optionsPrice = bookingData.selectedOptions.reduce(
+          (sum, option) => sum + option.prezzoAggiuntivo,
+          0
+        );
+        const totalPrice = roomPrice + optionsPrice;
+
+        bookingData.totalPrice = totalPrice;
+
+        // Aggiorna i campi del riepilogo
+        document.getElementById("summary-checkin").textContent = formatDate(
+          bookingData.checkinDate
+        );
+        document.getElementById("summary-checkout").textContent = formatDate(
+          bookingData.checkoutDate
+        );
+        document.getElementById(
+          "summary-nights"
+        ).textContent = `${nights} notti`;
+        document.getElementById(
+          "summary-guests"
+        ).textContent = `${bookingData.guests} ospiti`;
+        document.getElementById(
+          "summary-room"
+        ).textContent = `${bookingData.selectedRoom.tipoCamera} - Stanza ${bookingData.selectedRoom.numeroStanza}`;
+        document.getElementById(
+          "summary-room-price"
+        ).textContent = `€${roomPrice.toFixed(2)}`;
+        document.getElementById(
+          "summary-total"
+        ).textContent = `€${totalPrice.toFixed(2)}`;
+
+        // Aggiorna opzioni selezionate
+        const optionsSummary = document.getElementById("options-summary");
+        optionsSummary.innerHTML = "";
+
+        if (bookingData.selectedOptions.length > 0) {
+          bookingData.selectedOptions.forEach((option) => {
+            const optionDiv = document.createElement("div");
+            optionDiv.className = "flex justify-between py-1 text-sm";
+            optionDiv.innerHTML = `
+                        <span class="text-gray-600">${
+                          option.nomeOpzione
+                        }:</span>
+                        <span class="font-medium">+€${option.prezzoAggiuntivo.toFixed(
+                          2
+                        )}</span>
+                    `;
+            optionsSummary.appendChild(optionDiv);
+          });
+        } else {
+          const noOptionsDiv = document.createElement("div");
+          noOptionsDiv.className = "text-sm text-gray-500 py-2";
+          noOptionsDiv.textContent = "Nessuna opzione aggiuntiva";
+          optionsSummary.appendChild(noOptionsDiv);
+        }
+      }
+
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString("it-IT", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+      }
+
+      // Conferma prenotazione
+      async function confirmBooking() {
+        const loadingOverlay = document.getElementById("loading-overlay");
+        loadingOverlay.classList.remove("hidden");
+
+        try {
+          const requestData = {
+            idCliente: bookingData.clienteId,
+            idCamera: bookingData.selectedRoom.idCamera,
+            dataInizio: bookingData.checkinDate,
+            dataFine: bookingData.checkoutDate,
+            opzioniIds: bookingData.selectedOptions.map(
+              (option) => option.idOpzione
+            ),
+          };
+
+          const response = await fetch(
+            "http://localhost:8080/api/prenotazioni/addPrenotazione",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(requestData),
+            }
+          );
+
+          const result = await response.json();
+
+          loadingOverlay.classList.add("hidden");
+
+          if (response.ok) {
+            showSuccessModal();
+          } else {
+            alert(`Errore nella prenotazione: ${result}`);
+          }
+        } catch (error) {
+          loadingOverlay.classList.add("hidden");
+          alert("Errore di connessione. Riprova più tardi.");
+          console.error("Errore:", error);
+        }
+      }
+
+      function showSuccessModal() {
+        document.getElementById("success-modal").classList.remove("hidden");
+      }
+
+      function closeSuccessModal() {
+        document.getElementById("success-modal").classList.add("hidden");
+      }
+
+      function goToHomepage() {
+        window.location.href = "../../../auro/homepage.html";
+      }
+    </script>
+  </body>
+</html>

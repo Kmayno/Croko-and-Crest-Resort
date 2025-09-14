@@ -262,4 +262,10 @@ public class ControllerPrenotazione {
                 .body("Errore interno del server: " + e.getMessage());
         }
     }
+
+    // Endpoint di test per verificare la connessione
+    @GetMapping("/test")
+    public ResponseEntity<String> testConnection() {
+        return ResponseEntity.ok("Controller prenotazioni funziona correttamente!");
+    }
 }
