@@ -573,7 +573,7 @@
           Il prezzo è fisso e non varia in base alle giornate di utilizzo.
         </p>
         <!-- Griglia dei servizi aggiuntivi -->
-        <div class="services-grid">
+        <div class="services-grid" id="options">
           <div class="service-card" id="workspace">
             <img
               src="../marta/img/zona lavoro.jpg"
@@ -949,6 +949,33 @@
                               <div class="room-info">
                                 <h3>${cam.numeroStanza}</h3>
                                 <p>${cam.descrizione}</p>
+                              </div>
+                            `;
+                  container.appendChild(card);
+                });
+              });
+          }
+
+          // --- Recupero opzioni dal server ---
+          function getOpzioni() {
+            fetch("http://localhost:8080/api/options/getAllOptions", {
+              method: "GET",
+            })
+              .then((res) => res.json())
+              .then((opzioni) => {
+                console.log("Dati ricevuti dal server:", opzioni);
+                const container = document.getElementById("opzioni");
+                container.innerHTML = "";
+
+                opzioni.forEach((op) => {
+                  console.log("Servizio:", op);
+
+                  const card = document.createElement("li");
+                  card.className = "option-subcard";
+                  card.innerHTML = `
+                              <div class="options-info">
+                                <h3>${op.nomeOpzione}</h3>
+                                <p>${op.prezzoAggiuntivo}</p>
                               </div>
                             `;
                   container.appendChild(card);
