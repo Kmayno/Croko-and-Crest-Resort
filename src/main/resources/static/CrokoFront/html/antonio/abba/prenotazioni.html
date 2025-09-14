@@ -523,21 +523,7 @@
             </select>
           </div>
 
-          <div class="mt-8 text-center">
-            <label class="block text-lg font-bold croco-text mb-3"
-              >🆔 ID Cliente</label
-            >
-            <input
-              type="number"
-              id="cliente-id"
-              class="croco-input w-full px-4 py-3 text-center text-lg font-semibold"
-              placeholder="Inserisci il tuo ID cliente"
-              required
-            />
-            <p class="text-sm croco-accent mt-2">
-              💡 Se non hai un ID cliente, contatta l'assistenza croco!
-            </p>
-          </div>
+          <!-- ID Cliente rimosso - viene preso automaticamente dal localStorage -->
 
           <div class="mt-10 flex justify-center">
             <button
@@ -879,6 +865,11 @@
 
       // Inizializzazione
       document.addEventListener("DOMContentLoaded", function () {
+        // CONTROLLO AUTENTICAZIONE - OBBLIGATORIO
+        if (!checkUserAuthentication()) {
+          return; // Se non autenticato, esce dalla funzione
+        }
+
         // Imposta la data minima a oggi
         const today = new Date().toISOString().split("T")[0];
         document.getElementById("checkin-date").min = today;
@@ -980,6 +971,98 @@
         });
       }
 
+      // CONTROLLO AUTENTICAZIONE UTENTE
+      function checkUserAuthentication() {
+        console.log("🔐 Controllo autenticazione utente...");
+
+        // Prendi l'ID cliente dal localStorage
+        const clienteId = localStorage.getItem("clienteId");
+        const clienteNome = localStorage.getItem("clienteNome");
+
+        console.log("ID Cliente dal localStorage:", clienteId);
+        console.log("Nome Cliente dal localStorage:", clienteNome);
+
+        if (!clienteId || clienteId === "null" || clienteId === "undefined") {
+          // Utente non autenticato - OBBLIGA REGISTRAZIONE
+          console.log(
+            "❌ Utente non autenticato - reindirizzamento alla registrazione"
+          );
+
+          // Mostra messaggio croco
+          showAuthenticationError();
+          return false;
+        }
+
+        // Utente autenticato - salva i dati
+        bookingData.clienteId = parseInt(clienteId);
+        bookingData.clienteNome = clienteNome || "Ospite";
+
+        console.log("✅ Utente autenticato:", {
+          id: bookingData.clienteId,
+          nome: bookingData.clienteNome,
+        });
+
+        // Mostra benvenuto personalizzato
+        showWelcomeMessage(bookingData.clienteNome);
+
+        return true;
+      }
+
+      // Mostra errore di autenticazione
+      function showAuthenticationError() {
+        // Nascondi tutto il contenuto
+        document.body.innerHTML = `
+          <div class="croco-water-bg min-h-screen flex items-center justify-center">
+            <div class="croco-card p-12 max-w-2xl mx-4 text-center">
+              <div class="text-8xl mb-6">🐊</div>
+              <h1 class="text-4xl font-bold croco-text mb-6">
+                🚫 Accesso Negato
+              </h1>
+              <p class="text-xl croco-accent mb-8">
+                Devi registrarti prima di poter prenotare al Croco&Crest Resort!
+              </p>
+              <div class="space-y-4">
+                <button
+                  onclick="goToRegistration()"
+                  class="croco-button px-8 py-4 text-xl rounded-lg transition-all duration-300 font-bold w-full"
+                >
+                  🐊 Registrati Ora
+                </button>
+                <button
+                  onclick="goToHomepage()"
+                  class="bg-gray-400 text-white px-8 py-4 text-xl rounded-lg hover:bg-gray-500 transition-all duration-300 font-bold w-full"
+                >
+                  🏠 Torna alla Homepage
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Mostra messaggio di benvenuto
+      function showWelcomeMessage(nomeCliente) {
+        // Aggiungi messaggio di benvenuto nell'header
+        const header = document.querySelector(
+          ".croco-header .flex.items-center div"
+        );
+        if (header && nomeCliente) {
+          const welcomeDiv = document.createElement("div");
+          welcomeDiv.className = "ml-4 text-right";
+          welcomeDiv.innerHTML = `
+            <p class="text-yellow-200 text-sm">Benvenuto,</p>
+            <p class="text-white font-bold">${nomeCliente} 🐊</p>
+          `;
+          header.appendChild(welcomeDiv);
+        }
+      }
+
+      // Reindirizza alla registrazione
+      function goToRegistration() {
+        // Sostituisci con il path corretto della pagina di registrazione
+        window.location.href = "../../../carmine/RegistrazioneUtente.html";
+      }
+
       // Validazione
       function validateCurrentStep() {
         switch (currentStep) {
@@ -999,10 +1082,9 @@
       function validateStep1() {
         const checkinDate = document.getElementById("checkin-date").value;
         const checkoutDate = document.getElementById("checkout-date").value;
-        const clienteId = document.getElementById("cliente-id").value;
 
-        if (!checkinDate || !checkoutDate || !clienteId) {
-          alert("Per favore, compila tutti i campi obbligatori.");
+        if (!checkinDate || !checkoutDate) {
+          alert("🐊 Per favore, seleziona le date del tuo soggiorno!");
           return false;
         }
 
@@ -1010,11 +1092,18 @@
           return false;
         }
 
-        // Salva i dati
+        // Salva i dati (clienteId già preso dal localStorage)
         bookingData.checkinDate = checkinDate;
         bookingData.checkoutDate = checkoutDate;
         bookingData.guests = parseInt(document.getElementById("guests").value);
-        bookingData.clienteId = parseInt(clienteId);
+        // bookingData.clienteId già impostato in checkUserAuthentication()
+
+        console.log("✅ Dati step 1 validati:", {
+          checkin: bookingData.checkinDate,
+          checkout: bookingData.checkoutDate,
+          guests: bookingData.guests,
+          clienteId: bookingData.clienteId,
+        });
 
         return true;
       }
