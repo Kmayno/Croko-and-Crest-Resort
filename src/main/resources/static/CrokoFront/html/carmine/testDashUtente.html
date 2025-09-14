@@ -7,10 +7,23 @@
 </head>
 <body class="bg-gray-100 h-screen flex flex-col">
 
-<!-- NAVBAR -->
+
 <header class="bg-green-700 text-white shadow-md p-4 flex justify-between items-center">
-    <h1 class="text-xl font-bold">Crocodile Dashboard</h1>
-    <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg">Logout</button>
+    <!-- Logo + Dashboard a sinistra -->
+    <div class="flex items-center space-x-4">
+        <img src="CROCOLOGO20.png" alt="Logo" class="h-16 w-auto object-contain">
+        <h1 class="text-xl font-bold">Dashboard</h1>
+    </div>
+
+    <!-- Homepage + Logout a destra -->
+    <div class="flex items-center space-x-4">
+        <a href="../auro/homepage.html" class="text-sm font-semibold text-[#f1fcf4] hover:underline">
+            Homepage
+        </a>
+        <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg">
+            Logout
+        </button>
+    </div>
 </header>
 
 <!-- LAYOUT -->
