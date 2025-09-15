@@ -2,7 +2,6 @@
 <html lang="it">
   <head>
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hotel Master - Rooms</title>
@@ -202,11 +201,8 @@
         padding: 2rem;
       }
       /* Servizi aggiuntivi nascosti di default */
-      #options .service-card {
-        display: none; /* card inizialmente nascoste */
-        max-width: 300px; /* evita la gigacard */
-        width: 100%; /* piena larghezza della cella della griglia */
-        box-sizing: border-box;
+      #opzioni .service-card {
+        display: none;
       }
       .service-card {
         background: #5ea979;
@@ -218,10 +214,9 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        max-width: 300px; /* larghezza massima della card */
-        width: 100%; /* prende tutta la cella della griglia */
-        box-sizing: border-box; /* include padding e bordi nella larghezza */
-        display: none;
+        max-width: 300px;
+        width: 100%;
+        box-sizing: border-box;
       }
       .service-card:hover {
         transform: translateY(-5px);
@@ -272,7 +267,7 @@
         </svg>
       </div>
     </section>
-    <!-- SLIDER  -->
+
     <div id="slider" class="slider">
       <!-- Pagina Camere -->
       <section class="page">
@@ -285,7 +280,6 @@
                 src="../marta/img/standard bedroom.jpg"
                 alt="Camera Standard"
               />
-              <!-- Pulsanti -->
               <button class="prev" onclick="prevImage('standard')">
                 &#10094;
               </button>
@@ -295,10 +289,7 @@
             </div>
             <div class="room-info">
               <div class="title-card"><h3>Camera Standard</h3></div>
-
-              <!-- Contenitore icone (vuoto, JS le inserirà) -->
               <div class="feature-icon"></div>
-
               <p>
                 Camera dotata di: letto singolo, bagno, servizio pulizie, kit
                 bagno e gli essenziali comfort.
@@ -312,11 +303,11 @@
               <ul id="singola"></ul>
             </div>
           </div>
+
           <!-- Camera Deluxe -->
           <div class="room-card" id="deluxe">
             <div class="room-image">
               <img src="../marta/img/camera matr.jpg" alt="Camera Deluxe" />
-              <!-- Pulsanti -->
               <button class="prev" onclick="prevImage('deluxe')">
                 &#10094;
               </button>
@@ -326,10 +317,7 @@
             </div>
             <div class="room-info">
               <div class="title-card"><h3>Camera Deluxe</h3></div>
-
-              <!-- Contenitore icone -->
               <div class="feature-icon"></div>
-
               <p>
                 Camera dotata di: letto matrimoniale, bagno, servizio pulizie,
                 kit bagno, sveglia, spazio extra e balcone.
@@ -343,11 +331,11 @@
               <ul id="doppia"></ul>
             </div>
           </div>
+
           <!-- Suite -->
           <div class="room-card" id="suiteId">
             <div class="room-image">
               <img src="../marta/img/camera suite 2.jpg" alt="Suite" />
-              <!-- Pulsanti -->
               <button class="prev" onclick="prevImage('suiteId')">
                 &#10094;
               </button>
@@ -357,10 +345,7 @@
             </div>
             <div class="room-info">
               <div class="title-card"><h3>Suite</h3></div>
-
-              <!-- Contenitore icone -->
               <div class="feature-icon"></div>
-
               <p>
                 Include in dotazione: letto matrimoniale, bagno, servizio
                 pulizie, kit bagno, materasso extra comfort e area living.
@@ -376,12 +361,11 @@
           </div>
         </div>
       </section>
+
       <!-- Pagina Servizi -->
       <section class="page">
-        <!-- Titolo principale -->
+        <!-- Servizi inclusi -->
         <div class="Tipologie"><h1>Servizi inclusi</h1></div>
-
-        <!-- Griglia dei servizi inclusi -->
         <div class="services-grid">
           <div class="service-card" id="reception">
             <img src="../marta/img/receptionist.jpg" alt="Reception 24h" />
@@ -421,7 +405,6 @@
             <p>Piscina all'aperto con area relax per il tuo benessere.</p>
             <div class="service-icon-container"></div>
           </div>
-          <div style="grid-column: 1 / -1"></div>
         </div>
 
         <!-- Servizi aggiuntivi -->
@@ -432,30 +415,11 @@
           Il prezzo è fisso e non varia in base alle giornate di utilizzo.
         </p>
         <div class="content">
-          <button
-            class="refresh-btn"
-            onclick="getOpzioni()"
-            style="color: #1e4730"
-          >
-            <button id="show-services-btn" class="btn1">
-              Scopri i servizi aggiuntivi
-            </button>
+          <button id="show-services-btn" class="btn1">
+            Scopri i servizi aggiuntivi
           </button>
-          <div class="loading" id="loading" style="display: none"></div>
           <div class="services-grid" id="opzioni">
-            <div class="service-card" id="workspace">
-              <img
-                src="../marta/img/zona lavoro.jpg"
-                alt="Zona lavoro"
-                class="rounded-md w-full h-40 object-cover mb-4"
-              />
-              <h3 class="text-xl font-semibold mb-2">Zona lavoro</h3>
-              <p>
-                Uno spazio riservato con scrivania, computer e tutto il
-                necessario per lavorare o studiare in tranquillità.
-              </p>
-              <div class="service-icon-container"></div>
-            </div>
+            <!-- Card aggiuntive verranno inserite da JS -->
           </div>
         </div>
       </section>
@@ -466,18 +430,19 @@
         const slider = document.getElementById("slider");
         slider.style.transform = `translateX(-${index * 100}%)`;
       }
+
       document
         .getElementById("show-services-btn")
         .addEventListener("click", () => {
-          document.querySelectorAll(".service-card").forEach((card) => {
-            card.style.display = "flex"; // mostra tutte le card
-          });
+          document
+            .querySelectorAll("#opzioni .service-card")
+            .forEach((card) => {
+              card.style.display = "flex";
+            });
         });
 
       function getOpzioni() {
-        fetch("http://localhost:8080/api/options/getAllOptions", {
-          method: "GET",
-        })
+        fetch("http://localhost:8080/api/options/getAllOptions")
           .then((res) => res.json())
           .then((opzioni) => {
             const container = document.getElementById("opzioni");
@@ -486,8 +451,9 @@
               const card = document.createElement("div");
               card.className = "service-card";
               card.innerHTML = `
-                <img src="../marta/img/${op.img}" alt="${op.nomeOpzione}"
-                     class="rounded-md w-full h-40 object-cover mb-4" />
+                <img src="../marta/img/${op.img}" alt="${
+                op.nomeOpzione
+              }" class="rounded-md w-full h-40 object-cover mb-4" />
                 <h3 class="text-xl font-semibold mb-2">${op.nomeOpzione}</h3>
                 <p>${op.descrizione || "Prezzo: " + op.prezzoAggiuntivo}</p>
                 <div class="service-icon-container">
@@ -500,7 +466,8 @@
             });
           });
       }
-      //Icone dinamiche
+
+      // Icone dinamiche camere e servizi
       const serviziIcone = {
         bagno: "../marta/img/bagno.json",
         pulizie: "../marta/img/pulizie.json",
@@ -560,6 +527,7 @@
           }
         });
       }
+
       function renderServiceIcons(serviceId) {
         const container = document.querySelector(
           `#${serviceId} .service-icon-container`
@@ -577,13 +545,12 @@
         });
       }
 
-      // --- Avvio al caricamento pagina ---
+      // Avvio al caricamento pagina
       window.addEventListener("DOMContentLoaded", () => {
-        // Mostra icone servizi
         renderServices("standard");
         renderServices("deluxe");
         renderServices("suiteId");
-        // Servizi
+
         renderServiceIcons("piscina");
         renderServiceIcons("workspace");
         renderServiceIcons("spa");
