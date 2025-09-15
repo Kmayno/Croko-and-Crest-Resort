@@ -163,14 +163,10 @@
 
               <!-- Menu items -->
               <a
-                href="../carmine/testDashUtente.html"
+                href="#"
                 class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
-                >Il tuo profilo</a
-              >
-              <a
-                href="../carmine/testDashUtente.html"
-                class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
-                >Impostazioni</a
+                onclick="goToPersonalArea(); return false;"
+                >Accedi all'area</a
               >
               <a
                 href="../auro/homepage.html"
@@ -621,6 +617,34 @@
       let isLoggedIn = false;
       let userRole = null;
 
+      // Controlla se l'utente è già loggato al caricamento della pagina
+      function checkLoginStatus() {
+        const adminToken = localStorage.getItem("token");
+        const adminEmail = localStorage.getItem("adminEmail");
+        const adminNome = localStorage.getItem("adminNome");
+        
+        const clienteToken = localStorage.getItem("tokenCliente");
+        const clienteEmail = localStorage.getItem("clienteEmail");
+        const clienteNome = localStorage.getItem("clienteNome");
+
+        if (adminToken && adminEmail) {
+          // Admin loggato
+          isLoggedIn = true;
+          userRole = "admin";
+          updateUI();
+          console.log("Admin già loggato:", adminNome);
+        } else if (clienteToken && clienteEmail) {
+          // Cliente loggato
+          isLoggedIn = true;
+          userRole = "utente";
+          updateUI();
+          console.log("Cliente già loggato:", clienteNome);
+        }
+      }
+
+      // Chiama la funzione al caricamento della pagina
+      document.addEventListener('DOMContentLoaded', checkLoginStatus);
+
       // Funzione per reindirizzare alla pagina di login appropriata
       function redirectToLogin(role) {
         // Chiudi il dropdown del login
@@ -709,19 +733,16 @@
           loginSection.style.display = "none";
           profileDropdown.style.display = "block";
 
-          // Aggiorna il titolo dell'area personale
-          const roleText = userRole === "admin" ? "Area Admin" : "Area Utente";
-          userRoleElement.textContent = roleText;
+          // Aggiorna il titolo dell'area personale con il nome dell'utente
+          const userName = userRole === "admin" 
+            ? localStorage.getItem("adminNome") || "Admin"
+            : localStorage.getItem("clienteNome") || "Utente";
+          userRoleElement.textContent = `Benvenuto ${userName}`;
 
           // Mobile: nascondi login, mostra profilo
           mobileLoginSection.style.display = "none";
           mobileProfileSection.style.display = "block";
-          mobileUserRole.textContent = roleText;
-          
-          // Mostra il nome dell'utente
-          const userName = userRole === "admin" 
-            ? localStorage.getItem("adminNome") || "Admin"
-            : localStorage.getItem("clienteNome") || "Utente";
+          mobileUserRole.textContent = `Benvenuto ${userName}`;
           mobileUsername.textContent = userName;
         } else {
           // Desktop: mostra login, nascondi profilo
@@ -734,36 +755,14 @@
         }
       }
 
-      // Controlla se l'utente è già loggato (da localStorage o altre pagine)
-      function checkLoginStatus() {
-        // Controlla se c'è un token cliente (utente normale)
-        const clienteToken = localStorage.getItem("tokenCliente");
-        const clienteId = localStorage.getItem("clienteId");
-        const clienteNome = localStorage.getItem("clienteNome");
-        
-        // Controlla se c'è un token admin
-        const adminToken = localStorage.getItem("token");
-        const adminEmail = localStorage.getItem("adminEmail");
-        const adminNome = localStorage.getItem("adminNome");
-
-        if (clienteToken && clienteId) {
-          // Utente normale loggato
-          isLoggedIn = true;
-          userRole = "utente";
-          updateUI();
-          console.log("✅ Utente loggato:", clienteNome);
-        } else if (adminToken && adminEmail) {
-          // Admin loggato
-          isLoggedIn = true;
-          userRole = "admin";
-          updateUI();
-          console.log("✅ Admin loggato:", adminNome);
-        } else {
-          // Nessuno loggato
-          isLoggedIn = false;
-          userRole = null;
-          updateUI();
-          console.log("❌ Nessun utente loggato");
+      // Funzione per accedere all'area personale
+      function goToPersonalArea() {
+        if (userRole === "admin") {
+          // Reindirizza alla dashboard admin
+          window.location.href = "../carmine/AdminDash.html";
+        } else if (userRole === "utente") {
+          // Reindirizza all'area utente
+          window.location.href = "../carmine/testDashUtente.html";
         }
       }
 

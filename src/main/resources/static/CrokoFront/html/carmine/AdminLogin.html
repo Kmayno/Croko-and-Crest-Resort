@@ -84,8 +84,8 @@
             localStorage.setItem("token", admin.token);
             localStorage.setItem("adminEmail", admin.email);
             localStorage.setItem("adminNome", admin.nome);
-            // Reindirizza alla homepage con login persistente
-            window.location.href = "../auro/homepage.html";
+            // Reindirizza alla dashboard admin
+            window.location.href = "AdminDash.html";
           })
           .catch((err) => {
             message.textContent = err.message;

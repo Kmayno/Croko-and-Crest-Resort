@@ -745,10 +745,11 @@
                     <i class="fas fa-check-circle text-3xl mr-4"></i>
                     <div>
                       <h4 class="text-lg font-bold">
-                        🐊 Prenotazione confermata
+                        🐊 Prenotazione in attesa
                       </h4>
                       <p class="text-sm mt-2">
-                        La tua prenotazione è stata elaborata con successo!
+                        La tua prenotazione è stata inviata e sarà esaminata dal
+                        nostro staff!
                       </p>
                     </div>
                   </div>
@@ -759,7 +760,8 @@
                     📢 Informazioni importanti:
                   </h4>
                   <ul class="text-sm text-blue-700 space-y-2">
-                    <li>📧 Riceverai una email di conferma</li>
+                    <li>📧 Riceverai una email di conferma entro 24 ore</li>
+                    <li>⏳ La prenotazione è in attesa di approvazione</li>
                     <li>🕐 Il check-in è disponibile dalle 15:00</li>
                     <li>🕚 Il check-out è entro le 11:00</li>
                     <li>❌ Cancellazione gratuita fino a 24h prima</li>
@@ -780,7 +782,7 @@
               onclick="confirmBooking()"
               class="croco-success px-8 py-4 text-xl rounded-lg hover:scale-105 transition-all duration-300 font-bold"
             >
-              <i class="fas fa-check mr-2"></i> Conferma Prenotazione 🐊
+              <i class="fas fa-paper-plane mr-2"></i> Invia Prenotazione 🐊
             </button>
           </div>
         </div>
@@ -814,11 +816,11 @@
         <div class="text-8xl mb-6">🐊</div>
         <i class="fas fa-check-circle text-green-500 text-6xl mb-4"></i>
         <h3 class="text-3xl font-bold croco-text mb-4">
-          🎉 Prenotazione Confermata!
+          🎉 Prenotazione Inviata!
         </h3>
         <p class="text-lg croco-accent mb-8">
-          La tua prenotazione è stata creata con successo! Riceverai una email
-          di conferma a breve.
+          La tua prenotazione è stata inviata con successo! Il nostro staff la
+          esaminerà e riceverai una conferma via email entro 24 ore.
         </p>
         <div class="space-y-4">
           <button

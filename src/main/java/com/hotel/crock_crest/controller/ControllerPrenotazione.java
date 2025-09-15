@@ -152,7 +152,7 @@ public class ControllerPrenotazione {
             nuovaPrenotazione.setDataInizio(request.getDataInizio());
             nuovaPrenotazione.setDataFine(request.getDataFine());
             nuovaPrenotazione.setPrezzoTotale(prezzoTotale);
-            nuovaPrenotazione.setStatoPrenotazione(true); // true = confermata, false = in attesa
+            nuovaPrenotazione.setStatoPrenotazione(false); // false = in attesa di conferma admin, true = confermata
 
             // salva la prenotazione
             Prenotazione prenotazioneSalvata = prenotazioneService.save(nuovaPrenotazione);
@@ -398,6 +398,113 @@ public class ControllerPrenotazione {
             logger.error("Errore nel parsing JSON raw", e);
             return ResponseEntity.badRequest()
                 .body("Errore nel parsing: " + e.getMessage());
+        }
+    }
+
+    // Endpoint per confermare prenotazione (solo admin)
+    @PutMapping("/conferma/{idPrenotazione}")
+    public ResponseEntity<String> confermaPrenotazione(@PathVariable int idPrenotazione) {
+        try {
+            logger.info("Tentativo di conferma prenotazione con ID: {}", idPrenotazione);
+            
+            // Verifica che la prenotazione esista
+            Optional<Prenotazione> prenotazioneOpt = prenotazioneService.findById(idPrenotazione);
+            if (!prenotazioneOpt.isPresent()) {
+                logger.error("Prenotazione non trovata con ID: {}", idPrenotazione);
+                return ResponseEntity.badRequest()
+                    .body("Prenotazione non trovata con ID: " + idPrenotazione);
+            }
+            
+            Prenotazione prenotazione = prenotazioneOpt.get();
+            
+            // Verifica che la prenotazione non sia già confermata
+            if (prenotazione.getStatoPrenotazione()) {
+                logger.warn("Prenotazione {} già confermata", idPrenotazione);
+                return ResponseEntity.badRequest()
+                    .body("Prenotazione già confermata");
+            }
+            
+            // Verifica nuovamente la disponibilità della camera
+            boolean cameraLibera = prenotazioneService.verificaDisponibilita(
+                prenotazione.getCamera().getIdCamera(),
+                prenotazione.getDataInizio(),
+                prenotazione.getDataFine()
+            );
+            
+            if (!cameraLibera) {
+                logger.error("Camera non più disponibile per prenotazione {}", idPrenotazione);
+                return ResponseEntity.badRequest()
+                    .body("Camera non più disponibile nelle date richieste");
+            }
+            
+            // Conferma la prenotazione
+            prenotazione.setStatoPrenotazione(true);
+            prenotazioneService.save(prenotazione);
+            
+            logger.info("Prenotazione {} confermata con successo", idPrenotazione);
+            return ResponseEntity.ok("Prenotazione confermata con successo");
+            
+        } catch (Exception e) {
+            logger.error("Errore durante la conferma della prenotazione {}", idPrenotazione, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Errore interno del server: " + e.getMessage());
+        }
+    }
+
+    // Endpoint per rifiutare prenotazione (solo admin)
+    @DeleteMapping("/rifiuta/{idPrenotazione}")
+    public ResponseEntity<String> rifiutaPrenotazione(@PathVariable int idPrenotazione) {
+        try {
+            logger.info("Tentativo di rifiuto prenotazione con ID: {}", idPrenotazione);
+            
+            // Verifica che la prenotazione esista
+            Optional<Prenotazione> prenotazioneOpt = prenotazioneService.findById(idPrenotazione);
+            if (!prenotazioneOpt.isPresent()) {
+                logger.error("Prenotazione non trovata con ID: {}", idPrenotazione);
+                return ResponseEntity.badRequest()
+                    .body("Prenotazione non trovata con ID: " + idPrenotazione);
+            }
+            
+            Prenotazione prenotazione = prenotazioneOpt.get();
+            
+            // Verifica che la prenotazione non sia già confermata
+            if (prenotazione.getStatoPrenotazione()) {
+                logger.warn("Impossibile rifiutare prenotazione {} già confermata", idPrenotazione);
+                return ResponseEntity.badRequest()
+                    .body("Impossibile rifiutare una prenotazione già confermata");
+            }
+            
+            // Elimina la prenotazione
+            prenotazioneService.deleteById(idPrenotazione);
+            
+            logger.info("Prenotazione {} rifiutata ed eliminata", idPrenotazione);
+            return ResponseEntity.ok("Prenotazione rifiutata ed eliminata");
+            
+        } catch (Exception e) {
+            logger.error("Errore durante il rifiuto della prenotazione {}", idPrenotazione, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Errore interno del server: " + e.getMessage());
+        }
+    }
+
+    // Endpoint per ottenere prenotazioni in attesa di conferma (solo admin)
+    @GetMapping("/pending")
+    public ResponseEntity<List<PrenotazioneResponse>> getPrenotazioniInAttesa() {
+        try {
+            logger.info("Richiesta prenotazioni in attesa di conferma");
+            List<Prenotazione> prenotazioniInAttesa = prenotazioneService.findByStato(false);
+            
+            List<PrenotazioneResponse> response = prenotazioniInAttesa.stream()
+                .map(PrenotazioneResponse::new)
+                .toList();
+            
+            logger.info("Trovate {} prenotazioni in attesa", response.size());
+            return ResponseEntity.ok(response);
+            
+        } catch (Exception e) {
+            logger.error("Errore durante il recupero delle prenotazioni in attesa", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(null);
         }
     }
 }
