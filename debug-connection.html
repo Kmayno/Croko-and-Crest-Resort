@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debug Connessione</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .test-section {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+      }
+      .test-button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 5px;
+      }
+      .test-button:hover {
+        background-color: #0056b3;
+      }
+      .result {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 12px;
+      }
+      .success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      .error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      .info {
+        background-color: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Debug Connessione Server</h1>
+
+      <div class="test-section">
+        <h3>Test 1: Connessione di base</h3>
+        <button class="test-button" onclick="testBasicConnection()">
+          Test GET /test
+        </button>
+        <div id="result1"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>Test 2: Prenotazione semplice</h3>
+        <button class="test-button" onclick="testSimpleBooking()">
+          Test POST /addPrenotazione
+        </button>
+        <div id="result2"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>Test 3: Prenotazione con camera occupata</h3>
+        <button class="test-button" onclick="testOccupiedBooking()">
+          Test Camera Occupata
+        </button>
+        <div id="result3"></div>
+      </div>
+    </div>
+
+    <script>
+      async function testBasicConnection() {
+        const resultDiv = document.getElementById("result1");
+        resultDiv.innerHTML = '<div class="info">Test in corso...</div>';
+
+        try {
+          console.log("Test connessione di base...");
+          const response = await fetch(
+            "http://localhost:8080/api/prenotazioni/test",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          console.log("Status:", response.status);
+          console.log("Headers:", [...response.headers.entries()]);
+
+          const result = await response.text();
+          console.log("Result:", result);
+
+          if (response.ok) {
+            resultDiv.innerHTML = `<div class="success">Connessione OK<br>Status: ${response.status}<br>Result: ${result}</div>`;
+          } else {
+            resultDiv.innerHTML = `<div class="error">Errore ${response.status}<br>Result: ${result}</div>`;
+          }
+        } catch (error) {
+          console.error("Connessione fallita:", error);
+          resultDiv.innerHTML = `<div class="error">Errore: ${error.name}<br>Message: ${error.message}</div>`;
+        }
+      }
+
+      async function testSimpleBooking() {
+        const resultDiv = document.getElementById("result2");
+        resultDiv.innerHTML = '<div class="info">Test in corso...</div>';
+
+        try {
+          const requestData = {
+            idCliente: 1,
+            idCamera: 1,
+            dataInizio: "2025-01-01",
+            dataFine: "2025-01-02",
+            opzioniIds: [],
+          };
+
+          console.log("Test prenotazione semplice...");
+          console.log("Request data:", requestData);
+
+          const response = await fetch(
+            "http://localhost:8080/api/prenotazioni/addPrenotazione",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(requestData),
+            }
+          );
+
+          console.log("Status:", response.status);
+          console.log("Headers:", [...response.headers.entries()]);
+
+          const contentType = response.headers.get("content-type");
+          console.log("Content-Type:", contentType);
+
+          let result;
+          try {
+            if (contentType && contentType.includes("application/json")) {
+              result = await response.json();
+              console.log("Result (JSON):", result);
+            } else {
+              result = await response.text();
+              console.log("Result (text):", result);
+            }
+          } catch (parseError) {
+            console.error("Parse error:", parseError);
+            result = await response.text();
+            console.log("Result (fallback text):", result);
+          }
+
+          if (response.ok) {
+            resultDiv.innerHTML = `<div class="success">Prenotazione OK<br>Status: ${
+              response.status
+            }<br>Result: ${JSON.stringify(result)}</div>`;
+          } else {
+            resultDiv.innerHTML = `<div class="error">Errore ${
+              response.status
+            }<br>Result: ${result}<br>Type: ${typeof result}</div>`;
+          }
+        } catch (error) {
+          console.error("Errore prenotazione:", error);
+          resultDiv.innerHTML = `<div class="error">Errore: ${error.name}<br>Message: ${error.message}<br>Stack: ${error.stack}</div>`;
+        }
+      }
+
+      async function testOccupiedBooking() {
+        const resultDiv = document.getElementById("result3");
+        resultDiv.innerHTML = '<div class="info">Test in corso...</div>';
+
+        try {
+          const requestData = {
+            idCliente: 1,
+            idCamera: 1,
+            dataInizio: "2024-01-01",
+            dataFine: "2024-01-05",
+            opzioniIds: [],
+          };
+
+          console.log("Test camera occupata...");
+          console.log("Request data:", requestData);
+
+          const response = await fetch(
+            "http://localhost:8080/api/prenotazioni/addPrenotazione",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(requestData),
+            }
+          );
+
+          console.log("Status:", response.status);
+          console.log("Headers:", [...response.headers.entries()]);
+
+          const contentType = response.headers.get("content-type");
+          console.log("Content-Type:", contentType);
+
+          let result;
+          try {
+            if (contentType && contentType.includes("application/json")) {
+              result = await response.json();
+              console.log("Result (JSON):", result);
+            } else {
+              result = await response.text();
+              console.log("Result (text):", result);
+            }
+          } catch (parseError) {
+            console.error("Parse error:", parseError);
+            result = await response.text();
+            console.log("Result (fallback text):", result);
+          }
+
+          if (response.ok) {
+            resultDiv.innerHTML = `<div class="success">Prenotazione OK (inaspettato)<br>Status: ${
+              response.status
+            }<br>Result: ${JSON.stringify(result)}</div>`;
+          } else {
+            resultDiv.innerHTML = `<div class="error">Errore ${
+              response.status
+            }<br>Result: ${result}<br>Type: ${typeof result}</div>`;
+          }
+        } catch (error) {
+          console.error("Errore camera occupata:", error);
+          resultDiv.innerHTML = `<div class="error">Errore: ${error.name}<br>Message: ${error.message}<br>Stack: ${error.stack}</div>`;
+        }
+      }
+    </script>
+  </body>
+</html>

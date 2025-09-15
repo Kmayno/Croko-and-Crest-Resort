@@ -31,14 +31,14 @@ public class ClienteService {
 
 
     //visualizzare tutte le prenotazioni di un cliente
-    public List<Prenotazione> getPrenotazioniCliente(int idCliente) {
+    public List<Prenotazione> getPrenotazioniCliente(Integer idCliente) {
         return clienteRepository.findById(idCliente)
                 .map(Cliente::getPrenotazioni)
                 .orElse(List.of());
     }
 
     //visualizzare i dati di un cliente tramite id
-    public Optional<Cliente> getClienteById(int id) {
+    public Optional<Cliente> getClienteById(Integer id) {
         return clienteRepository.findById(id);
     }
 
@@ -61,7 +61,7 @@ public class ClienteService {
     }
 
     //elimina un cliente tramite id
-    public void deleteCliente(int id){
+    public void deleteCliente(Integer id){
         clienteRepository.deleteById(id);
     }
 

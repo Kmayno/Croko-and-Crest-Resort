@@ -1,311 +1,827 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Dashboard Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="h-screen bg-gray-100">
-
-<!-- Sidebar fissa -->
-<aside class="fixed top-0 left-0 h-full w-72 bg-green-700 text-white flex flex-col">
-    <div class="p-6 flex items-center space-x-3 border-b border-green-800">
-        <img src="CROCOLOGO20.png" alt="Logo" class="h-12 w-auto object-contain">
+  </head>
+  <body class="h-screen bg-gray-100">
+    <!-- Sidebar fissa -->
+    <aside
+      class="fixed top-0 left-0 h-full w-72 bg-green-700 text-white flex flex-col"
+    >
+      <div class="p-6 flex items-center space-x-3 border-b border-green-800">
+        <img
+          src="CROCOLOGO20.png"
+          alt="Logo"
+          class="h-12 w-auto object-contain"
+        />
         <h1 class="text-lg font-bold">Dashboard</h1>
-    </div>
+      </div>
 
-    <nav class="flex-1 overflow-y-auto p-4 space-y-2" id="sidebarNav">
-        <button data-section="dashboard" class="menuBtn w-full text-left py-2 px-3 rounded hover:bg-green-800"> Home</button>
-        <button data-section="admins" class="menuBtn w-full text-left py-2 px-3 rounded hover:bg-green-800"> Gestione Admin</button>
-        <button data-section="prenotazioni" class="menuBtn w-full text-left py-2 px-3 rounded hover:bg-green-800"> Gestione Prenotazioni</button>
-        <button data-section="camere" class="menuBtn w-full text-left py-2 px-3 rounded hover:bg-green-800"> Gestione Camere</button>
-        <button data-section="aggiunte" class="menuBtn w-full text-left py-2 px-3 rounded hover:bg-green-800">Gestione Aggiunte</button>
-    </nav>
+      <nav class="flex-1 overflow-y-auto p-4 space-y-2" id="sidebarNav">
+        <button
+          data-section="dashboard"
+          class="menuBtn w-full text-left py-2 px-3 rounded hover:bg-green-800"
+        >
+          Home
+        </button>
+        <button
+          data-section="admins"
+          class="menuBtn w-full text-left py-2 px-3 rounded hover:bg-green-800"
+        >
+          Gestione Admin
+        </button>
+        <button
+          data-section="prenotazioni"
+          class="menuBtn w-full text-left py-2 px-3 rounded hover:bg-green-800"
+        >
+          Gestione Prenotazioni
+        </button>
+        <button
+          data-section="camere"
+          class="menuBtn w-full text-left py-2 px-3 rounded hover:bg-green-800"
+        >
+          Gestione Camere
+        </button>
+        <button
+          data-section="aggiunte"
+          class="menuBtn w-full text-left py-2 px-3 rounded hover:bg-green-800"
+        >
+          Gestione Aggiunte
+        </button>
+      </nav>
 
-    <div class="p-4 border-t border-green-800">
-        <button id="logoutBtn" class="w-full bg-green-600 py-2 rounded-lg hover:bg-green-800 transition">Logout</button>
-    </div>
-</aside>
+      <div class="p-4 border-t border-green-800 space-y-2">
+        <a
+          href="../auro/homepage.html"
+          class="block text-center w-full bg-green-600 py-2 rounded-lg hover:bg-green-800 transition text-sm font-semibold text-[#f1fcf4]"
+        >
+          Homepage
+        </a>
+        <button
+          id="logoutBtn"
+          class="w-full bg-green-600 py-2 rounded-lg hover:bg-green-800 transition"
+        >
+          Logout
+        </button>
+      </div>
+    </aside>
 
-<!-- Main (scorre) -->
-<main class="ml-72 flex-1 h-screen overflow-y-auto p-6">
-    <!-- Banner per errori / debug -->
-    <div id="topBanner" class="hidden mb-4"></div>
+    <!-- Main (scorre) -->
+    <main class="ml-72 flex-1 h-screen overflow-y-auto p-6">
+      <!-- Banner per errori / debug -->
+      <div id="topBanner" class="hidden mb-4"></div>
 
-    <h2 id="welcome" class="text-lg text-gray-700 mb-6"></h2>
+      <h2 id="welcome" class="text-lg text-gray-700 mb-6"></h2>
 
-    <!-- Section: Home -->
-    <section id="section-dashboard" class="hidden">
+      <!-- Section: Home -->
+      <section id="section-dashboard" class="hidden">
         <h2 class="text-2xl font-bold mb-4">Benvenuto!</h2>
-        <p class="text-gray-700">Seleziona una voce dal menu a sinistra per gestire admins o prenotazioni.</p>
-    </section>
+        <p class="text-gray-700">
+          Seleziona una voce dal menu a sinistra per gestire admins o
+          prenotazioni.
+        </p>
+      </section>
 
-    <!-- Section: Admins -->
-    <section id="section-admins" class="hidden">
+      <!-- Section: Admins -->
+      <section id="section-admins" class="hidden">
         <div class="flex items-center justify-between">
-            <h2 class="text-xl font-bold mb-4">Gestione Admin</h2>
-            <button id="refreshAdmins" class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700">Aggiorna</button>
+          <h2 class="text-xl font-bold mb-4">Gestione Admin</h2>
+          <button
+            id="refreshAdmins"
+            class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+          >
+            Aggiorna
+          </button>
         </div>
-        <div id="result" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4"></div>
-    </section>
+        <div
+          id="result"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4"
+        ></div>
+      </section>
 
-    <!-- Section: Prenotazioni -->
-    <section id="section-prenotazioni" class="hidden">
-        <div class="flex items-center justify-between">
-            <h2 class="text-xl font-bold mb-4">Prenotazioni Clienti</h2>
-            <button id="refreshPren" class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700">Aggiorna</button>
-        </div>
-        <div id="prenotazioniResult" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4"></div>
-    </section>
-
-    <!-- Sezione Camere -->
-    <div id="section-camere" class="hidden p-6">
-
+      <!-- Section: Prenotazioni -->
+      <section id="section-prenotazioni" class="hidden">
         <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xl font-bold">Lista Camere</h2>
-            <div class="space-x-2">
-                <button id="addCameraBtn" class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700">+ Aggiungi Camera</button>
-                <button id="refreshCamere" class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700">Aggiorna</button>
-            </div>
+          <h2 class="text-xl font-bold">Prenotazioni Clienti</h2>
+          <div class="space-x-2">
+            <button
+              id="showPendingBtn"
+              class="px-3 py-1 bg-yellow-600 text-white rounded hover:bg-yellow-700"
+            >
+              Prenotazioni in Attesa
+            </button>
+            <button
+              id="showConfirmedBtn"
+              class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+            >
+              Prenotazioni Confermate
+            </button>
+            <button
+              id="refreshPren"
+              class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              Aggiorna
+            </button>
+          </div>
         </div>
-        <div id="camereResult" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"></div>
-    </div>
 
+        <!-- Prenotazioni in attesa -->
+        <div id="pendingPrenotazioni" class="hidden">
+          <h3 class="text-lg font-semibold mb-4 text-yellow-700">
+            Prenotazioni in Attesa di Conferma
+          </h3>
+          <div
+            id="pendingResult"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4"
+          ></div>
+        </div>
 
-    <!-- Sezione Aggiunte -->
-    <section id="section-aggiunte" class="hidden p-6">
+        <!-- Prenotazioni confermate -->
+        <div id="confirmedPrenotazioni">
+          <h3 class="text-lg font-semibold mb-4 text-green-700">
+            Prenotazioni Confermate
+          </h3>
+          <div
+            id="prenotazioniResult"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4"
+          ></div>
+        </div>
+      </section>
+
+      <!-- Sezione Camere -->
+      <div id="section-camere" class="hidden p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold">Lista Camere</h2>
+          <div class="space-x-2">
+            <button
+              id="addCameraBtn"
+              class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+            >
+              + Aggiungi Camera
+            </button>
+            <button
+              id="refreshCamere"
+              class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+            >
+              Aggiorna
+            </button>
+          </div>
+        </div>
+        <div
+          id="camereResult"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
+        ></div>
+      </div>
+
+      <!-- Sezione Aggiunte -->
+      <section id="section-aggiunte" class="hidden p-6">
         <h2 class="text-lg text-gray-700 mb-6">Gestione Aggiunte</h2>
 
         <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xl font-bold">Lista Aggiunte</h2>
-            <div class="space-x-2">
-                <button id="addOpzioneBtn" class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700">+ Aggiungi Opzione</button>
-                <button id="refreshOpzioni" class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700">Aggiorna</button>
-            </div>
+          <h2 class="text-xl font-bold">Lista Aggiunte</h2>
+          <div class="space-x-2">
+            <button
+              id="addOpzioneBtn"
+              class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+            >
+              + Aggiungi Opzione
+            </button>
+            <button
+              id="refreshOpzioni"
+              class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+            >
+              Aggiorna
+            </button>
+          </div>
         </div>
 
-        <div id="opzioniResult" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"></div>
-    </section>
+        <div
+          id="opzioniResult"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
+        ></div>
+      </section>
+    </main>
 
-
-</main>
-
-
-
-<!-- MODAL elimina admin -->
-<div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
-    <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
+    <!-- MODAL elimina admin -->
+    <div
+      id="deleteModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50"
+    >
+      <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
         <h3 class="text-lg font-bold mb-4">Conferma eliminazione</h3>
-        <p id="modalText" class="mb-6">Sei sicuro di voler eliminare questo admin?</p>
+        <p id="modalText" class="mb-6">
+          Sei sicuro di voler eliminare questo admin?
+        </p>
         <div class="flex justify-end space-x-3">
-            <button id="cancelDelete" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Annulla</button>
-            <button id="confirmDelete" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">Elimina</button>
+          <button
+            id="cancelDelete"
+            class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+          >
+            Annulla
+          </button>
+          <button
+            id="confirmDelete"
+            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+          >
+            Elimina
+          </button>
         </div>
-        <button id="closeModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+        <button
+          id="closeModal"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
+        >
+          &times;
+        </button>
+      </div>
     </div>
-</div>
 
-<!-- MODAL modifica admin -->
-<div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
-    <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
+    <!-- MODAL modifica admin -->
+    <div
+      id="editModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50"
+    >
+      <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
         <h3 class="text-lg font-bold mb-4">Modifica Admin</h3>
         <form id="editAdminForm" class="space-y-4">
-            <input type="hidden" id="editId" name="id">
-            <div>
-                <label for="editNome" class="block text-sm font-medium text-gray-700">Nome</label>
-                <input type="text" id="editNome" name="nome" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm">
-            </div>
-            <div>
-                <label for="editEmail" class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" id="editEmail" name="email" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm">
-            </div>
-            <div>
-                <label for="editPassword" class="block text-sm font-medium text-gray-700">Password (lascia vuoto per non cambiare)</label>
-                <input type="password" id="editPassword" name="password" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm">
-            </div>
+          <input type="hidden" id="editId" name="id" />
+          <div>
+            <label
+              for="editNome"
+              class="block text-sm font-medium text-gray-700"
+              >Nome</label
+            >
+            <input
+              type="text"
+              id="editNome"
+              name="nome"
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm"
+            />
+          </div>
+          <div>
+            <label
+              for="editEmail"
+              class="block text-sm font-medium text-gray-700"
+              >Email</label
+            >
+            <input
+              type="email"
+              id="editEmail"
+              name="email"
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm"
+            />
+          </div>
+          <div>
+            <label
+              for="editPassword"
+              class="block text-sm font-medium text-gray-700"
+              >Password (lascia vuoto per non cambiare)</label
+            >
+            <input
+              type="password"
+              id="editPassword"
+              name="password"
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm"
+            />
+          </div>
         </form>
 
         <div class="flex justify-end space-x-3 mt-6">
-            <button id="cancelEdit" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Annulla</button>
-            <button type="submit" form="editAdminForm" id="confirmEdit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Salva</button>
+          <button
+            id="cancelEdit"
+            class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+          >
+            Annulla
+          </button>
+          <button
+            type="submit"
+            form="editAdminForm"
+            id="confirmEdit"
+            class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          >
+            Salva
+          </button>
         </div>
 
-        <button id="closeEditModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+        <button
+          id="closeEditModal"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
+        >
+          &times;
+        </button>
+      </div>
     </div>
-</div>
 
-<!-- MODAL modifica camera -->
-<div id="editCameraModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
-    <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
+    <!-- MODAL modifica camera -->
+    <div
+      id="editCameraModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50"
+    >
+      <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
         <h3 class="text-lg font-bold mb-4">Modifica Camera</h3>
         <form id="editCameraForm" class="space-y-4">
-            <input type="hidden" id="editCameraId" name="id">
-            <div>
-                <label for="editNumeroStanza" class="block text-sm font-medium text-gray-700">Numero Stanza</label>
-                <input type="number" id="editNumeroStanza" name="numeroStanza" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm" required>
-            </div>
-            <div>
-                <label for="editTipoCamera" class="block text-sm font-medium text-gray-700">Tipo Camera</label>
-                <input type="text" id="editTipoCamera" name="tipoCamera" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm" required>
-            </div>
-            <div>
-                <label for="editDescrizione" class="block text-sm font-medium text-gray-700">Descrizione</label>
-                <textarea id="editDescrizione" name="descrizione" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm"></textarea>
-            </div>
-            <div>
-                <label for="editPrezzo" class="block text-sm font-medium text-gray-700">Prezzo</label>
-                <input type="number" id="editPrezzo" name="prezzoBaseNotte" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm" required>
-            </div>
-            <div class="flex items-center space-x-2">
-                <input type="checkbox" id="editDisponibile" name="disponibile" class="h-4 w-4">
-                <label for="editDisponibile" class="text-gray-700">Disponibile</label>
-            </div>
-            <div class="flex justify-end space-x-3 mt-4">
-                <button type="button" id="cancelEditCamera" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Annulla</button>
-                <button type="submit" id="confirmEditCamera" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Salva</button>
-            </div>
+          <input type="hidden" id="editCameraId" name="id" />
+          <div>
+            <label
+              for="editNumeroStanza"
+              class="block text-sm font-medium text-gray-700"
+              >Numero Stanza</label
+            >
+            <input
+              type="number"
+              id="editNumeroStanza"
+              name="numeroStanza"
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="editTipoCamera"
+              class="block text-sm font-medium text-gray-700"
+              >Tipo Camera</label
+            >
+            <input
+              type="text"
+              id="editTipoCamera"
+              name="tipoCamera"
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="editDescrizione"
+              class="block text-sm font-medium text-gray-700"
+              >Descrizione</label
+            >
+            <textarea
+              id="editDescrizione"
+              name="descrizione"
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm"
+            ></textarea>
+          </div>
+          <div>
+            <label
+              for="editPrezzo"
+              class="block text-sm font-medium text-gray-700"
+              >Prezzo</label
+            >
+            <input
+              type="number"
+              id="editPrezzo"
+              name="prezzoBaseNotte"
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm"
+              required
+            />
+          </div>
+          <div class="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              id="editDisponibile"
+              name="disponibile"
+              class="h-4 w-4"
+            />
+            <label for="editDisponibile" class="text-gray-700"
+              >Disponibile</label
+            >
+          </div>
+          <div class="flex justify-end space-x-3 mt-4">
+            <button
+              type="button"
+              id="cancelEditCamera"
+              class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+            >
+              Annulla
+            </button>
+            <button
+              type="submit"
+              id="confirmEditCamera"
+              class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            >
+              Salva
+            </button>
+          </div>
         </form>
-        <button id="closeEditCameraModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+        <button
+          id="closeEditCameraModal"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
+        >
+          &times;
+        </button>
+      </div>
     </div>
-</div>
 
-<!-- MODAL elimina prenotazione -->
-<div id="deletePrenModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
-    <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
+    <!-- MODAL elimina prenotazione -->
+    <div
+      id="deletePrenModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50"
+    >
+      <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
         <h3 class="text-lg font-bold mb-4">Conferma eliminazione</h3>
-        <p id="prenModalText" class="mb-6">Sei sicuro di voler eliminare questa prenotazione?</p>
+        <p id="prenModalText" class="mb-6">
+          Sei sicuro di voler eliminare questa prenotazione?
+        </p>
         <div class="flex justify-end space-x-3">
-            <button id="cancelPrenDelete" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Annulla</button>
-            <button id="confirmPrenDelete" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">Elimina</button>
+          <button
+            id="cancelPrenDelete"
+            class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+          >
+            Annulla
+          </button>
+          <button
+            id="confirmPrenDelete"
+            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+          >
+            Elimina
+          </button>
         </div>
-        <button id="closePrenModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+        <button
+          id="closePrenModal"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
+        >
+          &times;
+        </button>
+      </div>
     </div>
-</div>
 
-<!-- Modal aggiungi camera -->
-<div id="addCameraModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
-    <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
+    <!-- MODAL conferma/rifiuta prenotazione -->
+    <div
+      id="approvePrenModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50"
+    >
+      <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
+        <h3 class="text-lg font-bold mb-4">Gestisci Prenotazione</h3>
+        <div id="prenDetails" class="mb-6 p-4 bg-gray-50 rounded-lg">
+          <!-- Dettagli prenotazione verranno inseriti qui -->
+        </div>
+        <div class="flex justify-end space-x-3">
+          <button
+            id="cancelApprove"
+            class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+          >
+            Annulla
+          </button>
+          <button
+            id="rejectPren"
+            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+          >
+            Rifiuta
+          </button>
+          <button
+            id="approvePren"
+            class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+          >
+            Conferma
+          </button>
+        </div>
+        <button
+          id="closeApproveModal"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal di conferma personalizzato -->
+    <div
+      id="confirmModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50"
+    >
+      <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
+        <h3 class="text-lg font-bold mb-4" id="confirmTitle">
+          Conferma Azione
+        </h3>
+        <div id="confirmMessage" class="mb-6 p-4 bg-gray-50 rounded-lg">
+          <!-- Messaggio di conferma verrà inserito qui -->
+        </div>
+        <div class="flex justify-end space-x-3">
+          <button
+            id="confirmCancel"
+            class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+          >
+            Annulla
+          </button>
+          <button
+            id="confirmAction"
+            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+          >
+            Conferma
+          </button>
+        </div>
+        <button
+          id="closeConfirmModal"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal aggiungi camera -->
+    <div
+      id="addCameraModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50"
+    >
+      <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
         <h3 class="text-lg font-bold mb-4">Aggiungi Camera</h3>
 
         <form id="addCameraForm" class="space-y-4">
-            <div>
-                <label for="numeroStanza" class="block text-sm font-medium text-gray-700">Numero Stanza</label>
-                <input type="number" id="numeroStanza" name="numeroStanza"
-                       class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500">
-            </div>
+          <div>
+            <label
+              for="numeroStanza"
+              class="block text-sm font-medium text-gray-700"
+              >Numero Stanza</label
+            >
+            <input
+              type="number"
+              id="numeroStanza"
+              name="numeroStanza"
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
+            />
+          </div>
 
-            <div>
-                <label for="tipoCamera" class="block text-sm font-medium text-gray-700">Tipo Camera</label>
-                <input type="text" id="tipoCamera" name="tipoCamera"
-                       class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500">
-            </div>
+          <div>
+            <label
+              for="tipoCamera"
+              class="block text-sm font-medium text-gray-700"
+              >Tipo Camera</label
+            >
+            <input
+              type="text"
+              id="tipoCamera"
+              name="tipoCamera"
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
+            />
+          </div>
 
-            <div>
-                <label for="descrizione" class="block text-sm font-medium text-gray-700">Descrizione</label>
-                <textarea id="descrizione" name="descrizione"
-                          class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"></textarea>
-            </div>
+          <div>
+            <label
+              for="descrizione"
+              class="block text-sm font-medium text-gray-700"
+              >Descrizione</label
+            >
+            <textarea
+              id="descrizione"
+              name="descrizione"
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
+            ></textarea>
+          </div>
 
-            <div>
-                <label for="prezzoBaseNotte" class="block text-sm font-medium text-gray-700">Prezzo per Notte (€)</label>
-                <input type="number" id="prezzoBaseNotte" name="prezzoBaseNotte" step="0.01"
-                       class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500">
-            </div>
+          <div>
+            <label
+              for="prezzoBaseNotte"
+              class="block text-sm font-medium text-gray-700"
+              >Prezzo per Notte (€)</label
+            >
+            <input
+              type="number"
+              id="prezzoBaseNotte"
+              name="prezzoBaseNotte"
+              step="0.01"
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
+            />
+          </div>
 
-            <div class="flex items-center">
-                <input type="checkbox" id="disponibile" name="disponibile" class="h-4 w-4 text-green-600 border-gray-300 rounded">
-                <label for="disponibile" class="ml-2 block text-sm text-gray-700">Disponibile</label>
-            </div>
+          <div class="flex items-center">
+            <input
+              type="checkbox"
+              id="disponibile"
+              name="disponibile"
+              class="h-4 w-4 text-green-600 border-gray-300 rounded"
+            />
+            <label for="disponibile" class="ml-2 block text-sm text-gray-700"
+              >Disponibile</label
+            >
+          </div>
         </form>
 
         <div class="flex justify-end space-x-3 mt-6">
-            <button id="cancelAddCamera" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Annulla</button>
-            <button type="submit" form="addCameraForm" id="confirmAddCamera" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Inserisci</button>
+          <button
+            id="cancelAddCamera"
+            class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+          >
+            Annulla
+          </button>
+          <button
+            type="submit"
+            form="addCameraForm"
+            id="confirmAddCamera"
+            class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+          >
+            Inserisci
+          </button>
         </div>
 
-        <button id="closeAddCameraModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+        <button
+          id="closeAddCameraModal"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
+        >
+          &times;
+        </button>
+      </div>
     </div>
-</div>
 
-
-<!-- MODAL elimina camera -->
-<div id="deleteCameraModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
-    <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
+    <!-- MODAL elimina camera -->
+    <div
+      id="deleteCameraModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50"
+    >
+      <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
         <h3 class="text-lg font-bold mb-4">Conferma eliminazione</h3>
-        <p id="cameraModalText" class="mb-6">Sei sicuro di voler eliminare questa camera?</p>
+        <p id="cameraModalText" class="mb-6">
+          Sei sicuro di voler eliminare questa camera?
+        </p>
         <div class="flex justify-end space-x-3">
-            <button id="cancelCameraDelete" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Annulla</button>
-            <button id="confirmCameraDelete" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">Elimina</button>
+          <button
+            id="cancelCameraDelete"
+            class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+          >
+            Annulla
+          </button>
+          <button
+            id="confirmCameraDelete"
+            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+          >
+            Elimina
+          </button>
         </div>
-        <button id="closeCameraModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+        <button
+          id="closeCameraModal"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
+        >
+          &times;
+        </button>
+      </div>
     </div>
-</div>
 
-<!-- MODAL elimina opzione -->
-<div id="deleteOpzioneModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
-    <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
+    <!-- MODAL elimina opzione -->
+    <div
+      id="deleteOpzioneModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50"
+    >
+      <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
         <h3 class="text-lg font-bold mb-4">Conferma eliminazione</h3>
-        <p id="opzioneModalText" class="mb-6">Sei sicuro di voler eliminare questa opzione?</p>
+        <p id="opzioneModalText" class="mb-6">
+          Sei sicuro di voler eliminare questa opzione?
+        </p>
         <div class="flex justify-end space-x-3">
-            <button id="cancelOpzioneDelete" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Annulla</button>
-            <button id="confirmOpzioneDelete" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">Elimina</button>
+          <button
+            id="cancelOpzioneDelete"
+            class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+          >
+            Annulla
+          </button>
+          <button
+            id="confirmOpzioneDelete"
+            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+          >
+            Elimina
+          </button>
         </div>
-        <button id="closeOpzioneModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+        <button
+          id="closeOpzioneModal"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
+        >
+          &times;
+        </button>
+      </div>
     </div>
-</div>
 
-<!-- MODAL AGGIUNGI OPZIONE -->
-<div id="addOpzioneModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
-    <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
+    <!-- MODAL AGGIUNGI OPZIONE -->
+    <div
+      id="addOpzioneModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50"
+    >
+      <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
         <h3 class="text-lg font-bold mb-4">Aggiungi Opzione</h3>
 
         <form id="addOpzioneForm" class="space-y-4">
-            <div>
-                <label for="nomeOpzione" class="block text-sm font-medium text-gray-700">Nome Opzione</label>
-                <input type="text" id="nomeOpzione" name="nomeOpzione"
-                       class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm" required>
-            </div>
+          <div>
+            <label
+              for="nomeOpzione"
+              class="block text-sm font-medium text-gray-700"
+              >Nome Opzione</label
+            >
+            <input
+              type="text"
+              id="nomeOpzione"
+              name="nomeOpzione"
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm"
+              required
+            />
+          </div>
 
-            <div>
-                <label for="prezzoAggiuntivo" class="block text-sm font-medium text-gray-700">Prezzo Aggiuntivo (€)</label>
-                <input type="number" step="0.01" id="prezzoAggiuntivo" name="prezzoAggiuntivo"
-                       class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm" required>
-            </div>
+          <div>
+            <label
+              for="prezzoAggiuntivo"
+              class="block text-sm font-medium text-gray-700"
+              >Prezzo Aggiuntivo (€)</label
+            >
+            <input
+              type="number"
+              step="0.01"
+              id="prezzoAggiuntivo"
+              name="prezzoAggiuntivo"
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm"
+              required
+            />
+          </div>
         </form>
 
         <div class="flex justify-end space-x-3 mt-6">
-            <button id="cancelAddOpzione" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Annulla</button>
-            <button type="submit" form="addOpzioneForm" id="confirmAddOpzione" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Inserisci</button>
+          <button
+            id="cancelAddOpzione"
+            class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+          >
+            Annulla
+          </button>
+          <button
+            type="submit"
+            form="addOpzioneForm"
+            id="confirmAddOpzione"
+            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          >
+            Inserisci
+          </button>
         </div>
 
-        <button id="closeAddOpzioneModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+        <button
+          id="closeAddOpzioneModal"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
+        >
+          &times;
+        </button>
+      </div>
     </div>
-</div>
 
-<!-- MODAL modifica opzione -->
-<div id="editOpzioneModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
-    <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
+    <!-- MODAL modifica opzione -->
+    <div
+      id="editOpzioneModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50"
+    >
+      <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
         <h3 class="text-lg font-bold mb-4">Modifica Opzione</h3>
         <form id="editOpzioneForm" class="space-y-4">
-            <input type="hidden" id="editOpzioneId" name="idOpzione">
-            <div>
-                <label for="editNomeOpzione" class="block text-sm font-medium text-gray-700">Nome Opzione</label>
-                <input type="text" id="editNomeOpzione" name="nomeOpzione" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm" required>
-            </div>
-            <div>
-                <label for="editPrezzoAggiuntivo" class="block text-sm font-medium text-gray-700">Prezzo Aggiuntivo (€)</label>
-                <input type="number" step="0.01" id="editPrezzoAggiuntivo" name="prezzoAggiuntivo" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm" required>
-            </div>
+          <input type="hidden" id="editOpzioneId" name="idOpzione" />
+          <div>
+            <label
+              for="editNomeOpzione"
+              class="block text-sm font-medium text-gray-700"
+              >Nome Opzione</label
+            >
+            <input
+              type="text"
+              id="editNomeOpzione"
+              name="nomeOpzione"
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="editPrezzoAggiuntivo"
+              class="block text-sm font-medium text-gray-700"
+              >Prezzo Aggiuntivo (€)</label
+            >
+            <input
+              type="number"
+              step="0.01"
+              id="editPrezzoAggiuntivo"
+              name="prezzoAggiuntivo"
+              class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm"
+              required
+            />
+          </div>
         </form>
         <div class="flex justify-end space-x-3 mt-6">
-            <button id="cancelEditOpzione" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Annulla</button>
-            <button type="submit" form="editOpzioneForm" id="confirmEditOpzione" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Salva</button>
+          <button
+            id="cancelEditOpzione"
+            class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+          >
+            Annulla
+          </button>
+          <button
+            type="submit"
+            form="editOpzioneForm"
+            id="confirmEditOpzione"
+            class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          >
+            Salva
+          </button>
         </div>
-        <button id="closeEditOpzioneModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+        <button
+          id="closeEditOpzioneModal"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
+        >
+          &times;
+        </button>
+      </div>
     </div>
-</div>
 
-<script src="AdminDashJs.js"></script>
-</body>
+    <script src="AdminDashJs.js"></script>
+  </body>
 </html>

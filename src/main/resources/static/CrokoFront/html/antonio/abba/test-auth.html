@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Autenticazione - Croco&Crest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --croco-green: #2f794d;
+        --croco-gold: #d4af37;
+        --croco-water: #87ceeb;
+        --croco-cream: #f5f5dc;
+      }
+      body {
+        background: linear-gradient(
+          135deg,
+          var(--croco-water) 0%,
+          var(--croco-cream) 100%
+        );
+        min-height: 100vh;
+      }
+      .croco-button {
+        background: linear-gradient(
+          135deg,
+          var(--croco-green) 0%,
+          #4a9d6a 100%
+        );
+        border: 2px solid var(--croco-gold);
+        color: white;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+      .croco-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(47, 121, 77, 0.3);
+      }
+      .croco-card {
+        background: linear-gradient(145deg, #ffffff, #f8f8f8);
+        border: 2px solid var(--croco-green);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(47, 121, 77, 0.1);
+      }
+    </style>
+  </head>
+  <body class="flex items-center justify-center p-4">
+    <div class="croco-card p-8 max-w-md w-full text-center">
+      <div class="text-6xl mb-6">🐊</div>
+      <h1 class="text-2xl font-bold text-gray-800 mb-6">Test Autenticazione</h1>
+
+      <div class="space-y-4 mb-6">
+        <button
+          onclick="simulateLogin()"
+          class="croco-button w-full px-6 py-3 rounded-lg"
+        >
+          🔑 Simula Login
+        </button>
+        <button
+          onclick="simulateLogout()"
+          class="bg-red-500 text-white w-full px-6 py-3 rounded-lg hover:bg-red-600 transition-all"
+        >
+          🚪 Simula Logout
+        </button>
+        <button
+          onclick="checkAuth()"
+          class="bg-blue-500 text-white w-full px-6 py-3 rounded-lg hover:bg-blue-600 transition-all"
+        >
+          🔍 Controlla Auth
+        </button>
+      </div>
+
+      <div class="space-y-2">
+        <button
+          onclick="goToPrenotazioni()"
+          class="croco-button w-full px-6 py-3 rounded-lg"
+        >
+          🏨 Vai alle Prenotazioni
+        </button>
+        <button
+          onclick="goToRegistrazione()"
+          class="bg-gray-500 text-white w-full px-6 py-3 rounded-lg hover:bg-gray-600 transition-all"
+        >
+          📝 Vai alla Registrazione
+        </button>
+      </div>
+
+      <div id="status" class="mt-6 p-4 rounded-lg text-sm"></div>
+    </div>
+
+    <script>
+      function simulateLogin() {
+        // Simula un login salvando dati nel localStorage
+        localStorage.setItem("clienteId", "123");
+        localStorage.setItem("clienteNome", "Antonio Pigna");
+        localStorage.setItem("clienteEmail", "antonio@croco.com");
+
+        showStatus("✅ Login simulato! ID: 123, Nome: Antonio Pigna", "green");
+      }
+
+      function simulateLogout() {
+        // Simula un logout rimuovendo i dati dal localStorage
+        localStorage.removeItem("clienteId");
+        localStorage.removeItem("clienteNome");
+        localStorage.removeItem("clienteEmail");
+
+        showStatus("🚪 Logout simulato! Dati rimossi dal localStorage", "red");
+      }
+
+      function checkAuth() {
+        const clienteId = localStorage.getItem("clienteId");
+        const clienteNome = localStorage.getItem("clienteNome");
+        const clienteEmail = localStorage.getItem("clienteEmail");
+
+        if (clienteId) {
+          showStatus(
+            `✅ Autenticato!<br>ID: ${clienteId}<br>Nome: ${clienteNome}<br>Email: ${clienteEmail}`,
+            "green"
+          );
+        } else {
+          showStatus("❌ Non autenticato! Nessun dato nel localStorage", "red");
+        }
+      }
+
+      function goToPrenotazioni() {
+        window.location.href = "prenotazioni.html";
+      }
+
+      function goToRegistrazione() {
+        window.location.href = "../../../carmine/RegistrazioneUtente.html";
+      }
+
+      function showStatus(message, color) {
+        const status = document.getElementById("status");
+        status.innerHTML = message;
+        status.className = `mt-6 p-4 rounded-lg text-sm ${
+          color === "green"
+            ? "bg-green-100 text-green-800"
+            : "bg-red-100 text-red-800"
+        }`;
+      }
+
+      // Controlla lo stato all'avvio
+      window.addEventListener("load", checkAuth);
+    </script>
+  </body>
+</html>
+
