@@ -453,7 +453,7 @@
       class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50"
     >
       <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
-        <h3 class="text-lg font-bold mb-4">Gestione Prenotazione</h3>
+        <h3 class="text-lg font-bold mb-4">Gestisci Prenotazione</h3>
         <div id="prenDetails" class="mb-6 p-4 bg-gray-50 rounded-lg">
           <!-- Dettagli prenotazione verranno inseriti qui -->
         </div>
@@ -479,6 +479,41 @@
         </div>
         <button
           id="closeApproveModal"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal di conferma personalizzato -->
+    <div
+      id="confirmModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50"
+    >
+      <div class="bg-white rounded-2xl p-6 w-96 relative shadow-lg">
+        <h3 class="text-lg font-bold mb-4" id="confirmTitle">
+          Conferma Azione
+        </h3>
+        <div id="confirmMessage" class="mb-6 p-4 bg-gray-50 rounded-lg">
+          <!-- Messaggio di conferma verrà inserito qui -->
+        </div>
+        <div class="flex justify-end space-x-3">
+          <button
+            id="confirmCancel"
+            class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+          >
+            Annulla
+          </button>
+          <button
+            id="confirmAction"
+            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+          >
+            Conferma
+          </button>
+        </div>
+        <button
+          id="closeConfirmModal"
           class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
         >
           &times;
