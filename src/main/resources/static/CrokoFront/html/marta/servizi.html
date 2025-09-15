@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Servizi - Croco&Crest</title>
+    <style>
+      body { margin: 0; font-family: Arial, sans-serif; background: #dcefe0; }
+      .hero { position: relative; background: url("img/croco-hero.jpg") no-repeat center center/cover; color: #8ec7a0; text-align: center; padding: 6rem 1rem; z-index: 1; overflow: hidden; }
+      .hero::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.3); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: -1; }
+      .Tipologie { font-size: 18px; display: flex; color: #1e4730; padding: 0 2rem; }
+      .services-grid { display: flex; flex-direction: row; gap: 1.5rem; padding: 2rem; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+      .service-card { background: #5ea979; color: #193b28; padding: 1rem; border-radius: 12px; box-shadow: 0px 4px 12px rgba(0,0,0,0.15); transition: transform 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; height: 350px; min-width: 320px; scroll-snap-align: start; }
+      .service-card:hover { transform: translateY(-5px); }
+      .service-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 0.5rem; margin-bottom: 0.75rem; }
+      .btn2 { position: relative; display: flex; justify-content: center; align-items: center; border-radius: 5px; background: #8ec7a0; font-family: "Montserrat", sans-serif; overflow: hidden; cursor: pointer; border: none; margin: 0 2rem; }
+      .btn2 span { text-align: center; width: 80%; padding: 18px 25px; color: #2f794d; font-size: 1.135em; font-weight: 600; z-index: 70; transition: all 0.3s ease-in-out; }
+      .error-message { color: #d32f2f; background: #ffebee; padding: 1rem; border-radius: 8px; margin: 1rem 2rem; }
+      .loading-message { color: #1976d2; background: #e3f2fd; padding: 1rem; border-radius: 8px; margin: 1rem 2rem; }
+    </style>
+  </head>
+  <body>
+    <section class="hero" style="font-size: 28px">
+      <h1>Croco&Crest</h1>
+      <p>Scopri i nostri servizi</p>
+    </section>
+
+    <div class="Tipologie"><h1>Servizi inclusi</h1></div>
+    <div class="services-grid">
+      <div class="service-card" id="reception">
+        <img src="../marta/img/receptionist.jpg" alt="Reception 24h" />
+        <h3>Reception 24h</h3>
+        <p>Il nostro staff è disponibile a qualsiasi ora.</p>
+        <div class="service-icon-container"></div>
+      </div>
+      <div class="service-card" id="restaurant">
+        <img src="../marta/img/ristorante.jpg" alt="Ristorante" />
+        <h3>Ristorante</h3>
+        <p>Cucina tradizionale e internazionale con ingredienti freschi e di qualità.</p>
+        <div class="service-icon-container"></div>
+      </div>
+      <div class="service-card" id="parking">
+        <img src="../marta/img/parking.jpg" alt="Parcheggio" />
+        <h3>Parcheggio</h3>
+        <p>Parcheggio privato gratuito disponibile per tutti gli ospiti, con videosorveglianza.</p>
+        <div class="service-icon-container"></div>
+      </div>
+      <div class="service-card" id="bagagli">
+        <img src="../marta/img/bagagli.jpg" alt="Deposito bagagli" />
+        <h3>Servizio Bagagli</h3>
+        <p>Deposito disponibile per check-in anticipato e check-out tardivo.</p>
+        <div class="service-icon-container"></div>
+      </div>
+      <div class="service-card" id="piscina">
+        <img src="../marta/img/piscinahotel.jpg" alt="Piscina" />
+        <h3>Piscina</h3>
+        <p>Piscina all'aperto con area relax per il tuo benessere.</p>
+        <div class="service-icon-container"></div>
+      </div>
+      <div style="grid-column: 1 / -1"></div>
+    </div>
+
+    <div class="Tipologie" style="margin-top: 3rem"><h1>I servizi aggiuntivi</h1></div>
+    <p style="font-weight: bold; font-size: 15px; margin: -0.5rem 2rem 0; color: #23593b;">Il prezzo è fisso e non varia in base alle giornate di utilizzo.</p>
+    <button class="btn2" id="showAdditionalServicesBtn" onclick="toggleAdditionalServices()"><span>Scopri i servizi aggiuntivi</span></button>
+    <div class="services-grid" id="options" style="display: none"></div>
+
+    <script>
+      const serviziIcone = {
+        piscina: "../marta/img/pool.json",
+        workspace: "../marta/img/workspace.json",
+        spa: "../marta/img/spa.json",
+        buffet: "../marta/img/buffet.json",
+        restaurant: "../marta/img/restaurant.json",
+        wifi: "../marta/img/WiFi premium.json",
+        bici: "../marta/img/bici.json",
+        gym: "../marta/img/gym.json",
+        reception: "../marta/img/reception.json",
+        bagagli: "../marta/img/bagagli.json",
+        parking: "../marta/img/parking.json",
+        tea: "../marta/img/tea.json",
+        candle: "../marta/img/candle.json",
+      };
+
+      const serviceIcons = {
+        piscina: ["piscina"],
+        workspace: ["workspace"],
+        spa: ["spa"],
+        buffet: ["buffet"],
+        restaurant: ["restaurant"],
+        wifi: ["wifi"],
+        bici: ["bici"],
+        gym: ["gym"],
+        reception: ["reception"],
+        bagagli: ["bagagli"],
+        spaCompleto: ["spa", "candle"],
+        parking: ["parking"],
+        colazione: ["tea", "buffet"],
+      };
+
+      function renderServiceIcons(serviceId) {
+        const container = document.querySelector(`#${serviceId} .service-icon-container`);
+        if (!container) return;
+        container.innerHTML = "";
+        const icons = serviceIcons[serviceId] || [];
+        icons.forEach((iconName) => {
+          if (serviziIcone[iconName]) {
+            const icon = document.createElement("lord-icon");
+            icon.setAttribute("src", serviziIcone[iconName]);
+            icon.setAttribute("trigger", "hover");
+            icon.style.width = "50px";
+            icon.style.height = "50px";
+            container.appendChild(icon);
+          }
+        });
+      }
+
+      function toggleAdditionalServices() {
+        const servicesGrid = document.getElementById("options");
+        const button = document.getElementById("showAdditionalServicesBtn");
+        const buttonText = button.querySelector("span");
+        if (servicesGrid.style.display === "none" || servicesGrid.style.display === "") {
+          servicesGrid.style.display = "grid";
+          buttonText.textContent = "Nascondi servizi aggiuntivi";
+          getOpzioni();
+        } else {
+          servicesGrid.style.display = "none";
+          buttonText.textContent = "Scopri i servizi aggiuntivi";
+        }
+      }
+
+      function getOpzioni() {
+        fetch("http://localhost:8080/api/options/getAllOptions", { method: "GET" })
+          .then((res) => { if (!res.ok) throw new Error(`Errore HTTP: ${res.status}`); return res.json(); })
+          .then((opzioni) => {
+            const container = document.getElementById("options");
+            if (!container) return;
+            container.innerHTML = "";
+            if (opzioni.length === 0) {
+              container.innerHTML = '<div class="error-message">Nessuna opzione trovata.</div>';
+              return;
+            }
+            opzioni.forEach((op) => {
+              const card = document.createElement("div");
+              card.className = "service-card";
+              const imgSrc = `../marta/img/${op.nomeOpzione.toLowerCase()}.jpg`;
+              card.innerHTML = `
+                <img src="${imgSrc}" alt="${op.nomeOpzione}" />
+                <h3 class="text-xl font-semibold mb-2">${op.nomeOpzione || "Nome non disponibile"}</h3>
+                <p>Prezzo: €${op.prezzoAggiuntivo || "0"}</p>
+                <div class="service-icon-container"></div>
+              `;
+              const key = op.nomeOpzione.toLowerCase().replace(/\s+/g, "");
+              const icons = serviceIcons[key] || [];
+              const iconContainer = card.querySelector(".service-icon-container");
+              icons.forEach((iconName) => {
+                if (serviziIcone[iconName]) {
+                  const icon = document.createElement("lord-icon");
+                  icon.setAttribute("src", serviziIcone[iconName]);
+                  icon.setAttribute("trigger", "hover");
+                  icon.style.width = "50px";
+                  icon.style.height = "50px";
+                  iconContainer.appendChild(icon);
+                }
+              });
+              container.appendChild(card);
+            });
+          })
+          .catch(() => {
+            const container = document.getElementById("options");
+            container.innerHTML = '<div class="error-message">Impossibile caricare le opzioni dal server.</div>';
+          });
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        ["reception","restaurant","parking","bagagli","piscina"].forEach(renderServiceIcons);
+      });
+    </script>
+  </body>
+  </html>
+
+

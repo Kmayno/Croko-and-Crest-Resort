@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Camere - Croco&Crest</title>
+    <style>
+      body { margin: 0; font-family: Arial, sans-serif; background: #dcefe0; }
+      .hero { position: relative; background: url("img/croco-hero.jpg") no-repeat center center/cover; color: #8ec7a0; text-align: center; padding: 6rem 1rem; z-index: 1; overflow: hidden; }
+      .hero::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.3); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: -1; }
+      .rooms { display: flex; flex-direction: row; gap: 2rem; padding: 2rem; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+      .room-card { display: flex; align-items: center; background-color: #5ea979; border-radius: 12px; overflow: hidden; padding-left: 0.9rem; margin-bottom: 1.5px; transition: transform 0.3s ease; box-shadow: 0px 0px 14px -7px #1e4730; min-width: 85vw; width: 85vw; scroll-snap-align: start; }
+      .room-card:hover { transform: translateY(-5px); }
+      .room-image { width: 290px; height: 290px; flex-shrink: 0; overflow: hidden; border-radius: 8px; cursor: pointer; position: relative; }
+      .room-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .room-image button.prev, .room-image button.next { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 5px; font-size: 18px; }
+      .room-image button.prev { left: 5px; }
+      .room-image button.next { right: 5px; }
+      .room-info { padding: 2rem; flex: 1; }
+      .room-info h3 { margin: 1; font-size: 1.4rem; color: #193b28; }
+      .room-info p { margin: 1rem 0; font-size: 1rem; color: #193b28; }
+      .title-card { background-color: #bbdfc4; border-radius: 12px; display: inline-flex; align-items: center; padding: 0.6rem 1.2rem; line-height: 1.2; font-size: 1.4rem; font-weight: 500; box-shadow: 0px 6px 24px 0px rgba(13,33,22,0.2); max-width: 600px; margin-bottom: 20px; }
+      .btn { position: relative; display: flex; justify-content: center; align-items: center; border-radius: 5px; background: #dcefe0; font-family: "Montserrat", sans-serif; box-shadow: 0px 6px 24px 0px #0d2116(0,0,0,0.2); overflow: hidden; cursor: pointer; border: none; }
+      .btn span { text-align: center; width: 80%; padding: 18px 25px; color: #2f794d; font-size: 1.135em; font-weight: 600; z-index: 70; transition: all 0.3s ease-in-out; }
+    </style>
+  </head>
+  <body>
+    <section class="hero" style="font-size: 28px">
+      <h1>Croco&Crest</h1>
+      <p>Benvenuto nelle nostre camere</p>
+    </section>
+
+    <div class="rooms">
+      <div class="room-card" id="standard">
+        <div class="room-image">
+          <img src="../marta/img/standard bedroom.jpg" alt="Camera Standard" />
+          <button class="prev" onclick="prevImage('standard')">&#10094;</button>
+          <button class="next" onclick="nextImage('standard')">&#10095;</button>
+        </div>
+        <div class="room-info">
+          <div class="title-card"><h3>Camera Standard</h3></div>
+          <div class="feature-icon"></div>
+          <p style="font-weight: bolder">Camera dotata di: letto singolo, bagno, servizio pulizie, kit bagno e gli essenziali comfort.</p>
+          <button class="btn" onclick="getByType('singola'); toggleDisponibilita(this);"><span>Visualizza tutte le camere standard</span></button>
+          <ul id="singola"></ul>
+        </div>
+      </div>
+
+      <div class="room-card" id="deluxe">
+        <div class="room-image">
+          <img src="../marta/img/camera matr.jpg" alt="Camera Deluxe" />
+          <button class="prev" onclick="prevImage('deluxe')">&#10094;</button>
+          <button class="next" onclick="nextImage('deluxe')">&#10095;</button>
+        </div>
+        <div class="room-info">
+          <div class="title-card"><h3>Camera Deluxe</h3></div>
+          <div class="feature-icon"></div>
+          <p style="font-weight: bolder">Camera dotata di: letto matrimoniale, bagno, servizio pulizie, kit bagno, sveglia, spazio extra e balcone.</p>
+          <button class="btn" onclick="getByType('doppia'); toggleDisponibilita(this);"><span>Visualizza tutte le camere deluxe</span></button>
+          <ul id="doppia"></ul>
+        </div>
+      </div>
+
+      <div class="room-card" id="suiteId">
+        <div class="room-image">
+          <img src="../marta/img/camera suite 2.jpg" alt="Suite" />
+          <button class="prev" onclick="prevImage('suiteId')">&#10094;</button>
+          <button class="next" onclick="nextImage('suiteId')">&#10095;</button>
+        </div>
+        <div class="room-info">
+          <div class="title-card"><h3>Suite</h3></div>
+          <div class="feature-icon"></div>
+          <p style="font-weight: bolder">Include in dotazione: letto matrimoniale, bagno, servizio pulizie, kit bagno, materasso extra comfort e area living.</p>
+          <button class="btn" onclick="getByType('suite'); toggleDisponibilita(this);"><span>Visualizza tutte le suite</span></button>
+          <ul id="suite"></ul>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const serviziIcone = {
+        bagno: "../marta/img/bagno.json",
+        pulizie: "../marta/img/pulizie.json",
+        kit: "../marta/img/kit.json",
+        sveglia: "../marta/img/sveglia.json",
+        notte: "../marta/img/notte.json",
+        sofa: "../marta/img/sofa.json"
+      };
+
+      const roomServices = {
+        standard: ["bagno", "pulizie", "kit"],
+        deluxe: ["bagno", "pulizie", "kit", "sveglia"],
+        suiteId: ["bagno", "pulizie", "kit", "sveglia", "notte", "sofa"],
+      };
+
+      function renderServices(roomId) {
+        const container = document.querySelector(`#${roomId} .feature-icon`);
+        if (!container) return;
+        container.innerHTML = "";
+        const services = roomServices[roomId] || [];
+        services.forEach((servizio) => {
+          if (serviziIcone[servizio]) {
+            const icon = document.createElement("lord-icon");
+            icon.setAttribute("src", serviziIcone[servizio]);
+            icon.setAttribute("trigger", "hover");
+            icon.style.width = "70px";
+            icon.style.height = "70px";
+            container.appendChild(icon);
+          }
+        });
+      }
+
+      const roomImages = {
+        standard: [
+          "../marta/img/standard bedroom.jpg",
+          "../marta/img/bagno standard.jpg",
+          "../marta/img/standard2.jpg",
+          "../marta/img/standard3.jpg",
+          "../marta/img/bagno.jpg",
+        ],
+        deluxe: [
+          "../marta/img/camera matr.jpg",
+          "../marta/img/deluxe balcone.jpg",
+          "../marta/img/bagnoDeluxe.jpg",
+          "../marta/img/camera balc.jpg",
+          "../marta/img/bagno deluxe.jpg",
+        ],
+        suiteId: [
+          "../marta/img/suite4.jpg",
+          "../marta/img/bagno suite.jpg",
+          "../marta/img/suite natalizia.jpg",
+          "../marta/img/ssuite.jpg",
+          "../marta/img/suiteBagno.jpg",
+        ],
+      };
+      const currentImageIndex = { standard: 0, deluxe: 0, suiteId: 0 };
+
+      function nextImage(roomId) {
+        const img = document.querySelector(`#${roomId} .room-image img`);
+        if (!img || !roomImages[roomId]) return;
+        currentImageIndex[roomId] = (currentImageIndex[roomId] + 1) % roomImages[roomId].length;
+        img.src = roomImages[roomId][currentImageIndex[roomId]];
+      }
+      function prevImage(roomId) {
+        const img = document.querySelector(`#${roomId} .room-image img`);
+        if (!img || !roomImages[roomId]) return;
+        currentImageIndex[roomId] = (currentImageIndex[roomId] - 1 + roomImages[roomId].length) % roomImages[roomId].length;
+        img.src = roomImages[roomId][currentImageIndex[roomId]];
+      }
+
+      function toggleDisponibilita(button) {
+        const list = button.nextElementSibling;
+        if (list.style.display === "block") {
+          list.style.display = "none";
+          button.querySelector("span").textContent = button.querySelector("span").textContent.replace("Nascondi", "Visualizza");
+        } else {
+          list.style.display = "block";
+          button.querySelector("span").textContent = button.querySelector("span").textContent.replace("Visualizza", "Nascondi");
+        }
+      }
+
+      function getByType(tipo) {
+        const container = document.getElementById(tipo);
+        container.innerHTML = '<div class="loading-message">Caricamento in corso...</div>';
+        fetch("http://localhost:8080/api/camere/getCamera/" + tipo, { method: "GET" })
+          .then((res) => { if (!res.ok) throw new Error(`Errore HTTP: ${res.status}`); return res.json(); })
+          .then((camere) => {
+            container.innerHTML = "";
+            if (camere.length === 0) {
+              container.innerHTML = '<div class="error-message">Nessuna camera trovata per questo tipo.</div>';
+              return;
+            }
+            camere.forEach((cam) => {
+              const card = document.createElement("div");
+              card.className = "service-card";
+              card.innerHTML = `<div class="room-info"><h3>Camera ${cam.numeroStanza || "N/A"}</h3><p>${cam.descrizione || "Descrizione non disponibile"}</p></div>`;
+              container.appendChild(card);
+            });
+          })
+          .catch(() => {
+            container.innerHTML = '<div class="error-message">Impossibile caricare le camere. Verifica che il server sia attivo.</div>';
+          });
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        renderServices("standard");
+        renderServices("deluxe");
+        renderServices("suiteId");
+      });
+    </script>
+  </body>
+  </html>
+
+
