@@ -5,6 +5,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,8 @@ import com.hotel.crock_crest.service.PrenotazioneService;
 @CrossOrigin(origins = "*") // evita le politiche di cors (evita chiamate ad endpoint per sicurezza), possiamo fare delle chiamate al server da localhost
 public class ControllerPrenotazione {
 
+    private static final Logger logger = LoggerFactory.getLogger(ControllerPrenotazione.class);
+
     @Autowired // dependency injection, invece di una classe che crea direttamente le sue dipendenze, queste le vengono "iniettate" dall'esterno
     private PrenotazioneService prenotazioneService;
     
@@ -45,24 +49,63 @@ public class ControllerPrenotazione {
     @PostMapping("addPrenotazione")
     // reqEntity wrapper per risposte http, ci da controllo su body headers etc.
     public ResponseEntity<?> creaPrenotazione(@RequestBody PrenotazioneRequest request) { // reqBody si pija il json
+        logger.info("=== RICEVUTA RICHIESTA PRENOTAZIONE ===");
+        
+        // Verifica che la request non sia null
+        if (request == null) {
+            logger.error("Request body è null");
+            return ResponseEntity.badRequest()
+                .body("Errore: Request body mancante o malformato");
+        }
+        
+        logger.info("Request data: {}", request);
+        logger.info("ID Cliente: {}", request.getIdCliente());
+        logger.info("ID Camera: {}", request.getIdCamera());
+        logger.info("Data Inizio: {}", request.getDataInizio());
+        logger.info("Data Fine: {}", request.getDataFine());
+        logger.info("Opzioni IDs: {}", request.getOpzioniIds());
+        
         try {
             // validazione dati in input
+            if (request.getIdCliente() == null) {
+                logger.error("ID cliente mancante");
+                return ResponseEntity.badRequest()
+                    .body("Errore: ID cliente mancante");
+            }
+            
+            if (request.getIdCamera() == null) {
+                logger.error("ID camera mancante");
+                return ResponseEntity.badRequest()
+                    .body("Errore: ID camera mancante");
+            }
+            
+            if (request.getDataInizio() == null || request.getDataFine() == null) {
+                logger.error("Date mancanti - Data Inizio: {}, Data Fine: {}", request.getDataInizio(), request.getDataFine());
+                return ResponseEntity.badRequest()
+                    .body("Errore: Date mancanti");
+            }
+            
             if (request.getDataInizio().isAfter(request.getDataFine())) {
+                logger.error("Data inizio dopo data fine - Inizio: {}, Fine: {}", request.getDataInizio(), request.getDataFine());
                 return ResponseEntity.badRequest()
                     .body("Errore: La data di inizio non può essere successiva alla data di fine");
             }
             
             if (request.getDataInizio().isBefore(LocalDate.now())) {
+                logger.error("Tentativo di prenotazione nel passato - Data: {}, Oggi: {}", request.getDataInizio(), LocalDate.now());
                 return ResponseEntity.badRequest()
                     .body("Errore: Non puoi prenotare nel passato");
             }
 
             // verifica che cliente esista - usando Integer invece di Long
+            logger.info("Ricerca cliente con ID: {}", request.getIdCliente());
             Optional<Cliente> cliente = clienteService.getClienteById(request.getIdCliente());
             if (!cliente.isPresent()) {
+                logger.error("Cliente non trovato con ID: {}", request.getIdCliente());
                 return ResponseEntity.badRequest()
-                    .body("Errore: Cliente non trovato");
+                    .body("Errore: Cliente non trovato con ID: " + request.getIdCliente());
             }
+            logger.info("Cliente trovato: {}", cliente.get().getNome() + " " + cliente.get().getCognome());
 
             // verifica che camera esista e sia disponibile
             Camera camera = camereService.findById(request.getIdCamera());
@@ -121,10 +164,12 @@ public class ControllerPrenotazione {
             }
 
             // restituisci risposta di successo
+            logger.info("Prenotazione creata con successo con ID: {}", prenotazioneSalvata.getIdPrenotazione());
             PrenotazioneResponse response = new PrenotazioneResponse(prenotazioneSalvata);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
         } catch (Exception e) {
+            logger.error("Errore durante la creazione della prenotazione", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Errore interno del server: " + e.getMessage());
         }
@@ -314,6 +359,43 @@ public class ControllerPrenotazione {
     // Endpoint di test per verificare la connessione
     @GetMapping("/test")
     public ResponseEntity<String> testConnection() {
+        logger.info("Test endpoint chiamato");
         return ResponseEntity.ok("Controller prenotazioni funziona correttamente!");
+    }
+
+    // Endpoint di test per verificare la ricezione di dati
+    @PostMapping("/test-data")
+    public ResponseEntity<?> testData(@RequestBody PrenotazioneRequest request) {
+        logger.info("=== TEST RICEZIONE DATI ===");
+        
+        if (request == null) {
+            logger.error("Request body è null nel test");
+            return ResponseEntity.badRequest()
+                .body("Errore: Request body null");
+        }
+        
+        logger.info("Request ricevuta: {}", request);
+        logger.info("ID Cliente: {}", request.getIdCliente());
+        logger.info("ID Camera: {}", request.getIdCamera());
+        logger.info("Data Inizio: {}", request.getDataInizio());
+        logger.info("Data Fine: {}", request.getDataFine());
+        logger.info("Opzioni: {}", request.getOpzioniIds());
+        
+        return ResponseEntity.ok("Dati ricevuti correttamente: " + request.toString());
+    }
+
+    // Endpoint per testare la deserializzazione JSON con stringa raw
+    @PostMapping("/test-raw")
+    public ResponseEntity<?> testRaw(@RequestBody String rawJson) {
+        logger.info("=== TEST RAW JSON ===");
+        logger.info("JSON ricevuto: {}", rawJson);
+        
+        try {
+            return ResponseEntity.ok("JSON ricevuto: " + rawJson);
+        } catch (Exception e) {
+            logger.error("Errore nel parsing JSON raw", e);
+            return ResponseEntity.badRequest()
+                .body("Errore nel parsing: " + e.getMessage());
+        }
     }
 }

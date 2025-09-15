@@ -371,7 +371,7 @@
             </div>
           </div>
           <a
-            href="../../../auro/homepage.html"
+            href="../../auro/homepage.html"
             class="croco-button px-6 py-3 rounded-lg text-white hover:scale-105 transition-all duration-300"
           >
             <i class="fas fa-home mr-2"></i>
@@ -1487,6 +1487,25 @@
 
       // Conferma prenotazione
       async function confirmBooking() {
+        // Verifica che tutti i dati necessari siano presenti
+        if (
+          !bookingData.clienteId ||
+          !bookingData.selectedRoom ||
+          !bookingData.checkinDate ||
+          !bookingData.checkoutDate
+        ) {
+          alert(
+            "Errore: Dati di prenotazione incompleti. Ricarica la pagina e riprova."
+          );
+          console.error("Dati mancanti:", {
+            clienteId: bookingData.clienteId,
+            selectedRoom: bookingData.selectedRoom,
+            checkinDate: bookingData.checkinDate,
+            checkoutDate: bookingData.checkoutDate,
+          });
+          return;
+        }
+
         const loadingOverlay = document.getElementById("loading-overlay");
         loadingOverlay.classList.remove("hidden");
 
@@ -1500,6 +1519,8 @@
               (option) => option.idOpzione
             ),
           };
+
+          console.log("Invio dati prenotazione:", requestData);
 
           const response = await fetch(
             "http://localhost:8080/api/prenotazioni/addPrenotazione",
@@ -1519,12 +1540,22 @@
           if (response.ok) {
             showSuccessModal();
           } else {
-            alert(`Errore nella prenotazione: ${result}`);
+            // Gestione errori più specifica
+            let errorMessage = "Errore nella prenotazione";
+            if (result && typeof result === "string") {
+              errorMessage = result;
+            } else if (result && result.message) {
+              errorMessage = result.message;
+            }
+            alert(errorMessage);
+            console.error("Errore prenotazione:", result);
           }
         } catch (error) {
           loadingOverlay.classList.add("hidden");
-          alert("Errore di connessione. Riprova più tardi.");
-          console.error("Errore:", error);
+          console.error("Errore di connessione:", error);
+          alert(
+            "Errore di connessione. Verifica che il server sia attivo e riprova."
+          );
         }
       }
 
