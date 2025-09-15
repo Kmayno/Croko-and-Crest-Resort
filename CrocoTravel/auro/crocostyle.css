@@ -1,0 +1,346 @@
+.services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Card con altezza uniforme e responsive */
+.services-small {
+  padding: 30px 25px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f0f0f0;
+  position: relative;
+  overflow: hidden;
+  height: 100%; /* Importante per uniformità */
+  min-height: 350px; /* Altezza minima */
+}
+
+/* Bordino colorato in alto */
+.services-small::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #006767, #008000, #55dd33);
+}
+
+/* Effetto hover migliorato */
+.services-small:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Icone circolari responsive */
+.services-small .icon {
+  width: 60px;
+  height: 60px;
+  background: #006767;
+  border-radius: 50%;
+  margin: 0 auto 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 26px;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+  flex-shrink: 0; /* Non si riduce */
+}
+
+/* Contenuto testo con flex-grow per occupare spazio rimanente */
+.services-small .text {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.services-small .heading {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  flex-shrink: 0;
+}
+
+.services-small p {
+  color: #6c757d;
+  line-height: 1.6;
+  margin: 0;
+  flex-grow: 1;
+  font-size: 0.95rem;
+}
+
+/* Media queries per responsività */
+@media (max-width: 768px) {
+  .services-small {
+    padding: 25px 20px;
+    min-height: 320px;
+  }
+
+  .services-small .icon {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .services-small .heading {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+  }
+
+  .services-small p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .services-container {
+    padding: 0 10px;
+  }
+
+  .services-small {
+    padding: 20px 15px;
+    min-height: 280px;
+  }
+
+  .services-small .heading {
+    font-size: 1.2rem;
+  }
+}
+
+/* Assicura che tutte le card nella stessa riga abbiano la stessa altezza */
+.row-equal-height {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row-equal-height > [class*="col-"] {
+  display: flex;
+  flex-direction: column;
+}
+
+.ftco-navbar-light {
+  background: #ffffff3c !important;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+  z-index: 3;
+}
+
+@media (max-width: 991.98px) {
+  .ftco-navbar-light {
+    background: #ffffff3c !important;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
+    z-index: 3;
+  }
+}
+
+i.fa-solid-fa-r {
+  font-size: 25px;
+}
+
+a {
+  -webkit-transition: 0.3s all ease;
+  -o-transition: 0.3s all ease;
+  transition: 0.3s all ease;
+  color: #008000;
+}
+
+a:hover,
+a:focus {
+  text-decoration: none;
+  color: #008000;
+  outline: none !important;
+}
+
+.slider-text .icon-wrap .icon {
+  width: 70px;
+  height: 70px;
+  background: #55dd33;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.slider-text .icon-wrap .icon span {
+  color: #fff;
+}
+
+.slider-text .icon-wrap .heading-title {
+  position: relative;
+}
+
+.slider-text .icon-wrap .heading-title:after {
+  position: absolute;
+  top: 50%;
+  left: -40px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  content: "";
+  width: 30px;
+  height: 2px;
+  background: #fff;
+}
+
+/* - - - - - - - Preventivatore - - - - - - - - */
+.progress {
+  line-height: 35px;
+  background: #a5a5a5;
+  box-shadow: none;
+  padding: 6px;
+  margin-top: 20px;
+  overflow: visible;
+  border-radius: 10px;
+}
+.progress:after {
+  content: "";
+  display: none;
+  border-top: 4px dashed #fff;
+  margin-top: 8px;
+}
+.progressbar-title {
+  color: #333;
+  font-size: 15px;
+  margin: 5px 0;
+}
+.progress .progress-bar {
+  position: relative;
+  border-radius: 10px 0 0 10px;
+  animation: animate-positive 2s;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 20px;
+}
+
+.progress .progress-bar span {
+  position: absolute;
+  top: -50px;
+  right: -40px;
+  color: #fff;
+  display: block;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 5px 7px;
+  background: #333;
+  border-radius: 0 0 5px 5px;
+}
+.progress .progress-bar span:before {
+  content: "";
+  position: absolute;
+  bottom: -14px;
+  left: 18px;
+  border: 7px solid transparent;
+  border-top: 7px solid #333;
+}
+.progress .progress-bar span:after {
+  content: "\f072";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 48px;
+  color: #333;
+  position: absolute;
+  top: 51px;
+  right: 6px;
+}
+@-webkit-keyframes animate-positive {
+  0% {
+    width: 0%;
+  }
+}
+@keyframes animate-positive {
+  0% {
+    width: 0%;
+  }
+}
+/* fine preventivatore */
+
+body {
+  margin-top: 20px;
+}
+
+.align-center {
+  text-align: center;
+}
+.hash-list {
+  display: block;
+  padding: 0;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .hash-list.cols-3 > li:nth-last-child(-n + 3) {
+    border-bottom: none;
+  }
+}
+@media (min-width: 768px) {
+  .hash-list.cols-3 > li {
+    width: 33.3333%;
+  }
+}
+.hash-list > li {
+  display: block;
+  float: left;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.pad-30,
+.pad-30-all > * {
+  padding: 30px;
+}
+img {
+  border: 0;
+}
+.mgb-20,
+.mgb-20-all > * {
+  margin-bottom: 20px;
+}
+.wpx-100,
+.wpx-100-after:after {
+  width: 100px;
+}
+.img-round,
+.img-rel-round {
+  border-radius: 50%;
+}
+.padb-30,
+.padb-30-all > * {
+  padding-bottom: 30px;
+}
+
+.mgb-40,
+.mgb-40-all > * {
+  margin-bottom: 40px;
+}
+.align-center {
+  text-align: center;
+}
+[class*="line-b"] {
+  position: relative;
+  padding-bottom: 20px;
+  border-color: #e6af2a;
+}
+.fg-text-d,
+.fg-hov-text-d:hover,
+.fg-active-text-d.active {
+  color: #222;
+}
+.font-cond-b {
+  font-weight: 700 !important;
+}
+
+#recensionine {
+  list-style: none;
+}

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Destinazioni</title>
+    <!-- bootstrap import -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <!-- css -->
+    <link rel="stylesheet" href="../marta/style.css.css" />
+    <link rel="stylesheet" href="destinazioni.css" />
+    <link rel="stylesheet" href="/auro/dropdown-menu.css" />
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mooli&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" type="image/png" href="/auro/imgHome/favicon.ico" />
+  </head>
+  <body>
+    <!-- header -->
+    <header>
+      <!-- navbar -->
+
+      <nav
+        class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light"
+        id="ftco-navbar"
+      >
+        <div class="container">
+          <a class="navbar-brand" href="/auro/homepage.html">
+            <img
+              src="../auro/imgHome/crocologo.png"
+              alt="crocologo"
+              width="200"
+              height="100"
+            />
+          </a>
+
+          <div class="navbar-dropdown-container">
+            <div class="dropdown">
+              <button
+                class="navbar-toggler navbar-toggler-dropdown dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <i class="fa-solid fa-bars"></i> Menu
+              </button>
+              <div class="dropdown-menu dropdown-menu-end dropdown-menu-custom">
+                <a class="dropdown-item-nav active" href="homepage.html"
+                  >Home</a
+                >
+                <a class="dropdown-item-nav" href="/marta/Chi_Siamo.html"
+                  >Chi siamo</a
+                >
+                <a
+                  class="dropdown-item-nav"
+                  href="/Carmine/pacchettiViaggio.html"
+                  >Pacchetti viaggio</a
+                >
+                <a class="dropdown-item-nav" href="/anto/destinazioni.html"
+                  >Destinazioni</a
+                >
+                <a class="dropdown-item-nav" href="/anto/contatti.html"
+                  >Contatti</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a href="homepage.html" class="nav-link">Home</a>
+              </li>
+              <li class="nav-item">
+                <a href="/marta/Chi_Siamo.html" class="nav-link">Chi siamo</a>
+              </li>
+              <li class="nav-item">
+                <a href="/Carmine/pacchettiViaggio.html" class="nav-link"
+                  >Pacchetti viaggio</a
+                >
+              </li>
+              <li class="nav-item">
+                <a href="/anto/destinazioni.html" class="nav-link"
+                  >Destinazioni</a
+                >
+              </li>
+              <li class="nav-item">
+                <a href="/anto/contatti.html" class="nav-link">Contatti</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- Main container -->
+    <div class="container-fluid g-0">
+      <!-- main row -->
+      <div class="row">
+        <!-- main col -->
+        <div class="col-12 bg-primary">
+          <!-- jumbo -->
+          <div
+            class="background-vid container-fluid bg-danger jumbo g-0 position-relative"
+          >
+            <video class="video-bg" autoplay muted loop>
+              <source src="../anto/material/Timeline 1.mp4" type="video/mp4" />
+            </video>
+            <div class="cta-jumbo position-absolute">
+              <a href="#sezione-cards" class="btn btn-discover"
+                >Scopri le Destinazioni</a
+              >
+            </div>
+          </div>
+
+          <!-- section cards -->
+          <section>
+            <!-- wrapper -->
+            <div class="container bg-warning p-5 my-2">
+              <h1 class="my-2">Lorem</h1>
+              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+              <div class="filtri-container">
+                <button class="filtro-btn active" data-filtro="tutti">Tutti</button>
+                <button class="filtro-btn" data-filtro="mare">Mare</button>
+                <button class="filtro-btn" data-filtro="montagna">Montagna</button>
+                <button class="filtro-btn" data-filtro="spazio">Spazio</button>
+                <button class="filtro-btn" data-filtro="vulcano">Vulcano</button>
+              </div>
+              <!-- card container -->
+              <div
+                id="sezione-cards"
+                class="container d-flex justify-content-center flex-wrap bg-info my-5 p-5"
+              >
+                <!-- Card 1: Santorini -->
+                <div class="card m-3 col-lg-4 col-md-6 card-destinazione" data-categoria="mare">
+                  <div class="card destination-card h-100">
+                    <div class="card-img-container">
+                      <img
+                        src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"
+                        class="card-img-top"
+                        alt="Santorini"
+                      />
+                      <span class="category-badge">Mare</span>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Santorini, Grecia</h5>
+                      <p class="card-text">
+                        Immergiti nella magia delle Cicladi con i suoi tramonti
+                        mozzafiato, le caratteristiche case bianche e blu, e le
+                        spiagge vulcaniche uniche al mondo. Un paradiso
+                        romantico nel cuore dell'Egeo.
+                      </p>
+                      <a href="#" class="btn btn-discover">Scopri</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 2: Dolomiti -->
+                <div class="card m-3 col-lg-4 col-md-6 card-destinazione" data-categoria="montagna">
+                  <div class="card destination-card h-100">
+                    <div class="card-img-container">
+                      <img
+                        src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        class="card-img-top"
+                        alt="Dolomiti"
+                      />
+                      <span class="category-badge">Montagna</span>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Dolomiti, Italia</h5>
+                      <p class="card-text">
+                        Scopri le vette più spettacolari delle Alpi, patrimonio
+                        UNESCO, tra sentieri mozzafiato, rifugi accoglienti e
+                        panorami che ti lasceranno senza fiato. L'avventura
+                        montana ti aspetta.
+                      </p>
+                      <a href="#" class="btn btn-discover">Scopri</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 3: Islanda -->
+                <div class="card m-3 col-lg-4 col-md-6 card-destinazione" data-categoria="spazio">
+                  <div class="card destination-card h-100">
+                    <div class="card-img-container">
+                      <img
+                        src="https://www.carsiceland.com/assets/img/blog/609/featured/2-giorni-in-islanda.jpg"
+                        class="card-img-top"
+                        alt="Aurora Boreale"
+                      />
+                      <span class="category-badge">Spazio</span>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Islanda</h5>
+                      <p class="card-text">
+                        Vivi la magia dell'aurora boreale in una terra di
+                        ghiaccio e fuoco. Tra geyser fumanti, cascate imponenti
+                        e paesaggi lunari, un'esperienza che ti connette con
+                        l'universo.
+                      </p>
+                      <a href="#" class="btn btn-discover">Scopri</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 4: Etna -->
+                <div class="card m-3 col-lg-4 col-md-6 card-destinazione" data-categoria="vulcano">
+                  <div class="card destination-card h-100">
+                    <div class="card-img-container">
+                      <img
+                        src="https://www.sicilia.info/wp-content/uploads/sites/91/etna-hd.jpg"
+                        class="card-img-top"
+                        alt="Vulcano Etna"
+                      />
+                      <span class="category-badge">Vulcano</span>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Etna, Sicilia</h5>
+                      <p class="card-text">
+                        Esplora il vulcano attivo più alto d'Europa, tra crateri
+                        fumanti, colate laviche e paesaggi marziani.
+                        Un'avventura geologica unica tra natura selvaggia e
+                        storia millenaria.
+                      </p>
+                      <a href="#" class="btn btn-discover">Scopri</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 5: Maldive -->
+                 <div class="card m-3 col-lg-4 col-md-6 card-destinazione" data-categoria="mare">
+                  <div class="card destination-card h-100">
+                    <div class="card-img-container">
+                      <img
+                        src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        class="card-img-top"
+                        alt="Maldive"
+                      />
+                      <span class="category-badge">Mare</span>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Maldive</h5>
+                      <p class="card-text">
+                        Paradiso tropicale per eccellenza, con acque
+                        cristalline, atolli corallini e resort di lusso
+                        sull'acqua. Il luogo perfetto per rilassarsi e
+                        rigenerarsi in un ambiente da sogno.
+                      </p>
+                      <a href="#" class="btn btn-discover">Scopri</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 6: Cervino -->
+                <div class="card m-3 col-lg-4 col-md-6 card-destinazione" data-categoria="montagna">
+                  <div class="card destination-card h-100">
+                    <div class="card-img-container">
+                      <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matterhorn%2C_March_2019_%2801%29.jpg"
+                        class="card-img-top"
+                        alt="Cervino"
+                      />
+                      <span class="category-badge">Montagna</span>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Cervino, Svizzera</h5>
+                      <p class="card-text">
+                        La montagna più fotografata al mondo ti aspetta con la
+                        sua silhouette inconfondibile. Tra piste da sci,
+                        alpinismo e wellness alpino, un'esperienza montana di
+                        classe mondiale.
+                      </p>
+                      <a href="#" class="btn btn-discover">Scopri</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- section sponsors -->
+          <section>
+            <div class="container bg-warning p-5 my-2">
+              <div class="row align-items-center">
+                <div class="col-lg-6">
+                  <h1 class="text-start mb-4">Il Mondo ti Aspetta</h1>
+                  <p class="text-start fs-5 mb-4">
+                    Ogni viaggio inizia con un sogno. Noi siamo qui per
+                    trasformarlo in realtà, accompagnandoti verso destinazioni
+                    che cambieranno il tuo modo di vedere il mondo.
+                  </p>
+                  <p class="text-start mb-4">
+                    <strong>Non aspettare domani per vivere oggi.</strong> Le
+                    esperienze più belle nascono quando esci dalla tua zona di
+                    comfort e ti immergi in culture, sapori e paesaggi che solo
+                    il viaggio può offrirti.
+                  </p>
+                  <div class="d-flex gap-3 mt-4">
+                    <div class="text-center">
+                      <h3 class="text-primary mb-1">150+</h3>
+                      <small class="text-muted">Destinazioni</small>
+                    </div>
+                    <div class="text-center">
+                      <h3 class="text-primary mb-1">10K+</h3>
+                      <small class="text-muted">Viaggiatori Felici</small>
+                    </div>
+                    <div class="text-center">
+                      <h3 class="text-primary mb-1">15</h3>
+                      <small class="text-muted">Anni di Esperienza</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <img
+                    src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                    alt="Viaggiatori felici"
+                    class="img-fluid rounded-3 shadow-lg"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- section sponsors -->
+          <section>
+            <div class="container sponsors my-5 p-5">
+              <div class="text-center mb-5">
+                <h1 class="mb-3">I Nostri Partner di Fiducia</h1>
+                <p class="lead text-white-50 mb-0">
+                  Collaboriamo con i leader mondiali del settore per offrirti il
+                  meglio
+                </p>
+              </div>
+
+              <div class="row g-4 align-items-center justify-content-center">
+                <!-- Airlines Partners -->
+                <div class="col-lg-3 col-md-4 col-6">
+                  <div class="sponsor-card">
+                    <img
+                      src="https://logos-world.net/wp-content/uploads/2023/01/Qatar-Airways-Logo.png"
+                      alt="Qatar Airways"
+                      class="sponsor-logo"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-6">
+                  <div class="sponsor-card">
+                    <img
+                      src="https://logos-world.net/wp-content/uploads/2020/03/Emirates-Logo.png"
+                      alt="Emirates"
+                      class="sponsor-logo"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-6">
+                  <div class="sponsor-card">
+                    <img
+                      src="https://logos-world.net/wp-content/uploads/2020/03/Lufthansa-Logo.png"
+                      alt="Lufthansa"
+                      class="sponsor-logo"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-6">
+                  <div class="sponsor-card">
+                    <img
+                      src="https://1000logos.net/wp-content/uploads/2019/05/Boeing-Logo.png"
+                      alt="Boeing"
+                      class="sponsor-logo"
+                    />
+                  </div>
+                </div>
+
+                <!-- Hotels Partners -->
+                <div class="col-lg-3 col-md-4 col-6">
+                  <div class="sponsor-card">
+                    <img
+                      src="https://logos-world.net/wp-content/uploads/2021/02/Marriott-Logo.png"
+                      alt="Marriott"
+                      class="sponsor-logo"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-6">
+                  <div class="sponsor-card">
+                    <img
+                      src="https://logos-world.net/wp-content/uploads/2021/02/Hilton-Logo.png"
+                      alt="Hilton"
+                      class="sponsor-logo"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-6">
+                  <div class="sponsor-card">
+                    <img
+                      src="https://logos-world.net/wp-content/uploads/2021/08/Booking-Logo.png"
+                      alt="Booking.com"
+                      class="sponsor-logo"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-6">
+                  <div class="sponsor-card">
+                    <img
+                      src="https://logos-world.net/wp-content/uploads/2021/02/Expedia-Logo.png"
+                      alt="Expedia"
+                      class="sponsor-logo"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="modern-footer pt-5">
+      <div class="container footer-content">
+        <div class="row g-4 mb-5">
+          <!-- Company Info (indirizzo, numero di telefono, email) -->
+          <div class="col-lg-4 col-md-6">
+            <a href="#" class="footer-logo d-block mb-4">
+              Croco Travels
+            </a>
+            <ul class="contact-info mb-4">
+              <li>
+                <i class="fas fa-map-marker-alt"></i>
+                <a href="Via delle Palme, 18 - 00145, Roma (RM), Italia" class="contact-link">Via delle Palme, 18 - 00145, Roma (RM), Italia </a>
+              </li>
+              <li>
+                <i class="fas fa-phone"></i>
+                <a href="tel:+390698765432" class="contact-link">+39 06 9876 5432</a>
+              </li>
+              <li>
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:contact@yourbrand.com" class="contact-link">CrocoTravels@viaggi.com</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Quick Links (collegamenti con le altre pagine del sito) -->
+          <div class="col-lg-4 col-md-6">
+            <h3 class="footer-title">Collegamenti utili</h3>
+            <ul class="quick-links">
+              <li><a href="../auro/homepage.html">Homepage</a></li>
+              <li><a href="../anto/contatti.html">Contatti</a></li>
+              <li><a href="../marta/Chi_Siamo.html">Chi siamo</a></li>
+              <li><a href="../Carmine/pacchettiViaggio.html">I nostri pacchetti viaggio</a></li>
+            </ul>
+          </div>
+
+          <!-- Newsletter -->
+          <div class="col-lg-4 col-md-12">
+            <h3 class="footer-title">Tieniti in contatto!</h3>
+            <p class="text-muted mb-4">
+              Iscriviti alla newsletter e ricevi tutte le notifiche relative alle nostre
+              attività!
+            </p>
+            <form class="mb-4">
+              <div class="mb-3">
+                <input
+                  type="email"
+                  class="form-control newsletter-input"
+                  placeholder="Inserisci l'indirizzo di posta elettronica"
+                />
+              </div>
+              <button type="submit" class="btn btn-subscribe text-white w-100">
+                Iscriviti ora
+              </button>
+            </form>
+            <!-- Icone dei social -->
+            <div class="social-links">
+              <a href="#" class="social-icon"></i></a> <!--1. facebook-->
+              <a href="#" class="social-icon"></i></a> <!--2. youtube-->
+              <a href="#" class="social-icon"></i></a> <!--3. X-->
+              <a href="#" class="social-icon"></i></a> <!--4. instagram-->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div class="container">
+          <div class="row py-4">
+            <div class="col-md-6 text-center text-md-start">
+              <p>&copy; 2025 Croco Travels. All rights reserved.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Import bootstrap -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
+      integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK"
+      crossorigin="anonymous"
+    ></script>
+    <script src="dropdown-menu.js"></script>
+    <script src="destinazioni.js"></script>
+  </body>
+</html>
