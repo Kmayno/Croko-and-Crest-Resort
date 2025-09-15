@@ -10,25 +10,42 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <style>
-      /* Tema Croco&Crest Resort */
+      /* Palette Goblin Professionale */
       :root {
-        --croco-green: #2f794d;
-        --croco-dark-green: #1e5a3a;
-        --croco-light-green: #4a9d6a;
-        --croco-gold: #d4af37;
-        --croco-brown: #8b4513;
-        --croco-cream: #f5f5dc;
-        --croco-water: #87ceeb;
+        --goblin-50: #f0f9f2;
+        --goblin-100: #dcefe0;
+        --goblin-200: #bbdfc4;
+        --goblin-300: #8ec7a0;
+        --goblin-400: #5ea979;
+        --goblin-500: #3d8c5c;
+        --goblin-600: #2f794d;
+        --goblin-700: #23593b;
+        --goblin-800: #1e4730;
+        --goblin-900: #193b28;
+        --goblin-950: #0d2116;
+        --white: #ffffff;
+        --black: #000000;
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-300: #d1d5db;
+        --gray-400: #9ca3af;
+        --gray-500: #6b7280;
+        --gray-600: #4b5563;
+        --gray-700: #374151;
+        --gray-800: #1f2937;
+        --gray-900: #111827;
       }
 
       body {
         background: linear-gradient(
           135deg,
-          var(--croco-water) 0%,
-          var(--croco-cream) 100%
+          var(--goblin-50) 0%,
+          var(--white) 100%
         );
         min-height: 100vh;
-        font-family: "Arial", sans-serif;
+        font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+        color: var(--gray-800);
       }
 
       .wizard-step {
@@ -52,19 +69,20 @@
 
       .step-indicator {
         transition: all 0.3s ease;
-        background: var(--croco-green);
-        border: 3px solid var(--croco-gold);
-        box-shadow: 0 4px 15px rgba(47, 121, 77, 0.3);
+        background: var(--goblin-600);
+        border: 1px solid var(--goblin-500);
+        box-shadow: 0 2px 8px rgba(47, 121, 77, 0.15);
+        color: var(--gray-800);
       }
       .step-indicator.completed {
-        background: var(--croco-light-green);
-        color: white;
-        transform: scale(1.1);
-        box-shadow: 0 6px 20px rgba(74, 157, 106, 0.4);
+        background: var(--goblin-500);
+        color: var(--white);
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(61, 140, 92, 0.25);
       }
       .step-indicator.current {
-        background: var(--croco-gold);
-        color: var(--croco-dark-green);
+        background: var(--goblin-700);
+        color: var(--white);
         animation: pulse 2s infinite;
       }
 
@@ -83,43 +101,22 @@
       .room-card {
         transition: all 0.3s ease;
         cursor: pointer;
-        background: linear-gradient(145deg, #ffffff, #f0f0f0);
-        border: 2px solid var(--croco-green);
-        border-radius: 15px;
+        background: var(--white);
+        border: 1px solid var(--goblin-200);
+        border-radius: 8px;
         position: relative;
         overflow: hidden;
       }
-      .room-card::before {
-        content: "";
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(
-          45deg,
-          transparent,
-          rgba(212, 175, 55, 0.1),
-          transparent
-        );
-        transform: rotate(45deg);
-        transition: all 0.5s ease;
-        opacity: 0;
-      }
-      .room-card:hover::before {
-        opacity: 1;
-        animation: shimmer 1.5s ease-in-out;
-      }
       .room-card:hover {
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 15px 35px rgba(47, 121, 77, 0.2);
-        border-color: var(--croco-gold);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(47, 121, 77, 0.1);
+        border-color: var(--goblin-400);
       }
       .room-card.selected {
-        border-color: var(--croco-gold);
-        background: linear-gradient(145deg, #fff8dc, #f0f8ff);
-        box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
-        transform: scale(1.02);
+        border-color: var(--goblin-600);
+        background: var(--goblin-50);
+        box-shadow: 0 6px 20px rgba(61, 140, 92, 0.15);
+        transform: translateY(-1px);
       }
 
       @keyframes shimmer {
@@ -134,40 +131,22 @@
       .option-card {
         transition: all 0.3s ease;
         cursor: pointer;
-        background: linear-gradient(145deg, #ffffff, #f8f8f8);
-        border: 2px solid var(--croco-light-green);
-        border-radius: 12px;
+        background: var(--white);
+        border: 1px solid var(--goblin-200);
+        border-radius: 8px;
         position: relative;
         overflow: hidden;
       }
-      .option-card::after {
-        content: "🐊";
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 1.2em;
-        opacity: 0;
-        transition: all 0.3s ease;
-      }
       .option-card:hover {
-        transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 10px 25px rgba(74, 157, 106, 0.2);
-        border-color: var(--croco-gold);
-      }
-      .option-card:hover::after {
-        opacity: 1;
-        animation: bounce 0.6s ease-in-out;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(61, 140, 92, 0.1);
+        border-color: var(--goblin-400);
       }
       .option-card.selected {
-        border-color: var(--croco-gold);
-        background: linear-gradient(145deg, #f0fdf4, #e6fffa);
-        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
-        transform: scale(1.02);
-      }
-      .option-card.selected::after {
-        opacity: 1;
-        content: "✅";
-        animation: none;
+        border-color: var(--goblin-600);
+        background: var(--goblin-50);
+        box-shadow: 0 4px 15px rgba(61, 140, 92, 0.15);
+        transform: translateY(-1px);
       }
 
       @keyframes bounce {
@@ -196,18 +175,18 @@
       .croco-header {
         background: linear-gradient(
           135deg,
-          var(--croco-green) 0%,
-          var(--croco-dark-green) 100%
+          var(--goblin-700) 0%,
+          var(--goblin-800) 100%
         );
-        border-bottom: 4px solid var(--croco-gold);
-        box-shadow: 0 4px 20px rgba(47, 121, 77, 0.3);
+        border-bottom: 1px solid var(--goblin-600);
+        box-shadow: 0 2px 10px rgba(30, 71, 48, 0.1);
       }
 
       .croco-card {
-        background: linear-gradient(145deg, #ffffff, #f8f8f8);
-        border: 2px solid var(--croco-green);
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(47, 121, 77, 0.1);
+        background: var(--white);
+        border: 1px solid var(--goblin-200);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(47, 121, 77, 0.05);
         position: relative;
         overflow: hidden;
       }
@@ -218,59 +197,29 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 4px;
+        height: 2px;
         background: linear-gradient(
           90deg,
-          var(--croco-green),
-          var(--croco-gold),
-          var(--croco-light-green)
+          var(--goblin-500),
+          var(--goblin-600),
+          var(--goblin-500)
         );
       }
 
       .croco-button {
-        background: linear-gradient(
-          135deg,
-          var(--croco-green) 0%,
-          var(--croco-light-green) 100%
-        );
-        border: 2px solid var(--croco-gold);
-        color: white;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        background: var(--goblin-600);
+        border: 1px solid var(--goblin-700);
+        color: var(--white);
+        font-weight: 600;
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
       }
 
-      .croco-button::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.2),
-          transparent
-        );
-        transition: left 0.5s ease;
-      }
-
-      .croco-button:hover::before {
-        left: 100%;
-      }
-
       .croco-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(47, 121, 77, 0.3);
-        background: linear-gradient(
-          135deg,
-          var(--croco-light-green) 0%,
-          var(--croco-green) 100%
-        );
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(47, 121, 77, 0.2);
+        background: var(--goblin-700);
       }
 
       .croco-button:active {
@@ -278,42 +227,42 @@
       }
 
       .croco-input {
-        border: 2px solid var(--croco-light-green);
-        border-radius: 10px;
+        border: 1px solid var(--goblin-300);
+        border-radius: 6px;
         transition: all 0.3s ease;
-        background: linear-gradient(145deg, #ffffff, #f8f8f8);
+        background: var(--white);
       }
 
       .croco-input:focus {
-        border-color: var(--croco-gold);
-        box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        border-color: var(--goblin-500);
+        box-shadow: 0 0 0 3px rgba(61, 140, 92, 0.1);
         outline: none;
-        background: #ffffff;
+        background: var(--white);
       }
 
       .croco-progress {
         background: linear-gradient(
           90deg,
-          var(--croco-green),
-          var(--croco-gold)
+          var(--goblin-500),
+          var(--goblin-600)
         );
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(47, 121, 77, 0.3);
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(47, 121, 77, 0.2);
       }
 
       .croco-text {
-        color: var(--croco-dark-green);
+        color: var(--gray-800);
       }
 
       .croco-accent {
-        color: var(--croco-gold);
+        color: var(--goblin-600);
       }
 
       .croco-water-bg {
         background: linear-gradient(
           135deg,
-          var(--croco-water) 0%,
-          var(--croco-cream) 100%
+          var(--goblin-50) 0%,
+          var(--white) 100%
         );
       }
 
@@ -321,10 +270,20 @@
         position: fixed;
         bottom: 20px;
         right: 20px;
-        font-size: 2em;
+        font-size: 1.5em;
         animation: float 3s ease-in-out infinite;
         z-index: 1000;
         cursor: pointer;
+        color: var(--goblin-600);
+        background: var(--white);
+        border: 1px solid var(--goblin-300);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(47, 121, 77, 0.1);
       }
 
       @keyframes float {
@@ -333,25 +292,25 @@
           transform: translateY(0px);
         }
         50% {
-          transform: translateY(-20px);
+          transform: translateY(-10px);
         }
       }
 
       .croco-success {
-        background: linear-gradient(135deg, #10b981, #059669);
-        border: 2px solid #34d399;
-        color: white;
+        background: var(--goblin-500);
+        border: 1px solid var(--goblin-600);
+        color: var(--white);
       }
 
       .croco-error {
-        background: linear-gradient(135deg, #ef4444, #dc2626);
-        border: 2px solid #f87171;
-        color: white;
+        background: #dc2626;
+        border: 1px solid #b91c1c;
+        color: var(--white);
       }
     </style>
   </head>
   <body class="croco-water-bg min-h-screen">
-    <!-- Header Croco -->
+    <!-- Header -->
     <header class="croco-header shadow-lg">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center py-6">
@@ -359,28 +318,48 @@
             <img
               src="../../auro/homeImg/CROCOLOGO2.0.png"
               alt="Croco&Crest Logo"
-              class="h-16 w-auto mr-4 animate-pulse"
+              class="h-16 w-auto mr-4"
             />
             <div>
-              <h1 class="text-3xl font-bold text-white">Prenotazione Croco</h1>
-              <p class="text-yellow-200 text-sm">
-                Il tuo soggiorno perfetto ti aspetta!
+              <h1 class="text-3xl font-bold text-white">Prenotazione</h1>
+              <p class="text-gray-200 text-sm">
+                Il tuo soggiorno perfetto ti aspetta
               </p>
             </div>
           </div>
-          <a
-            href="../../auro/homepage.html"
-            class="croco-button px-6 py-3 rounded-lg text-white hover:scale-105 transition-all duration-300"
-          >
-            <i class="fas fa-home mr-2"></i>
-            Torna alla Home
-          </a>
+          <div class="flex items-center space-x-4">
+            <!-- Messaggio di benvenuto (verrà aggiunto dinamicamente) -->
+            <div id="welcome-message" class="hidden">
+              <div class="flex items-center space-x-3">
+                <div class="text-right">
+                  <p class="text-gray-200 text-sm">Benvenuto/a,</p>
+                  <p class="text-white font-bold" id="welcome-name"></p>
+                </div>
+                <div
+                  class="w-12 h-12 bg-white rounded-full flex items-center justify-center"
+                >
+                  <img
+                    src="../../auro/homeImg/crocoOk.png"
+                    alt="Croco"
+                    class="w-12 h-12 object-cover rounded-full"
+                  />
+                </div>
+              </div>
+            </div>
+            <a
+              href="../../auro/homepage.html"
+              class="croco-button px-6 py-3 rounded-lg text-white hover:scale-105 transition-all duration-300"
+            >
+              <i class="fas fa-home mr-2"></i>
+              Torna alla Home
+            </a>
+          </div>
         </div>
       </div>
     </header>
 
-    <!-- Progress Indicator Croco -->
-    <div class="croco-card mx-4 mt-6 border-4 border-yellow-300">
+    <!-- Progress Indicator -->
+    <div class="croco-card mx-4 mt-6">
       <div class="max-w-4xl mx-auto px-6 py-8">
         <div class="flex items-center justify-between">
           <div class="flex items-center">
@@ -409,7 +388,7 @@
 
           <div class="flex items-center">
             <div
-              class="step-indicator w-12 h-12 rounded-full text-gray-600 flex items-center justify-center text-lg font-bold"
+              class="step-indicator w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold"
               data-step="2"
             >
               <i class="fas fa-bed"></i>
@@ -431,7 +410,7 @@
 
           <div class="flex items-center">
             <div
-              class="step-indicator w-12 h-12 rounded-full text-gray-600 flex items-center justify-center text-lg font-bold"
+              class="step-indicator w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold"
               data-step="3"
             >
               <i class="fas fa-plus"></i>
@@ -453,7 +432,7 @@
 
           <div class="flex items-center">
             <div
-              class="step-indicator w-12 h-12 rounded-full text-gray-600 flex items-center justify-center text-lg font-bold"
+              class="step-indicator w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold"
               data-step="4"
             >
               <i class="fas fa-check"></i>
@@ -476,7 +455,7 @@
             <h2 class="text-4xl font-bold croco-text mb-2">
               Seleziona le date del tuo soggiorno
             </h2>
-            <p class="text-lg croco-accent">Il tuo viaggio croco inizia qui!</p>
+            <p class="text-lg croco-accent">Il tuo viaggio inizia qui</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -528,7 +507,7 @@
               onclick="nextStep()"
               class="croco-button px-8 py-4 text-xl rounded-xl hover:scale-105 transition-all duration-300"
             >
-              Continua il Viaggio <i class="fas fa-arrow-right ml-3"></i>
+              Continua <i class="fas fa-arrow-right ml-3"></i>
             </button>
           </div>
         </div>
@@ -539,9 +518,11 @@
         <div class="croco-card p-8">
           <div class="text-center mb-8">
             <h2 class="text-4xl font-bold croco-text mb-2">
-              Scegli la tua camera croco
+              Scegli la tua camera
             </h2>
-            <p class="text-lg croco-accent">La tua tana perfetta ti aspetta!</p>
+            <p class="text-lg croco-accent">
+              La tua camera perfetta ti aspetta
+            </p>
           </div>
 
           <div class="loading" id="rooms-loading">
@@ -554,7 +535,7 @@
                   Caricamento camere disponibili...
                 </p>
                 <p class="text-sm croco-accent mt-2">
-                  I nostri coccodrilli stanno preparando tutto!
+                  Preparazione in corso...
                 </p>
               </div>
             </div>
@@ -591,10 +572,10 @@
         <div class="croco-card p-8">
           <div class="text-center mb-8">
             <h2 class="text-4xl font-bold croco-text mb-2">
-              Servizi aggiuntivi croco
+              Servizi aggiuntivi
             </h2>
             <p class="text-lg croco-accent">
-              Personalizza il tuo soggiorno con i nostri servizi esclusivi!
+              Personalizza il tuo soggiorno con i nostri servizi esclusivi
             </p>
           </div>
 
@@ -608,7 +589,7 @@
                   Caricamento opzioni disponibili...
                 </p>
                 <p class="text-sm croco-accent mt-2">
-                  I nostri coccodrilli stanno preparando le sorprese!
+                  Preparazione servizi in corso...
                 </p>
               </div>
             </div>
@@ -643,10 +624,10 @@
         <div class="croco-card p-8">
           <div class="text-center mb-8">
             <h2 class="text-4xl font-bold croco-text mb-2">
-              Riepilogo prenotazione croco
+              Riepilogo prenotazione
             </h2>
             <p class="text-lg croco-accent">
-              Quasi tutto pronto per il tuo soggiorno!
+              Quasi tutto pronto per il tuo soggiorno
             </p>
           </div>
 
@@ -658,9 +639,7 @@
               </h3>
 
               <div class="space-y-4">
-                <div
-                  class="flex justify-between py-3 border-b-2 border-yellow-200"
-                >
+                <div class="flex justify-between py-3 border-b border-gray-200">
                   <span class="text-lg croco-text font-semibold"
                     >Check-in:</span
                   >
@@ -669,9 +648,7 @@
                     id="summary-checkin"
                   ></span>
                 </div>
-                <div
-                  class="flex justify-between py-3 border-b-2 border-yellow-200"
-                >
+                <div class="flex justify-between py-3 border-b border-gray-200">
                   <span class="text-lg croco-text font-semibold"
                     >Check-out:</span
                   >
@@ -680,36 +657,28 @@
                     id="summary-checkout"
                   ></span>
                 </div>
-                <div
-                  class="flex justify-between py-3 border-b-2 border-yellow-200"
-                >
+                <div class="flex justify-between py-3 border-b border-gray-200">
                   <span class="text-lg croco-text font-semibold">Notti:</span>
                   <span
                     class="font-bold croco-accent text-lg"
                     id="summary-nights"
                   ></span>
                 </div>
-                <div
-                  class="flex justify-between py-3 border-b-2 border-yellow-200"
-                >
+                <div class="flex justify-between py-3 border-b border-gray-200">
                   <span class="text-lg croco-text font-semibold">Ospiti:</span>
                   <span
                     class="font-bold croco-accent text-lg"
                     id="summary-guests"
                   ></span>
                 </div>
-                <div
-                  class="flex justify-between py-3 border-b-2 border-yellow-200"
-                >
+                <div class="flex justify-between py-3 border-b border-gray-200">
                   <span class="text-lg croco-text font-semibold">Camera:</span>
                   <span
                     class="font-bold croco-accent text-lg"
                     id="summary-room"
                   ></span>
                 </div>
-                <div
-                  class="flex justify-between py-3 border-b-2 border-yellow-200"
-                >
+                <div class="flex justify-between py-3 border-b border-gray-200">
                   <span class="text-lg croco-text font-semibold"
                     >Prezzo camera:</span
                   >
@@ -722,7 +691,7 @@
                   <!-- Le opzioni selezionate verranno mostrate qui -->
                 </div>
                 <div
-                  class="flex justify-between py-4 border-t-4 border-yellow-300 bg-yellow-50 rounded-lg px-4"
+                  class="flex justify-between py-4 border-t-2 border-goblin-300 bg-goblin-50 rounded-lg px-4"
                 >
                   <span class="text-2xl font-bold croco-text">Totale:</span>
                   <span
@@ -744,27 +713,25 @@
                   <div class="flex items-center">
                     <i class="fas fa-check-circle text-3xl mr-4"></i>
                     <div>
-                      <h4 class="text-lg font-bold">
-                        🐊 Prenotazione in attesa
-                      </h4>
+                      <h4 class="text-lg font-bold">Prenotazione in attesa</h4>
                       <p class="text-sm mt-2">
                         La tua prenotazione è stata inviata e sarà esaminata dal
-                        nostro staff!
+                        nostro staff
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-6">
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
                   <h4 class="text-lg font-bold text-blue-800 mb-4">
-                    📢 Informazioni importanti:
+                    Informazioni importanti:
                   </h4>
                   <ul class="text-sm text-blue-700 space-y-2">
-                    <li>📧 Riceverai una email di conferma entro 24 ore</li>
-                    <li>⏳ La prenotazione è in attesa di approvazione</li>
-                    <li>🕐 Il check-in è disponibile dalle 15:00</li>
-                    <li>🕚 Il check-out è entro le 11:00</li>
-                    <li>❌ Cancellazione gratuita fino a 24h prima</li>
+                    <li>• Riceverai una email di conferma entro 24 ore</li>
+                    <li>• La prenotazione è in attesa di approvazione</li>
+                    <li>• Il check-in è disponibile dalle 15:00</li>
+                    <li>• Il check-out è entro le 11:00</li>
+                    <li>• Cancellazione gratuita fino a 24h prima</li>
                   </ul>
                 </div>
               </div>
@@ -782,7 +749,7 @@
               onclick="confirmBooking()"
               class="croco-success px-8 py-4 text-xl rounded-lg hover:scale-105 transition-all duration-300 font-bold"
             >
-              <i class="fas fa-paper-plane mr-2"></i> Invia Prenotazione 🐊
+              <i class="fas fa-paper-plane mr-2"></i> Invia Prenotazione
             </button>
           </div>
         </div>
@@ -798,11 +765,9 @@
         <i class="fas fa-spinner fa-spin text-4xl croco-accent mr-4"></i>
         <div>
           <p class="text-xl croco-text font-bold">
-            🐊 Elaborazione prenotazione...
+            Elaborazione prenotazione...
           </p>
-          <p class="text-sm croco-accent">
-            I nostri coccodrilli stanno lavorando!
-          </p>
+          <p class="text-sm croco-accent">Elaborazione in corso...</p>
         </div>
       </div>
     </div>
@@ -813,10 +778,10 @@
       class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
     >
       <div class="croco-card p-8 max-w-lg mx-4 text-center">
-        <div class="text-8xl mb-6">🐊</div>
+        <div class="text-8xl mb-6"></div>
         <i class="fas fa-check-circle text-green-500 text-6xl mb-4"></i>
         <h3 class="text-3xl font-bold croco-text mb-4">
-          🎉 Prenotazione Inviata!
+          Prenotazione Inviata!
         </h3>
         <p class="text-lg croco-accent mb-8">
           La tua prenotazione è stata inviata con successo! Il nostro staff la
@@ -839,14 +804,15 @@
       </div>
     </div>
 
-    <!-- Coccodrillo Flottante -->
+    <!-- Pulsante Torna in Cima -->
     <div class="floating-croco" onclick="scrollToTop()" title="Torna in cima">
-      🐊
+      <i class="fas fa-arrow-up"></i>
     </div>
 
     <script>
       // Stato globale dell'applicazione
       let currentStep = 1;
+      let isProcessingBooking = false; // Flag per prevenire prenotazioni multiple
       let bookingData = {
         checkinDate: null,
         checkoutDate: null,
@@ -1008,25 +974,31 @@
         document.body.innerHTML = `
           <div class="croco-water-bg min-h-screen flex items-center justify-center">
             <div class="croco-card p-12 max-w-2xl mx-4 text-center">
-              <div class="text-8xl mb-6">🐊</div>
+              <div class="text-8xl mb-6">
+                <img
+            class="w-10 ml-[215px] w-[120px]"
+            src="../../auro/homeImg/CROCOLOGO2.0.png"
+            alt="abba"
+          />
+                </div>
               <h1 class="text-4xl font-bold croco-text mb-6">
-                🚫 Accesso Negato
+                 Accesso Negato
               </h1>
               <p class="text-xl croco-accent mb-8">
-                Devi registrarti prima di poter prenotare al Croco&Crest Resort!
+                Devi registrarti prima di poter prenotare al Croco&Crest Resort
               </p>
               <div class="space-y-4">
                 <button
                   onclick="goToRegistration()"
                   class="croco-button px-8 py-4 text-xl rounded-lg transition-all duration-300 font-bold w-full"
                 >
-                  🐊 Registrati Ora
+                   Registrati Ora
                 </button>
                 <button
                   onclick="goToHomepage()"
                   class="bg-gray-400 text-white px-8 py-4 text-xl rounded-lg hover:bg-gray-500 transition-all duration-300 font-bold w-full"
                 >
-                  🏠 Torna alla Homepage
+                   Torna alla Homepage
                 </button>
               </div>
             </div>
@@ -1036,25 +1008,22 @@
 
       // Mostra messaggio di benvenuto
       function showWelcomeMessage(nomeCliente) {
-        // Aggiungi messaggio di benvenuto nell'header
-        const header = document.querySelector(
-          ".croco-header .flex.items-center div"
-        );
-        if (header && nomeCliente) {
-          const welcomeDiv = document.createElement("div");
-          welcomeDiv.className = "ml-4 text-right";
-          welcomeDiv.innerHTML = `
-            <p class="text-yellow-200 text-sm">Benvenuto,</p>
-            <p class="text-white font-bold">${nomeCliente} 🐊</p>
-          `;
-          header.appendChild(welcomeDiv);
+        if (nomeCliente) {
+          const welcomeMessage = document.getElementById("welcome-message");
+          const welcomeName = document.getElementById("welcome-name");
+
+          if (welcomeMessage && welcomeName) {
+            welcomeName.textContent = nomeCliente;
+            welcomeMessage.classList.remove("hidden");
+          }
         }
       }
 
       // Reindirizza alla registrazione
       function goToRegistration() {
         // Sostituisci con il path corretto della pagina di registrazione
-        window.location.href = "../../../carmine/RegistrazioneUtente.html";
+        window.location.href =
+          "/src/main/resources/static/CrokoFront/html/carmine/RegistrazioneUtente.html";
       }
 
       // Validazione
@@ -1078,7 +1047,7 @@
         const checkoutDate = document.getElementById("checkout-date").value;
 
         if (!checkinDate || !checkoutDate) {
-          alert("🐊 Per favore, seleziona le date del tuo soggiorno!");
+          showErrorModal("Per favore, seleziona le date del tuo soggiorno!");
           return false;
         }
 
@@ -1104,7 +1073,7 @@
 
       function validateStep2() {
         if (!bookingData.selectedRoom) {
-          alert("Per favore, seleziona una camera.");
+          showErrorModal("Per favore, seleziona una camera.");
           return false;
         }
         return true;
@@ -1121,12 +1090,14 @@
           today.setHours(0, 0, 0, 0);
 
           if (checkin < today) {
-            alert("La data di check-in non può essere nel passato.");
+            showErrorModal("La data di check-in non può essere nel passato.");
             return false;
           }
 
           if (checkout <= checkin) {
-            alert("La data di check-out deve essere successiva al check-in.");
+            showErrorModal(
+              "La data di check-out deve essere successiva al check-in."
+            );
             return false;
           }
 
@@ -1134,7 +1105,7 @@
             (checkout - checkin) / (1000 * 60 * 60 * 24)
           );
           if (nights > 30) {
-            alert("La prenotazione non può superare i 30 giorni.");
+            showErrorModal("La prenotazione non può superare i 30 giorni.");
             return false;
           }
         }
@@ -1334,14 +1305,20 @@
             (opt) => opt.idOpzione !== option.idOpzione
           );
           cardElement.classList.remove("selected");
-          cardElement.querySelector(".fa-plus-circle").className =
-            "fas fa-plus-circle text-gray-300 text-lg";
+          // Ripristina l'icona originale
+          const icon = cardElement.querySelector("i");
+          if (icon) {
+            icon.className = "fas fa-plus-circle text-gray-300 text-lg";
+          }
         } else {
           // Aggiungi opzione
           bookingData.selectedOptions.push(option);
           cardElement.classList.add("selected");
-          cardElement.querySelector(".fa-plus-circle").className =
-            "fas fa-check-circle text-green-500 text-lg";
+          // Cambia l'icona in check
+          const icon = cardElement.querySelector("i");
+          if (icon) {
+            icon.className = "fas fa-check-circle text-green-500 text-lg";
+          }
         }
       }
 
@@ -1504,6 +1481,12 @@
 
       // Conferma prenotazione
       async function confirmBooking() {
+        // Prevenire prenotazioni multiple
+        if (isProcessingBooking) {
+          console.log("⚠️ Prenotazione già in corso, ignora richiesta");
+          return;
+        }
+
         // Verifica che tutti i dati necessari siano presenti
         if (
           !bookingData.clienteId ||
@@ -1511,7 +1494,7 @@
           !bookingData.checkinDate ||
           !bookingData.checkoutDate
         ) {
-          alert(
+          showErrorModal(
             "Errore: Dati di prenotazione incompleti. Ricarica la pagina e riprova."
           );
           console.error("Dati mancanti:", {
@@ -1523,9 +1506,13 @@
           return;
         }
 
+        // Imposta flag di elaborazione
+        isProcessingBooking = true;
+
         // Test connessione di base prima di procedere
         const isConnected = await testBasicConnection();
         if (!isConnected) {
+          isProcessingBooking = false; // Reset flag in caso di errore
           showErrorModal(
             "Server non raggiungibile. Verifica che il server Spring Boot sia attivo su localhost:8080"
           );
@@ -1589,7 +1576,9 @@
 
           if (response.ok) {
             showSuccessModal();
+            // Non resettare il flag qui, sarà resettato quando si chiude il modal
           } else {
+            isProcessingBooking = false; // Reset flag in caso di errore
             // Gestione errori più specifica
             let errorMessage = "Errore nella prenotazione";
 
@@ -1651,6 +1640,7 @@
           }
         } catch (error) {
           loadingOverlay.classList.add("hidden");
+          isProcessingBooking = false; // Reset flag in caso di errore
           console.error("Errore di connessione:", error);
           console.error("Tipo di errore:", error.name);
           console.error("Messaggio di errore:", error.message);
@@ -1680,6 +1670,64 @@
 
       function closeSuccessModal() {
         document.getElementById("success-modal").classList.add("hidden");
+        // Reset completo dello stato per evitare prenotazioni multiple
+        resetBookingState();
+      }
+
+      function resetBookingState() {
+        // Reset del flag di elaborazione
+        isProcessingBooking = false;
+
+        // Reset dei dati di prenotazione
+        bookingData = {
+          checkinDate: null,
+          checkoutDate: null,
+          guests: 2,
+          clienteId: bookingData.clienteId, // Mantieni solo l'ID cliente
+          selectedRoom: null,
+          selectedOptions: [],
+          totalPrice: 0,
+        };
+
+        // Reset del form
+        document.getElementById("checkin-date").value = "";
+        document.getElementById("checkout-date").value = "";
+        document.getElementById("guests").value = "2";
+
+        // Reset dello step corrente
+        currentStep = 1;
+        showStep(1);
+        updateProgress();
+
+        // Reset delle selezioni
+        document.querySelectorAll(".room-card").forEach((card) => {
+          card.classList.remove("selected");
+          const icon = card.querySelector(".fa-check-circle");
+          if (icon) {
+            icon.className = "fas fa-check-circle text-gray-300 text-xl";
+          }
+        });
+
+        document.querySelectorAll(".option-card").forEach((card) => {
+          card.classList.remove("selected");
+          const icon = card.querySelector("i");
+          if (icon) {
+            icon.className = "fas fa-plus-circle text-gray-300 text-lg";
+          }
+        });
+
+        // Pulisci i container
+        document.getElementById("rooms-container").innerHTML = "";
+        document.getElementById("options-container").innerHTML = "";
+        document.getElementById("options-summary").innerHTML = "";
+
+        // Disabilita il pulsante continua camera
+        const continueRoomBtn = document.getElementById("continue-room");
+        if (continueRoomBtn) {
+          continueRoomBtn.disabled = true;
+        }
+
+        console.log("✅ Stato prenotazione resettato completamente");
       }
 
       function showErrorModal(message) {
@@ -1730,7 +1778,7 @@
       }
 
       function goToHomepage() {
-        window.location.href = "../../../auro/homepage.html";
+        window.location.href = "../../auro/homepage.html";
       }
     </script>
   </body>

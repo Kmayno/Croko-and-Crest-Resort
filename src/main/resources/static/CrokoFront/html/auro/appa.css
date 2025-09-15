@@ -55,23 +55,3 @@
     z-index: 1;
   }
 }
-
-.custom-shape-divider-top-1757932841 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-}
-
-.custom-shape-divider-top-1757932841 svg {
-  position: relative;
-  display: block;
-  width: calc(152% + 1.3px);
-  height: 100px;
-}
-
-.custom-shape-divider-top-1757932841 .shape-fill {
-  fill: #5ea979;
-}

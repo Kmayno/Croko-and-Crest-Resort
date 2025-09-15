@@ -12,28 +12,6 @@
     />
     <link rel="stylesheet" href="../auro/appa.css" />
     <style>
-      .divider-section {
-        position: relative; /* fondamentale */
-        height: 120px; /* altezza per far vedere l'onda */
-        background: #dcefe0; /* colore sotto l'onda */
-      }
-      .custom-shape-divider-top-1757512142 {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        overflow: hidden;
-        line-height: 0;
-      }
-      .custom-shape-divider-top-1757512142 svg {
-        position: relative;
-        display: block;
-        width: calc(133% + 1.3px);
-        height: 120px;
-      }
-      .custom-shape-divider-top-1757512142 .shape-fill {
-        fill: #5ea979; /* colore dell'onda */
-      }
       .dropdown-menu {
         display: none;
       }
@@ -87,8 +65,7 @@
     </style>
   </head>
 
-  <body class="bg-[#f0f9f2]">
-    
+  <body>
     <!-- NAVBAR CONTAINER -->
     <nav class="navbar-container fixed w-full z-50 top-0">
       <div
@@ -471,11 +448,11 @@
               </p>
               <div class="mt-10 flex items-center justify-center gap-x-6">
                 <a
-                  href="#"
+                  href="../antonio/abba/prenotazioni.html"
                   class="rounded-md bg-[#3d8c5c] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[#8ec7a0] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                   >Prenota ora</a
                 >
-                <a href="#" class="text-sm/6 font-semibold text-white"
+                <a href="../marta/camere e servizi.html" class="text-sm/6 font-semibold text-white"
                   >Scopri di più <span aria-hidden="true">→</span></a
                 >
               </div>
@@ -515,141 +492,93 @@
       </div>
     </section>
 
-    <!-- Divider a onda -->
-    <section class="divider-section">
-      <div class="custom-shape-divider-top-1757512142">
-        <svg
-          data-name="Layer 1"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,
-      70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,
-      512.34,53.67,583,72.05c69.27,18,138.3,24.88,
-      209.4,13.08,36.15-6,69.85-17.84,
-      104.45-29.34C989.49,25,1113-14.29,
-      1200,52.47V0Z"
-            opacity=".25"
-            class="shape-fill"
-          ></path>
-          <path
-            d="M0,0V15.81C13,36.92,27.64,56.86,
-      47.69,72.05,99.41,111.27,165,111,
-      224.58,91.58c31.15-10.15,60.09-26.07,
-      89.67-39.8,40.92-19,84.73-46,
-      130.83-49.67,36.26-2.85,70.9,9.42,
-      98.6,31.56,31.77,25.39,62.32,62,
-      103.63,73,40.44,10.79,81.35-6.69,
-      119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,
-      113.28,22.88,168.9,38.84,30.2,8.66,
-      59,6.17,87.09-7.5,22.43-10.89,
-      48-26.93,60.65-49.24V0Z"
-            opacity=".5"
-            class="shape-fill"
-          ></path>
-          <path
-            d="M0,0V5.63C149.93,59,314.09,71.32,
-      475.83,42.57c43-7.64,84.23-20.12,
-      127.61-26.46,59-8.63,112.48,12.24,
-      165.56,35.4C827.93,77.22,886,95.24,
-      951.2,90c86.53-7,172.46-45.71,
-      248.8-84.81V0Z"
-            class="shape-fill"
-          ></path>
-        </svg>
-      </div>
-    </section>
-
     <!-- SEZIONE SERVIZI -->
-    <section class="py-20 bg-transparent">
+    <section class="py-20 bg-gradient-to-b from-[#2f794d] to-[#1a5a3a]">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-[#1f3b2a] mb-4">I Nostri Servizi</h2>
-          <p class="text-xl text-[#2f4f40] max-w-3xl mx-auto">
+          <h2 class="text-4xl font-bold text-white mb-4">I Nostri Servizi</h2>
+          <p class="text-xl text-[#8ec7a0] max-w-3xl mx-auto">
             Scopri tutti i servizi che rendono il tuo soggiorno indimenticabile
           </p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Servizio 1 -->
-          <div class="bg-[rgba(94,169,121,0.12)] backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-[rgba(94,169,121,0.22)] transition-all duration-300">
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-all duration-300">
             <div class="w-16 h-16 bg-[#5ea979] rounded-full flex items-center justify-center mx-auto mb-6">
               <i class="fas fa-bed text-2xl text-white"></i>
             </div>
-            <h3 class="text-xl font-bold text-[#1f3b2a] mb-4">Camere di Lusso</h3>
-            <p class="text-[#2f4f40]">Camere eleganti e confortevoli con vista panoramica e tutti i comfort moderni</p>
+            <h3 class="text-xl font-bold text-white mb-4">Camere di Lusso</h3>
+            <p class="text-[#8ec7a0]">Camere eleganti e confortevoli con vista panoramica e tutti i comfort moderni</p>
           </div>
           
           <!-- Servizio 2 -->
-          <div class="bg-[rgba(94,169,121,0.12)] backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-[rgba(94,169,121,0.22)] transition-all duration-300">
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-all duration-300">
             <div class="w-16 h-16 bg-[#5ea979] rounded-full flex items-center justify-center mx-auto mb-6">
               <i class="fas fa-utensils text-2xl text-white"></i>
             </div>
-            <h3 class="text-xl font-bold text-[#1f3b2a] mb-4">Ristorante Gourmet</h3>
-            <p class="text-[#2f4f40]">Cucina raffinata con ingredienti freschi e locali, menu personalizzati</p>
+            <h3 class="text-xl font-bold text-white mb-4">Ristorante Gourmet</h3>
+            <p class="text-[#8ec7a0]">Cucina raffinata con ingredienti freschi e locali, menu personalizzati</p>
           </div>
           
           <!-- Servizio 3 -->
-          <div class="bg-[rgba(94,169,121,0.12)] backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-[rgba(94,169,121,0.22)] transition-all duration-300">
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-all duration-300">
             <div class="w-16 h-16 bg-[#5ea979] rounded-full flex items-center justify-center mx-auto mb-6">
               <i class="fas fa-spa text-2xl text-white"></i>
             </div>
-            <h3 class="text-xl font-bold text-[#1f3b2a] mb-4">Spa & Wellness</h3>
-            <p class="text-[#2f4f40]">Trattamenti rilassanti e massaggi per il tuo benessere completo</p>
+            <h3 class="text-xl font-bold text-white mb-4">Spa & Wellness</h3>
+            <p class="text-[#8ec7a0]">Trattamenti rilassanti e massaggi per il tuo benessere completo</p>
           </div>
           
           <!-- Servizio 4 -->
-          <div class="bg-[rgba(94,169,121,0.12)] backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-[rgba(94,169,121,0.22)] transition-all duration-300">
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-all duration-300">
             <div class="w-16 h-16 bg-[#5ea979] rounded-full flex items-center justify-center mx-auto mb-6">
               <i class="fas fa-swimming-pool text-2xl text-white"></i>
             </div>
-            <h3 class="text-xl font-bold text-[#1f3b2a] mb-4">Piscina Infinity</h3>
-            <p class="text-[#2f4f40]">Piscina panoramica con vista mozzafiato e area relax esclusiva</p>
+            <h3 class="text-xl font-bold text-white mb-4">Piscina Infinity</h3>
+            <p class="text-[#8ec7a0]">Piscina panoramica con vista mozzafiato e area relax esclusiva</p>
           </div>
           
           <!-- Servizio 5 -->
-          <div class="bg-[rgba(94,169,121,0.12)] backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-[rgba(94,169,121,0.22)] transition-all duration-300">
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-all duration-300">
             <div class="w-16 h-16 bg-[#5ea979] rounded-full flex items-center justify-center mx-auto mb-6">
               <i class="fas fa-concierge-bell text-2xl text-white"></i>
             </div>
-            <h3 class="text-xl font-bold text-[#1f3b2a] mb-4">Concierge 24/7</h3>
-            <p class="text-[#2f4f40]">Servizio concierge disponibile 24 ore su 24 per ogni tua esigenza</p>
+            <h3 class="text-xl font-bold text-white mb-4">Concierge 24/7</h3>
+            <p class="text-[#8ec7a0]">Servizio concierge disponibile 24 ore su 24 per ogni tua esigenza</p>
           </div>
           
           <!-- Servizio 6 -->
-          <div class="bg-[rgba(94,169,121,0.12)] backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-[rgba(94,169,121,0.22)] transition-all duration-300">
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-all duration-300">
             <div class="w-16 h-16 bg-[#5ea979] rounded-full flex items-center justify-center mx-auto mb-6">
               <i class="fas fa-car text-2xl text-white"></i>
             </div>
-            <h3 class="text-xl font-bold text-[#1f3b2a] mb-4">Transfer & Escursioni</h3>
-            <p class="text-[#2f4f40]">Servizio transfer e organizzazione escursioni per scoprire il territorio</p>
+            <h3 class="text-xl font-bold text-white mb-4">Transfer & Escursioni</h3>
+            <p class="text-[#8ec7a0]">Servizio transfer e organizzazione escursioni per scoprire il territorio</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- SEZIONE TESTIMONIANZE -->
-    <section class="py-20 bg-transparent">
-      
+    <section class="py-20 bg-[#1a5a3a]">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-[#1f3b2a] mb-4">Cosa Dicono i Nostri Ospiti</h2>
-          <p class="text-xl text-[#2f4f40] max-w-3xl mx-auto">
+          <h2 class="text-4xl font-bold text-white mb-4">Cosa Dicono i Nostri Ospiti</h2>
+          <p class="text-xl text-[#8ec7a0] max-w-3xl mx-auto">
             Le recensioni dei nostri clienti soddisfatti
           </p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Testimonianza 1 -->
-          <div class="bg-[rgba(94,169,121,0.12)] backdrop-blur-sm rounded-2xl p-8 border border-[#5ea97933]">
+          <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
             <div class="flex items-center mb-6">
               <div class="w-12 h-12 bg-[#5ea979] rounded-full flex items-center justify-center mr-4">
                 <span class="text-white font-bold text-lg">M</span>
               </div>
               <div>
-                <h4 class="text-[#1f3b2a] font-semibold">Marco Rossi</h4>
+                <h4 class="text-white font-semibold">Marco Rossi</h4>
                 <div class="flex text-yellow-400">
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
@@ -659,20 +588,20 @@
                 </div>
               </div>
             </div>
-            <p class="text-[#2f4f40] italic">
+            <p class="text-[#8ec7a0] italic">
               "Un'esperienza indimenticabile! Il resort è perfetto, il personale cordiale e la vista mozzafiato. 
               Torneremo sicuramente!"
             </p>
           </div>
           
           <!-- Testimonianza 2 -->
-          <div class="bg-[rgba(94,169,121,0.12)] backdrop-blur-sm rounded-2xl p-8 border border-[#5ea97933]">
+          <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
             <div class="flex items-center mb-6">
               <div class="w-12 h-12 bg-[#5ea979] rounded-full flex items-center justify-center mr-4">
                 <span class="text-white font-bold text-lg">S</span>
               </div>
               <div>
-                <h4 class="text-[#1f3b2a] font-semibold">Sofia Bianchi</h4>
+                <h4 class="text-white font-semibold">Sofia Bianchi</h4>
                 <div class="flex text-yellow-400">
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
@@ -682,20 +611,20 @@
                 </div>
               </div>
             </div>
-            <p class="text-[#2f4f40] italic">
+            <p class="text-[#8ec7a0] italic">
               "La spa è fantastica e le camere sono bellissime. Il ristorante offre piatti deliziosi. 
               Consigliatissimo per una fuga romantica!"
             </p>
           </div>
           
           <!-- Testimonianza 3 -->
-          <div class="bg-[rgba(94,169,121,0.12)] backdrop-blur-sm rounded-2xl p-8 border border-[#5ea97933]">
+          <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
             <div class="flex items-center mb-6">
               <div class="w-12 h-12 bg-[#5ea979] rounded-full flex items-center justify-center mr-4">
                 <span class="text-white font-bold text-lg">A</span>
               </div>
               <div>
-                <h4 class="text-[#1f3b2a] font-semibold">Alessandro Verdi</h4>
+                <h4 class="text-white font-semibold">Alessandro Verdi</h4>
                 <div class="flex text-yellow-400">
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
@@ -705,7 +634,7 @@
                 </div>
               </div>
             </div>
-            <p class="text-[#2f4f40] italic">
+            <p class="text-[#8ec7a0] italic">
               "Servizio impeccabile e location da sogno. La piscina infinity è spettacolare. 
               Un vero paradiso per il relax!"
             </p>
@@ -714,6 +643,25 @@
       </div>
     </section>
 
+    <!-- SEZIONE CTA -->
+    <section class="py-20 bg-gradient-to-r from-[#5ea979] to-[#2f794d]">
+      <div class="max-w-4xl mx-auto text-center px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-white mb-6">Pronto per la Tua Vacanza da Sogno?</h2>
+        <p class="text-xl text-white/90 mb-8">
+          Prenota ora e scopri il lusso e il comfort che solo Croco&Crest Resort può offrirti
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="../antonio/abba/prenotazioni.html" 
+             class="bg-white text-[#2f794d] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300">
+            Prenota Ora
+          </a>
+          <a href="../marta/camere e servizi.html" 
+             class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#2f794d] transition-colors duration-300">
+            Scopri le Camere
+          </a>
+        </div>
+      </div>
+    </section>
 
 <!-- FOOTER SECTION -->
 <footer>
@@ -762,11 +710,11 @@
         <div>
           <p class="font-semibold tracking-wide text-[#8ec7a0]">Termini e impostazioni</p>
           <ul class="mt-3 space-y-2">
-            <li><a href="/" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Gestisci le impostazioni sui cookie</a></li>
-            <li><a href="/" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Privacy e cookie</a></li>
-            <li><a href="/" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Termini di Servizio</a></li>
-            <li><a href="/" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Risoluzione controversie</a></li>
-            <li><a href="/" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Gestisci i suggerimenti personalizzati</a></li>
+            <li><a href="impostazioni-cookie.html" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Gestisci le impostazioni sui cookie</a></li>
+            <li><a href="privacy-cookie.html" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Privacy e cookie</a></li>
+            <li><a href="termini-servizio.html" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Termini di Servizio</a></li>
+            <li><a href="risoluzione-controversie.html" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Risoluzione controversie</a></li>
+            <li><a href="suggerimenti-personalizzati.html" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Gestisci i suggerimenti personalizzati</a></li>
           </ul>
         </div>
 

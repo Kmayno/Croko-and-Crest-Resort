@@ -283,17 +283,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p class="text-gray-600"><span class="font-medium">Prezzo:</span> €${pr.prezzoTotale}</p>
                     <p class="text-yellow-600 font-medium">⏳ In attesa di conferma</p>
 
-                    <div class="mt-4 flex justify-end space-x-2">
-                        <button class="approvePrenBtn bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-lg">Conferma</button>
-                        <button class="rejectPrenBtn bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg">Rifiuta</button>
+                    <div class="mt-4 flex justify-end">
+                        <button class="managePrenBtn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium">
+                            <i class="fas fa-cog mr-2"></i>Gestisci Prenotazione
+                        </button>
                     </div>
                 `;
         card
-          .querySelector(".approvePrenBtn")
-          .addEventListener("click", () => openApproveModal(pr, "approve"));
-        card
-          .querySelector(".rejectPrenBtn")
-          .addEventListener("click", () => openApproveModal(pr, "reject"));
+          .querySelector(".managePrenBtn")
+          .addEventListener("click", () => openManageModal(pr));
       } else {
         // Card per prenotazioni confermate
         card.innerHTML = `
@@ -367,13 +365,61 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("closePrenModal")
     .addEventListener("click", closeDeletePren);
 
-  // ===== GESTIONE APPROVAZIONE PRENOTAZIONI =====
-  let prenToApprove = null;
-  let approveAction = null;
+  // ===== GESTIONE PRENOTAZIONI =====
+  let prenToManage = null;
+  let pendingConfirmAction = null;
 
-  function openApproveModal(pren, action) {
-    prenToApprove = pren;
-    approveAction = action;
+  // ===== MODAL DI CONFERMA PERSONALIZZATO =====
+  function showConfirmModal(title, message, actionType, actionFunction) {
+    document.getElementById("confirmTitle").textContent = title;
+    document.getElementById("confirmMessage").innerHTML = message;
+
+    const confirmBtn = document.getElementById("confirmAction");
+    const confirmModal = document.getElementById("confirmModal");
+
+    // Personalizza il pulsante in base al tipo di azione
+    if (actionType === "approve") {
+      confirmBtn.className =
+        "px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600";
+      confirmBtn.textContent = "Conferma Prenotazione";
+    } else if (actionType === "reject") {
+      confirmBtn.className =
+        "px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600";
+      confirmBtn.textContent = "Rifiuta Prenotazione";
+    } else {
+      confirmBtn.className =
+        "px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600";
+      confirmBtn.textContent = "Conferma";
+    }
+
+    // Salva la funzione da eseguire
+    pendingConfirmAction = actionFunction;
+
+    // Mostra il modal
+    confirmModal.classList.remove("hidden");
+  }
+
+  function closeConfirmModal() {
+    document.getElementById("confirmModal").classList.add("hidden");
+    pendingConfirmAction = null;
+  }
+
+  // Event listeners per il modal di conferma
+  document
+    .getElementById("confirmCancel")
+    .addEventListener("click", closeConfirmModal);
+  document
+    .getElementById("closeConfirmModal")
+    .addEventListener("click", closeConfirmModal);
+  document.getElementById("confirmAction").addEventListener("click", () => {
+    if (pendingConfirmAction) {
+      pendingConfirmAction();
+    }
+    closeConfirmModal();
+  });
+
+  function openManageModal(pren) {
+    prenToManage = pren;
 
     const detailsDiv = document.getElementById("prenDetails");
     detailsDiv.innerHTML = `
@@ -389,8 +435,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function closeApproveModal() {
-    prenToApprove = null;
-    approveAction = null;
+    prenToManage = null;
     document.getElementById("approvePrenModal").classList.add("hidden");
   }
 
@@ -401,66 +446,150 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("closeApproveModal")
     .addEventListener("click", closeApproveModal);
 
-  document.getElementById("approvePren").addEventListener("click", async () => {
-    if (!prenToApprove) return;
+  document.getElementById("approvePren").addEventListener("click", () => {
+    if (!prenToManage) return;
 
-    try {
-      const res = await fetch(
-        `http://localhost:8080/api/prenotazioni/conferma/${prenToApprove.idPrenotazione}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+    // Mostra modal di conferma personalizzato
+    const confirmMessage = `
+      <div class="space-y-3">
+        <p class="font-semibold text-lg">Sei sicuro di voler CONFERMARE questa prenotazione?</p>
+        <div class="bg-blue-50 p-3 rounded-lg">
+          <p><strong>ID Prenotazione:</strong> #${
+            prenToManage.idPrenotazione
+          }</p>
+          <p><strong>Cliente:</strong> ${prenToManage.nomeCliente || "N/A"}</p>
+          <p><strong>Camera:</strong> ${prenToManage.numeroStanza || "N/A"}</p>
+          <p><strong>Date:</strong> ${prenToManage.dataInizio} - ${
+      prenToManage.dataFine
+    }</p>
+          <p><strong>Prezzo totale:</strong> €${
+            prenToManage.prezzoTotale || "N/A"
+          }</p>
+        </div>
+        <p class="text-sm text-gray-600">Questa azione confermerà definitivamente la prenotazione.</p>
+      </div>
+    `;
+
+    showConfirmModal(
+      "Conferma Prenotazione",
+      confirmMessage,
+      "approve",
+      async () => {
+        try {
+          // Mostra indicatore di caricamento
+          const approveBtn = document.getElementById("approvePren");
+          const originalText = approveBtn.textContent;
+          approveBtn.textContent = "Confermando...";
+          approveBtn.disabled = true;
+
+          const res = await fetch(
+            `http://localhost:8080/api/prenotazioni/conferma/${prenToManage.idPrenotazione}`,
+            {
+              method: "PUT",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (!res.ok) {
+            const errorText = await res.text();
+            throw new Error(errorText);
+          }
+
+          showBanner(
+            `✅ Prenotazione #${prenToManage.idPrenotazione} confermata con successo`,
+            "green"
+          );
+          closeApproveModal();
+          loadPrenotazioni(); // Ricarica la lista
+        } catch (err) {
+          showBanner("❌ Errore conferma prenotazione: " + err.message, "red");
+          console.error("Errore dettagliato conferma prenotazione:", err);
+        } finally {
+          // Ripristina il pulsante
+          const approveBtn = document.getElementById("approvePren");
+          if (approveBtn) {
+            approveBtn.textContent = "Conferma";
+            approveBtn.disabled = false;
+          }
         }
-      );
-
-      if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(errorText);
       }
-
-      showBanner(
-        `Prenotazione #${prenToApprove.idPrenotazione} confermata con successo!`,
-        "green"
-      );
-      closeApproveModal();
-      loadPrenotazioni(); // Ricarica la lista
-    } catch (err) {
-      showBanner("Errore conferma prenotazione: " + err.message, "red");
-    }
+    );
   });
 
-  document.getElementById("rejectPren").addEventListener("click", async () => {
-    if (!prenToApprove) return;
+  document.getElementById("rejectPren").addEventListener("click", () => {
+    if (!prenToManage) return;
 
-    try {
-      const res = await fetch(
-        `http://localhost:8080/api/prenotazioni/rifiuta/${prenToApprove.idPrenotazione}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+    // Mostra modal di conferma personalizzato
+    const confirmMessage = `
+      <div class="space-y-3">
+        <p class="font-semibold text-lg text-red-600">⚠️ ATTENZIONE: Azione Irreversibile</p>
+        <p class="font-semibold">Sei sicuro di voler RIFIUTARE questa prenotazione?</p>
+        <div class="bg-red-50 p-3 rounded-lg border border-red-200">
+          <p><strong>ID Prenotazione:</strong> #${
+            prenToManage.idPrenotazione
+          }</p>
+          <p><strong>Cliente:</strong> ${prenToManage.nomeCliente || "N/A"}</p>
+          <p><strong>Camera:</strong> ${prenToManage.numeroStanza || "N/A"}</p>
+          <p><strong>Date:</strong> ${prenToManage.dataInizio} - ${
+      prenToManage.dataFine
+    }</p>
+        </div>
+        <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200">
+          <p class="text-sm text-red-700 font-semibold">⚠️ Questa azione eliminerà definitivamente la prenotazione e non potrà essere annullata.</p>
+        </div>
+      </div>
+    `;
+
+    showConfirmModal(
+      "Rifiuta Prenotazione",
+      confirmMessage,
+      "reject",
+      async () => {
+        try {
+          // Mostra indicatore di caricamento
+          const rejectBtn = document.getElementById("rejectPren");
+          const originalText = rejectBtn.textContent;
+          rejectBtn.textContent = "Rifiutando...";
+          rejectBtn.disabled = true;
+
+          const res = await fetch(
+            `http://localhost:8080/api/prenotazioni/rifiuta/${prenToManage.idPrenotazione}`,
+            {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (!res.ok) {
+            const errorText = await res.text();
+            throw new Error(errorText);
+          }
+
+          showBanner(
+            `✅ Prenotazione #${prenToManage.idPrenotazione} rifiutata ed eliminata con successo`,
+            "orange"
+          );
+          closeApproveModal();
+          loadPrenotazioni(); // Ricarica la lista
+        } catch (err) {
+          showBanner("❌ Errore rifiuto prenotazione: " + err.message, "red");
+          console.error("Errore dettagliato rifiuto prenotazione:", err);
+        } finally {
+          // Ripristina il pulsante
+          const rejectBtn = document.getElementById("rejectPren");
+          if (rejectBtn) {
+            rejectBtn.textContent = "Rifiuta";
+            rejectBtn.disabled = false;
+          }
         }
-      );
-
-      if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(errorText);
       }
-
-      showBanner(
-        `Prenotazione #${prenToApprove.idPrenotazione} rifiutata ed eliminata`,
-        "orange"
-      );
-      closeApproveModal();
-      loadPrenotazioni(); // Ricarica la lista
-    } catch (err) {
-      showBanner("Errore rifiuto prenotazione: " + err.message, "red");
-    }
+    );
   });
 
   // ===== PULSANTI TOGGLE SEZIONI PRENOTAZIONI =====
