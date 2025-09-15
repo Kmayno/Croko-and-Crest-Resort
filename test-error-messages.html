@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Messaggi di Errore</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .test-section {
+        margin-bottom: 30px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+      }
+      .test-button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 5px;
+      }
+      .test-button:hover {
+        background-color: #0056b3;
+      }
+      .result {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 4px;
+      }
+      .success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      .error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      .info {
+        background-color: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Test Messaggi di Errore Prenotazioni</h1>
+
+      <div class="test-section">
+        <h3>Test 1: Camera già prenotata</h3>
+        <p>Testa con una camera che dovrebbe essere già occupata</p>
+        <button class="test-button" onclick="testOccupiedRoom()">
+          Test Camera Occupata
+        </button>
+        <div id="result1"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>Test 2: Date errate</h3>
+        <p>Testa con date di check-in dopo check-out</p>
+        <button class="test-button" onclick="testWrongDates()">
+          Test Date Errate
+        </button>
+        <div id="result2"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>Test 3: Cliente non trovato</h3>
+        <p>Testa con un ID cliente inesistente</p>
+        <button class="test-button" onclick="testInvalidClient()">
+          Test Cliente Inesistente
+        </button>
+        <div id="result3"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>Test 4: Connessione server</h3>
+        <p>Verifica che il server sia raggiungibile</p>
+        <button class="test-button" onclick="testServerConnection()">
+          Test Connessione
+        </button>
+        <div id="result4"></div>
+      </div>
+    </div>
+
+    <script>
+      async function testOccupiedRoom() {
+        const resultDiv = document.getElementById("result1");
+        resultDiv.innerHTML = '<div class="info">Test in corso...</div>';
+
+        try {
+          const requestData = {
+            idCliente: 1,
+            idCamera: 1,
+            dataInizio: "2024-01-01",
+            dataFine: "2024-01-05",
+            opzioniIds: [],
+          };
+
+          console.log("Test camera occupata - Invio dati:", requestData);
+
+          const response = await fetch(
+            "http://localhost:8080/api/prenotazioni/addPrenotazione",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(requestData),
+            }
+          );
+
+          console.log("Test camera occupata - Status:", response.status);
+
+          let result;
+          try {
+            result = await response.json();
+            console.log("Test camera occupata - JSON:", result);
+          } catch (jsonError) {
+            result = await response.text();
+            console.log("Test camera occupata - Text:", result);
+          }
+
+          if (response.ok) {
+            resultDiv.innerHTML = `<div class="success">Prenotazione riuscita (inaspettato)</div>`;
+          } else {
+            resultDiv.innerHTML = `<div class="error">
+                         <strong>Errore ${response.status}</strong><br>
+                         <strong>Messaggio:</strong> ${result}<br>
+                         <strong>Tipo:</strong> ${typeof result}
+                     </div>`;
+          }
+        } catch (error) {
+          console.error("Errore test camera occupata:", error);
+          resultDiv.innerHTML = `<div class="error">Errore di connessione: ${error.message}</div>`;
+        }
+      }
+
+      async function testWrongDates() {
+        const resultDiv = document.getElementById("result2");
+        resultDiv.innerHTML = '<div class="info">Test in corso...</div>';
+
+        try {
+          const requestData = {
+            idCliente: 1,
+            idCamera: 1,
+            dataInizio: "2024-12-31",
+            dataFine: "2024-12-30",
+            opzioniIds: [],
+          };
+
+          console.log("Test date errate - Invio dati:", requestData);
+
+          const response = await fetch(
+            "http://localhost:8080/api/prenotazioni/addPrenotazione",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(requestData),
+            }
+          );
+
+          console.log("Test date errate - Status:", response.status);
+
+          let result;
+          try {
+            result = await response.json();
+            console.log("Test date errate - JSON:", result);
+          } catch (jsonError) {
+            result = await response.text();
+            console.log("Test date errate - Text:", result);
+          }
+
+          if (response.ok) {
+            resultDiv.innerHTML = `<div class="success">Prenotazione riuscita (inaspettato)</div>`;
+          } else {
+            resultDiv.innerHTML = `<div class="error">
+                         <strong>Errore ${response.status}</strong><br>
+                         <strong>Messaggio:</strong> ${result}<br>
+                         <strong>Tipo:</strong> ${typeof result}
+                     </div>`;
+          }
+        } catch (error) {
+          console.error("Errore test date errate:", error);
+          resultDiv.innerHTML = `<div class="error">Errore di connessione: ${error.message}</div>`;
+        }
+      }
+
+      async function testInvalidClient() {
+        const resultDiv = document.getElementById("result3");
+        resultDiv.innerHTML = '<div class="info">Test in corso...</div>';
+
+        try {
+          const requestData = {
+            idCliente: 99999,
+            idCamera: 1,
+            dataInizio: "2024-12-30",
+            dataFine: "2024-12-31",
+            opzioniIds: [],
+          };
+
+          console.log("Test cliente inesistente - Invio dati:", requestData);
+
+          const response = await fetch(
+            "http://localhost:8080/api/prenotazioni/addPrenotazione",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(requestData),
+            }
+          );
+
+          console.log("Test cliente inesistente - Status:", response.status);
+
+          let result;
+          try {
+            result = await response.json();
+            console.log("Test cliente inesistente - JSON:", result);
+          } catch (jsonError) {
+            result = await response.text();
+            console.log("Test cliente inesistente - Text:", result);
+          }
+
+          if (response.ok) {
+            resultDiv.innerHTML = `<div class="success">Prenotazione riuscita (inaspettato)</div>`;
+          } else {
+            resultDiv.innerHTML = `<div class="error">
+                         <strong>Errore ${response.status}</strong><br>
+                         <strong>Messaggio:</strong> ${result}<br>
+                         <strong>Tipo:</strong> ${typeof result}
+                     </div>`;
+          }
+        } catch (error) {
+          console.error("Errore test cliente inesistente:", error);
+          resultDiv.innerHTML = `<div class="error">Errore di connessione: ${error.message}</div>`;
+        }
+      }
+
+      async function testServerConnection() {
+        const resultDiv = document.getElementById("result4");
+        resultDiv.innerHTML = '<div class="info">Test in corso...</div>';
+
+        try {
+          const response = await fetch(
+            "http://localhost:8080/api/prenotazioni/test",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          console.log("Test connessione - Status:", response.status);
+          const result = await response.text();
+          console.log("Test connessione - Result:", result);
+
+          if (response.ok) {
+            resultDiv.innerHTML = `<div class="success">Server raggiungibile: ${result}</div>`;
+          } else {
+            resultDiv.innerHTML = `<div class="error">Server risponde con errore ${response.status}</div>`;
+          }
+        } catch (error) {
+          console.error("Errore test connessione:", error);
+          resultDiv.innerHTML = `<div class="error">Server non raggiungibile: ${error.message}</div>`;
+        }
+      }
+    </script>
+  </body>
+</html>

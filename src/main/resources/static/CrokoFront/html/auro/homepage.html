@@ -163,17 +163,17 @@
 
               <!-- Menu items -->
               <a
-                href="#"
+                href="../carmine/testDashUtente.html"
                 class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
                 >Il tuo profilo</a
               >
               <a
-                href="#"
+                href="../carmine/testDashUtente.html"
                 class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
                 >Impostazioni</a
               >
               <a
-                href="#"
+                href="../auro/homepage.html"
                 class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
                 onclick="logout(); return false;"
                 >Logout</a
@@ -672,9 +672,20 @@
         userRole = null;
         updateUI();
 
-        // Pulisci anche il sessionStorage/localStorage
+        // Pulisci il localStorage
+        localStorage.removeItem("tokenCliente");
+        localStorage.removeItem("clienteEmail");
+        localStorage.removeItem("clienteNome");
+        localStorage.removeItem("clienteId");
+        localStorage.removeItem("token");
+        localStorage.removeItem("adminEmail");
+        localStorage.removeItem("adminNome");
+        
+        // Pulisci anche il sessionStorage
         sessionStorage.removeItem("isLoggedIn");
         sessionStorage.removeItem("userRole");
+        
+        console.log("✅ Logout completato");
       }
 
       // Aggiorna l'interfaccia in base allo stato di login
@@ -706,8 +717,12 @@
           mobileLoginSection.style.display = "none";
           mobileProfileSection.style.display = "block";
           mobileUserRole.textContent = roleText;
-          mobileUsername.textContent =
-            userRole === "admin" ? "Admin" : "Utente";
+          
+          // Mostra il nome dell'utente
+          const userName = userRole === "admin" 
+            ? localStorage.getItem("adminNome") || "Admin"
+            : localStorage.getItem("clienteNome") || "Utente";
+          mobileUsername.textContent = userName;
         } else {
           // Desktop: mostra login, nascondi profilo
           loginSection.style.display = "block";
@@ -719,15 +734,36 @@
         }
       }
 
-      // Controlla se l'utente è già loggato (da sessionStorage o altre pagine)
+      // Controlla se l'utente è già loggato (da localStorage o altre pagine)
       function checkLoginStatus() {
-        const savedLoginStatus = sessionStorage.getItem("isLoggedIn");
-        const savedUserRole = sessionStorage.getItem("userRole");
+        // Controlla se c'è un token cliente (utente normale)
+        const clienteToken = localStorage.getItem("tokenCliente");
+        const clienteId = localStorage.getItem("clienteId");
+        const clienteNome = localStorage.getItem("clienteNome");
+        
+        // Controlla se c'è un token admin
+        const adminToken = localStorage.getItem("token");
+        const adminEmail = localStorage.getItem("adminEmail");
+        const adminNome = localStorage.getItem("adminNome");
 
-        if (savedLoginStatus === "true" && savedUserRole) {
+        if (clienteToken && clienteId) {
+          // Utente normale loggato
           isLoggedIn = true;
-          userRole = savedUserRole;
+          userRole = "utente";
           updateUI();
+          console.log("✅ Utente loggato:", clienteNome);
+        } else if (adminToken && adminEmail) {
+          // Admin loggato
+          isLoggedIn = true;
+          userRole = "admin";
+          updateUI();
+          console.log("✅ Admin loggato:", adminNome);
+        } else {
+          // Nessuno loggato
+          isLoggedIn = false;
+          userRole = null;
+          updateUI();
+          console.log("❌ Nessun utente loggato");
         }
       }
 

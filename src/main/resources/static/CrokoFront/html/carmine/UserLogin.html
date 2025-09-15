@@ -1,78 +1,106 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Login Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gradient-to-br from-green-700 via-green-800 to-green-900 flex items-center justify-center h-screen">
+  </head>
+  <body
+    class="bg-gradient-to-br from-green-700 via-green-800 to-green-900 flex items-center justify-center h-screen"
+  >
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+      <div class="flex justify-center mb-6">
+        <img
+          src="CROCOLOGO20.png"
+          alt="Logo"
+          class="w-full h-32 object-contain mb-6"
+        />
+      </div>
 
-<div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-    <div class="flex justify-center mb-6">
-        <img src="CROCOLOGO20.png" alt="Logo" class="w-full h-32 object-contain mb-6">
-    </div>
-
-    <form id="loginForm" class="space-y-5">
+      <form id="loginForm" class="space-y-5">
         <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-            <input type="email" id="email" required
-                   class="mt-1 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+          <label for="email" class="block text-sm font-medium text-gray-700"
+            >Email</label
+          >
+          <input
+            type="email"
+            id="email"
+            required
+            class="mt-1 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
         </div>
 
         <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-            <input type="password" id="password" required
-                   class="mt-1 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+          <label for="password" class="block text-sm font-medium text-gray-700"
+            >Password</label
+          >
+          <input
+            type="password"
+            id="password"
+            required
+            class="mt-1 w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
         </div>
 
-        <button type="submit"
-                class="w-full bg-green-600 text-white py-2 px-4 rounded-lg shadow hover:bg-green-700 transition duration-200">
-            Crock!
+        <button
+          type="submit"
+          class="w-full bg-green-600 text-white py-2 px-4 rounded-lg shadow hover:bg-green-700 transition duration-200"
+        >
+          Crock!
         </button>
-    </form>
+      </form>
 
-    <!-- Pulsanti registrazione e homepage -->
-    <div class="mt-4 space-y-2">
-        <button onclick="window.location.href='RegistrazioneUtente.html'"
-                class="w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-lg shadow hover:bg-gray-300 transition duration-200">
-            Registrati
+      <!-- Pulsanti registrazione e homepage -->
+      <div class="mt-4 space-y-2">
+        <button
+          onclick="window.location.href='RegistrazioneUtente.html'"
+          class="w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-lg shadow hover:bg-gray-300 transition duration-200"
+        >
+          Registrati
         </button>
 
-        <button onclick="window.location.href='../auro/homepage.html'"
-                class="w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-lg shadow hover:bg-gray-300 transition duration-200">
-            Torna alla Homepage
+        <button
+          onclick="window.location.href='../auro/homepage.html'"
+          class="w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-lg shadow hover:bg-gray-300 transition duration-200"
+        >
+          Torna alla Homepage
         </button>
+      </div>
+
+      <p id="message" class="mt-4 text-center text-sm"></p>
     </div>
+    <script>
+      const form = document.getElementById("loginForm");
+      const message = document.getElementById("message");
 
-    <p id="message" class="mt-4 text-center text-sm"></p>
-</div>
-<script>
-    const form = document.getElementById("loginForm");
-    const message = document.getElementById("message");
-
-    form.addEventListener("submit", function (e) {
+      form.addEventListener("submit", function (e) {
         e.preventDefault();
 
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
-        fetch(`http://localhost:8080/api/cliente/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`)
-            .then(response => {
-                if (!response.ok) throw new Error("Email o password errati");
-                return response.json();
-            })
-            .then(cliente => {
-                localStorage.setItem("tokenCliente", cliente.token);
-                localStorage.setItem("clienteEmail", cliente.email);
-                localStorage.setItem("clienteNome",cliente.nome);
-                localStorage.setItem("clienteId",cliente.idCliente)
-                window.location.href = "testDashUtente.html";
-            })
-            .catch(err => {
-                message.textContent = err.message;
-                message.classList.add("text-red-600");
-            });
-    });
-</script>
-</body>
+        fetch(
+          `http://localhost:8080/api/cliente/login?email=${encodeURIComponent(
+            email
+          )}&password=${encodeURIComponent(password)}`
+        )
+          .then((response) => {
+            if (!response.ok) throw new Error("Email o password errati");
+            return response.json();
+          })
+          .then((cliente) => {
+            localStorage.setItem("tokenCliente", cliente.token);
+            localStorage.setItem("clienteEmail", cliente.email);
+            localStorage.setItem("clienteNome", cliente.nome);
+            localStorage.setItem("clienteId", cliente.idCliente);
+            // Reindirizza alla homepage con login persistente
+            window.location.href = "../auro/homepage.html";
+          })
+          .catch((err) => {
+            message.textContent = err.message;
+            message.classList.add("text-red-600");
+          });
+      });
+    </script>
+  </body>
 </html>

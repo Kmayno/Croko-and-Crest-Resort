@@ -88,13 +88,13 @@ public class ControllerPrenotazione {
             if (request.getDataInizio().isAfter(request.getDataFine())) {
                 logger.error("Data inizio dopo data fine - Inizio: {}, Fine: {}", request.getDataInizio(), request.getDataFine());
                 return ResponseEntity.badRequest()
-                    .body("Errore: La data di inizio non può essere successiva alla data di fine");
+                    .body("La data di check-in deve essere precedente alla data di check-out");
             }
             
             if (request.getDataInizio().isBefore(LocalDate.now())) {
                 logger.error("Tentativo di prenotazione nel passato - Data: {}, Oggi: {}", request.getDataInizio(), LocalDate.now());
                 return ResponseEntity.badRequest()
-                    .body("Errore: Non puoi prenotare nel passato");
+                    .body("Non puoi prenotare per date passate");
             }
 
             // verifica che cliente esista - usando Integer invece di Long
@@ -127,8 +127,10 @@ public class ControllerPrenotazione {
             );
             
             if (!cameraLibera) {
+                logger.error("Camera {} già prenotata dal {} al {}", 
+                    request.getIdCamera(), request.getDataInizio(), request.getDataFine());
                 return ResponseEntity.badRequest()
-                    .body("Errore: Camera già prenotata nelle date richieste");
+                    .body("Camera già prenotata nelle date richieste. Scegli altre date o un'altra camera.");
             }
 
             // calcola il prezzo totale
