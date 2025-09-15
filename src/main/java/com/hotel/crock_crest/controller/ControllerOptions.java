@@ -35,7 +35,7 @@ public class ControllerOptions {
         OpzionePersonalizzazione updated = os.updateOption(op);
         return ResponseEntity.ok(updated);  // ritorna l'opzione aggiornata
     }
-
+    //prova di commit
     //METODO DI RICHIESTA PER TUTTE LE OPZIONI
     @GetMapping("/getAllOptions")
     public List<OpzionePersonalizzazione> getAllOptions() {

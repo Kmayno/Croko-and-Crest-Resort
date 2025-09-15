@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacchetti Viaggio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mooli&display=swap"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/auro/dropdown-menu.css">
+    <link rel="stylesheet" href="/marta/style.css.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="stylePacc.css" />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+ <link rel="icon" type="image/png" href="/auro/imgHome/favicon.ico" />
+</head>
+<body id="corpo">
+
+<!--navbar start-->
+<header>
+      <!-- navbar -->
+
+   <nav
+      class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light"
+      id="ftco-navbar"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="/auro/homepage.html">
+          <img
+            src="../auro/imgHome/crocologo.png"
+            alt="crocologo"
+            width="200"
+            height="100"
+          />
+        </a>
+
+        <div class="navbar-dropdown-container">
+          <div class="dropdown">
+            <button
+              class="navbar-toggler navbar-toggler-dropdown dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="fa-solid fa-bars"></i> Menu
+            </button>
+            <div class="dropdown-menu dropdown-menu-end dropdown-menu-custom">
+              <a class="dropdown-item-nav active" href="../auro/homepage.html">Home</a>
+              <a class="dropdown-item-nav" href="/marta/Chi_Siamo.html"
+                >Chi siamo</a
+              >
+              <a class="dropdown-item-nav" href="/Carmine/pacchettiViaggio.html"
+                >Pacchetti viaggio</a
+              >
+              <a class="dropdown-item-nav" href="/anto/destinazioni.html"
+                >Destinazioni</a
+              >
+              <a class="dropdown-item-nav" href="/anto/contatti.html"
+                >Contatti</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a href="../auro/homepage.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="/marta/Chi_Siamo.html" class="nav-link">Chi siamo</a>
+            </li>
+            <li class="nav-item">
+              <a href="/Carmine/pacchettiViaggio.html" class="nav-link"
+                >Pacchetti viaggio</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="/anto/destinazioni.html" class="nav-link"
+                >Destinazioni</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="/anto/contatti.html" class="nav-link">Contatti</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    </header>
+<!--navbar end-->
+
+<div class="container my-5">
+
+  <div class="p-4 rounded-4 bg-white shadow">
+    <h1 class="mb-4" style="text-align: center; color: rgb(29, 88, 139); font-weight: 600 ;" >Pacchetti Viaggio</h1>
+    <h4 class="mb-4" style="text-align: center;"">Tu prenoti, noi addentiamo.</h4>
+
+    <div class="mb-4">
+        <label for="sortSelect" class="form-label">Ordina per:</label>
+        <select class="form-select w-auto d-inline-block" id="sortSelect" aria-label="Ordina pacchetti">
+            <option selected>Seleziona</option>
+            <option value="prezzo">Prezzo ↓</option>
+            <option value="durata">Durata ↓</option>
+            <option value="rating">Rating ↓</option>
+        </select>
+    </div>
+
+
+
+
+    
+    <div class="row g-4">
+
+
+        <!-- Card 1 -->
+        <div class="col-md-4">
+            <div class="card text-white rounded-4 overflow-hidden h-100" data-prezzo="350" data-durata="3" data-rating="3">
+                <div class="position-relative h-100">
+                    <img src="https://www.brainstormingculturale.it/wp-content/uploads/2022/07/russia-853x1024-1024x585.jpg"
+                         class="card-img rounded-4 h-100"
+                         alt="Viaggio 1"
+                         style=" object-fit: cover;">
+
+                    <div class="position-absolute top-0 start-0 w-100 h-100 rounded-4"
+                         style="background: rgba(0, 0, 0, 0.574);"></div>
+
+                    <div class="card-img-overlay d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title">Week-end atomico a Mosca</h5>
+                            <p class="card-text"> Visita Mosca prima che la facciano saltare in aria. (incolumita' non assicurata) </p>
+
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="small"><i class="bi bi-geo-alt-fill"></i> Mosca, Russia</span>
+                            <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#modalMosca">
+                                Dettagli
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Card 2 -->
+        <div class="col-md-4">
+            <div class="card text-white rounded-4 overflow-hidden h-100" data-prezzo="530" data-durata="5" data-rating="5">
+                <div class="position-relative h-100">
+                    <img src="https://assets.voxcity.com/uploads/blog_images/What-is-the-first-place-to-visit-when-you-travel-to-Rome_original.jpg"
+                         class="card-img rounded-4 h-100"
+                         alt="Viaggio 1"
+                         style=" object-fit: cover;">
+
+                    <div class="position-absolute top-0 start-0 w-100 h-100 rounded-4"
+                         style="background: rgba(0, 0, 0, 0.574);"></div>
+
+                    <div class="card-img-overlay d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title">La citta Eterna.</h5>
+                            <p class="card-text">Un fantstico tour attraverso la storia della citta' piu' famosa del mondo: Roma.</p>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="small"><i class="bi bi-geo-alt-fill"></i> Roma, Italia</span>
+                            <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#modalRoma">
+                                Dettagli
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- Card 3 -->
+
+        <div class="col-md-4">
+            <div class="card text-white rounded-4 overflow-hidden h-100" data-prezzo="2500" data-durata="14" data-rating="5">
+                <div class="position-relative h-100">
+                    <img src="https://travel.thewom.it/content/uploads/sites/4/2023/02/Shutterstock_776445706-1.jpg"
+                         class="card-img rounded-4 h-100"
+                         alt="Viaggio 1"
+                         style=" object-fit: cover;">
+
+                    <div class="position-absolute top-0 start-0 w-100 h-100 rounded-4"
+                         style="background: rgba(0, 0, 0, 0.574);"></div>
+
+                    <div class="card-img-overlay d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title">Giappo Tour</h5>
+                            <p class="card-text">Tour di due settimane in Giappone, lotta come un samurai o come ti pare non so che scrivere</p>
+
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="small"><i class="bi bi-geo-alt-fill"></i> Tokyo, Giappone</span>
+                            <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#modalGiappo">
+                                Dettagli
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Card 4 -->
+
+        <div class="col-md-4">
+            <div class="card text-white rounded-4 overflow-hidden h-100" data-prezzo="3300" data-durata="14" data-rating="4">
+                <div class="position-relative h-100">
+                    <img src="https://img.freepik.com/premium-photo/statue-liberty-with-manhattan-city-skyline-background-landmarks-new-york-city-usa_255553-377.jpg"
+                         class="card-img rounded-4 h-100"
+                         alt="Viaggio 1"
+                         style=" object-fit: cover;">
+
+                    <div class="position-absolute top-0 start-0 w-100 h-100 rounded-4"
+                         style="background: rgba(0, 0, 0, 0.574);"></div>
+
+                    <div class="card-img-overlay d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title">La grande Mela</h5>
+                            <p class="card-text" >Visita New York in questo tour di 2 settimane, ti apetta una favolosa qualcosa</p>
+
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="small"><i class="bi bi-geo-alt-fill"></i> Nuova Yorke, America</span>
+                            <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#modalAmerica">
+                                Dettagli
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- Card 5 -->
+
+        <div class="col-md-4">
+            <div class="card text-white rounded-4 overflow-hidden h-100" data-prezzo="2300" data-durata="14" data-rating="5">
+                <div class="position-relative h-100">
+                    <img src="https://superviaggi.com/wp-content/uploads/2025/03/Thailandia.jpg"
+                         class="card-img rounded-4 h-100"
+                         alt="Viaggio 1"
+                         style=" object-fit: cover;">
+
+                    <div class="position-absolute top-0 start-0 w-100 h-100 rounded-4"
+                         style="background: rgba(0, 0, 0, 0.574);"></div>
+
+                    <div class="card-img-overlay d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title">Thai Food Tour</h5>
+                            <p class="card-text" >Vai a mangiare in Thailandia, boh non so che altro aggiungere..  andiamo a Bangkok prob</p>
+
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="small"><i class="bi bi-geo-alt-fill"></i> Da qualche parte, Thailandia</span>
+                            <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#modalThai">
+                                Dettagli
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- Card 6 -->
+
+        <div class="col-md-4">
+            <div class="card text-white rounded-4 overflow-hidden h-100" data-prezzo="90" data-durata="2" data-rating="1">
+                <div class="position-relative h-100">
+                    <img src="https://www.baritoday.it/~media/horizontal-hi/66415776985913/caciocavallo-impiccato-01-800x445-2.jpg"
+                         class="card-img rounded-4 h-100"
+                         alt="Viaggio 1"
+                         style=" object-fit: cover;">
+
+                    <div class="position-absolute top-0 start-0 w-100 h-100 rounded-4"
+                         style="background: rgba(0, 0, 0, 0.574);"></div>
+
+                    <div class="card-img-overlay d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title">Caciocavallo Night</h5>
+                            <p class="card-text" >Visita Molfetta, mangia tutto il caciocavallo che vuoi.</p>
+
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="small"><i class="bi bi-geo-alt-fill"></i> Molfetta, Boh.. Italia mi pare</span>
+                            <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#modalCacio">
+                                Dettagli
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+ </div>
+</div>
+
+<!-- Modal Roma -->
+<div class="modal fade" id="modalRoma" tabindex="-1" aria-labelledby="modalRomaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: rgba(210, 105, 30, 0.485);">
+                <h5 class="modal-title" id="modalRomaLabel">La citta Eterna - Dettagli</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+            </div>
+            <div class="modal-body">
+                <p>Incluso nel pacchetto:</p>
+                <ul>
+                    <li>4 notti in hotel 4 stelle</li>
+                    <li>Colazione inclusa</li>
+                    <li>Visita guidata Colosseo e Musei Vaticani</li>
+                    <li>Assicurazione di viaggio</li>
+                </ul>
+                <p>Prezzo finale: <strong>529.99 €</strong></p>
+                <p>Durata: 5 giorni</p>
+                <p>Rating: 
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                <button type="button" class="btn btn-success">Prenota Ora</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Mosca -->
+<div class="modal fade" id="modalMosca" tabindex="-1" aria-labelledby="modalMoscaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: rgba(30, 96, 210, 0.485);">
+                <h5 class="modal-title" id="modalMoscaLabel">Weekend a Mosca - Dettagli</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+            </div>
+            <div class="modal-body">
+                <p>Incluso nel pacchetto:</p>
+                <ul>
+                    <li>2 notti in hotel 5 stelle</li>
+                    <li>Colazione inclusa</li>
+                    <li>Visita guidata ai siti Nucleari</li>
+                    <li>Esercitazioni militari</li>
+                    <li>Assicurazione sulla vita (Forse)</li>
+                </ul>
+                <p>Prezzo finale: <strong>€350</strong></p>
+                <p>Durata: 3 giorni</p>
+                <p>Rating: 
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                <button type="button" class="btn btn-success">Prenota Ora</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Giappone -->
+<div class="modal fade" id="modalGiappo" tabindex="-1" aria-labelledby="modalGiappoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: rgba(140, 57, 145, 0.485);">
+                <h5 class="modal-title" id="modalGiappoLabel">Giappo Tour - Dettagli</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+            </div>
+            <div class="modal-body">
+                <p>Incluso nel pacchetto:</p>
+                <ul>
+                    <li>2 settimane in vari hotel</li>
+                    <li>Colazione inclusa</li>
+                    <li>Trasporti e trasporto bagagli incluso</li>
+                    <li>Visita guidata ai siti di interesse</li>
+                    <li>Esercitazioni con la katana</li>
+                    <li>Assicurazione sul viaggio</li>
+                </ul>
+                <p>Prezzo finale: <strong>2500 €</strong></p>
+                <p>Durata: 14 giorni</p>
+                <p>Rating: 
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                <button type="button" class="btn btn-success">Prenota Ora</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal America (suono aquila con inno americano) -->
+<div class="modal fade" id="modalAmerica" tabindex="-1" aria-labelledby="modalAmericaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: rgba(222, 235, 35, 0.756);">
+                <h5 class="modal-title" id="modalAmericaLabel">La grande Mela - Dettagli</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+            </div>
+            <div class="modal-body">
+                <p>Incluso nel pacchetto:</p>
+                <ul>
+                    <li>2 settimane in vari hotel</li>
+                    <li>Colazione inclusa</li>
+                    <li>Trasporti e trasporto bagagli incluso</li>
+                    <li>Visita guidata alla mela</li>
+                    <li>Esercitazioni con bazooka</li>
+                    <li>Assicurazione sul viaggio</li>
+                </ul>
+                <p>Prezzo finale: <strong>3299.99 €</strong></p>
+                <p>Durata: 14 giorni</p>
+                <p>Rating: 
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                <button type="button" class="btn btn-success">Prenota Ora</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Thai -->
+<div class="modal fade" id="modalThai" tabindex="-1" aria-labelledby="modalThaiLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: rgba(54, 188, 30, 0.756);">
+                <h5 class="modal-title" id="modalThaiLabel">Thai Food Tour - Dettagli</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+            </div>
+            <div class="modal-body">
+                <p>Incluso nel pacchetto:</p>
+                <ul>
+                    <li>2 settimane in vari hotel</li>
+                    <li>Tutti i pasti inclusi (food tour per un motivo)</li>
+                    <li>Trasporti e trasporto bagagli incluso</li>
+                    <li>Visita guidata alle fantastiche isole</li>
+                    <li>Visita a Bangkok (si sappiamo entrambi perche'...)</li>
+                    <li>Assicurazione sul viaggio</li>
+                </ul>
+                <p>Prezzo finale: <strong>2299.99 €</strong></p>
+                <p>Durata: 14 giorni</p>
+                 <p>Rating: 
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                <button type="button" class="btn btn-success">Prenota Ora</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Cacio -->
+<div class="modal fade" id="modalCacio" tabindex="-1" aria-labelledby="modalCacioLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: rgba(188, 170, 30, 0.756);">
+                <h5 class="modal-title" id="modalCacioLabel">Caciocavallo night - Dettagli</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+            </div>
+            <div class="modal-body">
+                <p>Incluso nel pacchetto:</p>
+                <ul>
+                    <li>1 notte in un hotel esclusivo</li>
+                    <li>Un sacco di caciocavallo</li>
+                    <li>Trasporti da e per la sagra</li>
+                    <li>Visita guidata alle bancarelle del cacio</li>
+                    <li>Giro turistico di Molfetta</li>
+                    <li>Assicurazione sulla vita</li>
+                </ul>
+                <p>Prezzo finale: <strong>89.99 €</strong></p>
+                <p>Durata: 14 giorni</p>
+                 <p>Rating: 
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                <button type="button" class="btn btn-success">Prenota Ora</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- piede -->
+  <footer class="modern-footer pt-5">
+      <div class="container footer-content">
+        <div class="row g-4 mb-5">
+          <!-- Company Info (indirizzo, numero di telefono, email) -->
+          <div class="col-lg-4 col-md-6">
+            <a href="#" class="footer-logo d-block mb-4">
+              Croco Travels
+            </a>
+            <ul class="contact-info mb-4">
+              <li>
+                <i class="fas fa-map-marker-alt"></i>
+                <a href="Via delle Palme, 18 - 00145, Roma (RM), Italia" class="contact-link">Via delle Palme, 18 - 00145, Roma (RM), Italia </a>
+              </li>
+              <li>
+                <i class="fas fa-phone"></i>
+                <a href="tel:+390698765432" class="contact-link">+39 06 9876 5432</a>
+              </li>
+              <li>
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:contact@yourbrand.com" class="contact-link">CrocoTravels@viaggi.com</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Quick Links (collegamenti con le altre pagine del sito) -->
+          <div class="col-lg-4 col-md-6">
+            <h3 class="footer-title">Collegamenti utili</h3>
+            <ul class="quick-links">
+              <li><a href="../auro/homepage.html">Homepage</a></li>
+              <li><a href="../anto/contatti.html">Contatti</a></li>
+              <li><a href="../marta/Chi_Siamo.html">Chi siamo</a></li>
+              <li><a href="../Carmine/pacchettiViaggio.html">I nostri pacchetti viaggio</a></li>
+            </ul>
+          </div>
+
+          <!-- Newsletter -->
+          <div class="col-lg-4 col-md-12">
+            <h3 class="footer-title">Tieniti in contatto!</h3>
+            <p class="text-muted mb-4">
+              Iscriviti alla newsletter e ricevi tutte le notifiche relative alle nostre
+              attività!
+            </p>
+            <form class="mb-4">
+              <div class="mb-3">
+                <input
+                  type="email"
+                  class="form-control newsletter-input"
+                  placeholder="Inserisci l'indirizzo di posta elettronica"
+                />
+              </div>
+              <button type="submit" class="btn btn-subscribe text-white w-100">
+                Iscriviti ora
+              </button>
+            </form>
+            <!-- Icone dei social -->
+            <div class="social-links">
+              <a href="#" class="social-icon"></i></a> <!--1. facebook-->
+              <a href="#" class="social-icon"></i></a> <!--2. youtube-->
+              <a href="#" class="social-icon"></i></a> <!--3. X-->
+              <a href="#" class="social-icon"></i></a> <!--4. instagram-->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div class="container">
+          <div class="row py-4">
+            <div class="col-md-6 text-center text-md-start">
+              <p>&copy; 2025 Croco Travels. All rights reserved.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="ordinamento.js"></script>
+<script src="dropdown-menu.js"></script>
+</body>
+</html>
+
+
+

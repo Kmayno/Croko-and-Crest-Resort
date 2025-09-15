@@ -17,7 +17,7 @@ import com.hotel.crock_crest.model.Camera;
 import com.hotel.crock_crest.service.CamereService;
 
 @RestController
-@RequestMapping("api/camere")
+@RequestMapping("/api/camere")
 @CrossOrigin(origins = "*")
 public class ControllerCamere {
 
@@ -34,10 +34,10 @@ public class ControllerCamere {
     
 //METODO DI RICHIESTA PER TUTTE LE STANZE
     
- @GetMapping("/getAllRooms")
+    @GetMapping("/getAllRooms")
     public List<Camera> getAllRooms() {
         List<Camera> allRooms = cs.getAllRooms();
-        return allRooms ;
+        return allRooms;
     }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -45,8 +45,8 @@ public class ControllerCamere {
 //METODO DI RICHIESTA PER UNA SINGOLA STANZA TRAMITE ID
 
 @GetMapping("/{id}")
-    public Camera getById(@PathVariable int idCamera) {
-        Camera getRoomById = cs.findById(idCamera);
+    public Camera getById(@PathVariable int id) {
+        Camera getRoomById = cs.findById(id);
         return getRoomById;
     }
 
@@ -54,7 +54,7 @@ public class ControllerCamere {
 
 //METODO DI RICHIESTA STANZA PER TIPO
 
-@GetMapping("getCamera/{tipo}")
+@GetMapping("/getCamera/{tipo}")
 public List<Camera> getByType(@PathVariable String tipo) {
     return cs.getByType(tipo);
 }

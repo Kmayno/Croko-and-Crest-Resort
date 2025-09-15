@@ -119,7 +119,7 @@
           <a href="../marta/camere e servizi.html" class="text-sm/6 font-semibold text-[#f1fcf4]"
             >Le nostre stanze</a
           >
-          <a href="#" class="text-sm/6 font-semibold text-[#f1fcf4]"
+          <a href="../antonio/abba/prenotazioni.html" class="text-sm/6 font-semibold text-[#f1fcf4]"
             >Prenota ora</a
           >
           <a href="../auro/contatti.html" class="text-sm/6 font-semibold text-[#f1fcf4]"
@@ -145,7 +145,7 @@
               <span class="absolute -inset-1.5"></span>
               <span class="sr-only">Open user menu</span>
               <img
-                src="../auro/homeImg/reviews2.jpg"
+                src="../auro/homeImg/crocoOk.png"
                 alt=""
                 class="size-[70px] rounded-full bg-gray-800 outline outline-1 -outline-offset-1 outline-white/10"
               />
@@ -165,15 +165,11 @@
               <a
                 href="#"
                 class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
-                >Il tuo profilo</a
+                onclick="goToPersonalArea(); return false;"
+                >Accedi all'area</a
               >
               <a
-                href="#"
-                class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
-                >Impostazioni</a
-              >
-              <a
-                href="#"
+                href="../auro/homepage.html"
                 class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:outline-hidden"
                 onclick="logout(); return false;"
                 >Logout</a
@@ -239,7 +235,7 @@
           <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
             <div tabindex="0" class="fixed inset-0 focus:outline-none">
               <el-dialog-panel
-                class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-[#193b28] p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10"
+                class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-[#0d2116] p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10"
               >
                 <div class="flex items-center justify-between">
                   <a href="#" class="-m-1.5 p-1.5">
@@ -288,7 +284,7 @@
                         >Le nostre stanze</a
                       >
                       <a
-                        href="#"
+                        href="../antonio/abba/prenotazioni.html"
                         class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
                         >Prenota ora</a
                       >
@@ -384,8 +380,9 @@
           aria-hidden="true"
           class="absolute inset-x-0 -z-10 transform-gpu overflow-hidden sm:-top-80"
         >
-          <video class="video-bg" autoplay muted loop playsinline>
+          <video class="video-bg" autoplay muted loop playsinline preload="auto">
             <source src="../auro/homeImg/herovid.mp4" type="video/mp4" />
+            Il tuo browser non supporta il video.
           </video>
           <div
             style="
@@ -451,8 +448,8 @@
               </p>
               <div class="mt-10 flex items-center justify-center gap-x-6">
                 <a
-                  href="#"
-                  class="rounded-md bg-[#3d8c5c] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                  href="../antonio/abba/prenotazioni.html"
+                  class="rounded-md bg-[#3d8c5c] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[#8ec7a0] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                   >Prenota ora</a
                 >
                 <a href="../marta/camere e servizi.html" class="text-sm/6 font-semibold text-white"
@@ -491,6 +488,177 @@
             "
             class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
           ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEZIONE SERVIZI -->
+    <section class="py-20 bg-gradient-to-b from-[#2f794d] to-[#1a5a3a]">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold text-white mb-4">I Nostri Servizi</h2>
+          <p class="text-xl text-[#8ec7a0] max-w-3xl mx-auto">
+            Scopri tutti i servizi che rendono il tuo soggiorno indimenticabile
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Servizio 1 -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-all duration-300">
+            <div class="w-16 h-16 bg-[#5ea979] rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-bed text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-4">Camere di Lusso</h3>
+            <p class="text-[#8ec7a0]">Camere eleganti e confortevoli con vista panoramica e tutti i comfort moderni</p>
+          </div>
+          
+          <!-- Servizio 2 -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-all duration-300">
+            <div class="w-16 h-16 bg-[#5ea979] rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-utensils text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-4">Ristorante Gourmet</h3>
+            <p class="text-[#8ec7a0]">Cucina raffinata con ingredienti freschi e locali, menu personalizzati</p>
+          </div>
+          
+          <!-- Servizio 3 -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-all duration-300">
+            <div class="w-16 h-16 bg-[#5ea979] rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-spa text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-4">Spa & Wellness</h3>
+            <p class="text-[#8ec7a0]">Trattamenti rilassanti e massaggi per il tuo benessere completo</p>
+          </div>
+          
+          <!-- Servizio 4 -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-all duration-300">
+            <div class="w-16 h-16 bg-[#5ea979] rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-swimming-pool text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-4">Piscina Infinity</h3>
+            <p class="text-[#8ec7a0]">Piscina panoramica con vista mozzafiato e area relax esclusiva</p>
+          </div>
+          
+          <!-- Servizio 5 -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-all duration-300">
+            <div class="w-16 h-16 bg-[#5ea979] rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-concierge-bell text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-4">Concierge 24/7</h3>
+            <p class="text-[#8ec7a0]">Servizio concierge disponibile 24 ore su 24 per ogni tua esigenza</p>
+          </div>
+          
+          <!-- Servizio 6 -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-all duration-300">
+            <div class="w-16 h-16 bg-[#5ea979] rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-car text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-4">Transfer & Escursioni</h3>
+            <p class="text-[#8ec7a0]">Servizio transfer e organizzazione escursioni per scoprire il territorio</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEZIONE TESTIMONIANZE -->
+    <section class="py-20 bg-[#1a5a3a]">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold text-white mb-4">Cosa Dicono i Nostri Ospiti</h2>
+          <p class="text-xl text-[#8ec7a0] max-w-3xl mx-auto">
+            Le recensioni dei nostri clienti soddisfatti
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Testimonianza 1 -->
+          <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+            <div class="flex items-center mb-6">
+              <div class="w-12 h-12 bg-[#5ea979] rounded-full flex items-center justify-center mr-4">
+                <span class="text-white font-bold text-lg">M</span>
+              </div>
+              <div>
+                <h4 class="text-white font-semibold">Marco Rossi</h4>
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-[#8ec7a0] italic">
+              "Un'esperienza indimenticabile! Il resort è perfetto, il personale cordiale e la vista mozzafiato. 
+              Torneremo sicuramente!"
+            </p>
+          </div>
+          
+          <!-- Testimonianza 2 -->
+          <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+            <div class="flex items-center mb-6">
+              <div class="w-12 h-12 bg-[#5ea979] rounded-full flex items-center justify-center mr-4">
+                <span class="text-white font-bold text-lg">S</span>
+              </div>
+              <div>
+                <h4 class="text-white font-semibold">Sofia Bianchi</h4>
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-[#8ec7a0] italic">
+              "La spa è fantastica e le camere sono bellissime. Il ristorante offre piatti deliziosi. 
+              Consigliatissimo per una fuga romantica!"
+            </p>
+          </div>
+          
+          <!-- Testimonianza 3 -->
+          <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+            <div class="flex items-center mb-6">
+              <div class="w-12 h-12 bg-[#5ea979] rounded-full flex items-center justify-center mr-4">
+                <span class="text-white font-bold text-lg">A</span>
+              </div>
+              <div>
+                <h4 class="text-white font-semibold">Alessandro Verdi</h4>
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-[#8ec7a0] italic">
+              "Servizio impeccabile e location da sogno. La piscina infinity è spettacolare. 
+              Un vero paradiso per il relax!"
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEZIONE CTA -->
+    <section class="py-20 bg-gradient-to-r from-[#5ea979] to-[#2f794d]">
+      <div class="max-w-4xl mx-auto text-center px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-white mb-6">Pronto per la Tua Vacanza da Sogno?</h2>
+        <p class="text-xl text-white/90 mb-8">
+          Prenota ora e scopri il lusso e il comfort che solo Croco&Crest Resort può offrirti
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="../antonio/abba/prenotazioni.html" 
+             class="bg-white text-[#2f794d] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300">
+            Prenota Ora
+          </a>
+          <a href="../marta/camere e servizi.html" 
+             class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#2f794d] transition-colors duration-300">
+            Scopri le Camere
+          </a>
         </div>
       </div>
     </section>
@@ -542,11 +710,11 @@
         <div>
           <p class="font-semibold tracking-wide text-[#8ec7a0]">Termini e impostazioni</p>
           <ul class="mt-3 space-y-2">
-            <li><a href="#" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Gestisci le impostazioni sui cookie</a></li>
-            <li><a href="#" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Privacy e cookie</a></li>
-            <li><a href="#" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Termini di Servizio</a></li>
-            <li><a href="#" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Risoluzione controversie</a></li>
-            <li><a href="#" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Gestisci i suggerimenti personalizzati</a></li>
+            <li><a href="impostazioni-cookie.html" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Gestisci le impostazioni sui cookie</a></li>
+            <li><a href="privacy-cookie.html" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Privacy e cookie</a></li>
+            <li><a href="termini-servizio.html" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Termini di Servizio</a></li>
+            <li><a href="risoluzione-controversie.html" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Risoluzione controversie</a></li>
+            <li><a href="suggerimenti-personalizzati.html" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">Gestisci i suggerimenti personalizzati</a></li>
           </ul>
         </div>
 
@@ -554,7 +722,7 @@
         <div>
           <p class="font-semibold tracking-wide text-[#8ec7a0]">I nostri partners</p>
           <ul class="mt-3 space-y-2">
-            <li><a href="#" class="transition-colors duration-300 text-[#5ea979] hover:text-[#2f794d]">CrocoTravels</a></li>
+            <li><a href="../../../../../../../CrocoTravel/auro/homepage.html" class="transition-colors duration-300 text-[#5ea979] hover:text-[#2f794d]">CrocoTravels</a></li>
           </ul>
           <p class="mt-2 text-sm text-[#f0f9f2] leading-relaxed">
             Grazie alla partnership con CrocoTravels, raggiungere il Croco&Crest Resort è ancora più semplice ed esclusivo: 
@@ -571,19 +739,17 @@
         </p>
         <div class="flex items-center mt-4 space-x-4 sm:mt-0">
           <!-- Social icons -->
-          <a href="#" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">
-           <svg viewBox="0 0 24 24" fill="currentColor" class="h-5">
+          <a href="/" class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]">
+           <svg viewBox="0 0 26 28" fill="currentColor" class="h-5">
                   <path
-                    d="M24,4.6c-0.9,0.4-1.8,0.7-2.8,0.8c1-0.6,1.8-1.6,2.2-2.7c-1,0.6-2,1-3.1,1.2c-0.9-1-2.2-1.6-3.6-1.6 
-                    c-2.7,0-4.9,2.2-4.9,4.9c0,0.4,0,0.8,0.1,1.1C7.7,8.1,4.1,6.1,1.7,3.1C1.2,3.9,1,4.7,1,5.6c0,1.7,0.9,3.2,2.2,4.1 
-                    C2.4,9.7,1.6,9.5,1,9.1c0,0,0,0,0,0.1c0,2.4,1.7,4.4,3.9,4.8c-0.4,0.1-0.8,0.2-1.3,0.2c-0.3,0-0.6,0-0.9-0.1
-                    c0.6,2,2.4,3.4,4.6,3.4c-1.7,1.3-3.8,2.1-6.1,2.1c-0.4,0-0.8,0-1.2-0.1c2.2,1.4,4.8,2.2,7.5,2.2c9.1,0,14-7.5,14-14
-                    c0-0.2,0-0.4,0-0.6C22.5,6.4,23.3,5.5,24,4.6z"
+                    d="M26.37,26l-8.795,-12.822l0.015,0.012l7.93,-9.19h-2.65l-6.46,7.48l-5.13,-7.48h-6.95l8.211,11.971l-0.001,-0.001l-8.66,10.03h2.65l7.182,
+                    -8.322l5.708,8.322zM10.23,6l12.34,18h-2.1l-12.35,-18z"
                   ></path>
                 </svg>
               </a>
               <a
-                href="#"
+              
+                href="/"
                 class="transition-colors duration-300 text-[#f0f9f2] hover:text-[#5ea979]"
               >
                 <!-- Instagram -->
@@ -620,6 +786,34 @@
       // Stato di login
       let isLoggedIn = false;
       let userRole = null;
+
+      // Controlla se l'utente è già loggato al caricamento della pagina
+      function checkLoginStatus() {
+        const adminToken = localStorage.getItem("token");
+        const adminEmail = localStorage.getItem("adminEmail");
+        const adminNome = localStorage.getItem("adminNome");
+        
+        const clienteToken = localStorage.getItem("tokenCliente");
+        const clienteEmail = localStorage.getItem("clienteEmail");
+        const clienteNome = localStorage.getItem("clienteNome");
+
+        if (adminToken && adminEmail) {
+          // Admin loggato
+          isLoggedIn = true;
+          userRole = "admin";
+          updateUI();
+          console.log("Admin già loggato:", adminNome);
+        } else if (clienteToken && clienteEmail) {
+          // Cliente loggato
+          isLoggedIn = true;
+          userRole = "utente";
+          updateUI();
+          console.log("Cliente già loggato:", clienteNome);
+        }
+      }
+
+      // Chiama la funzione al caricamento della pagina
+      document.addEventListener('DOMContentLoaded', checkLoginStatus);
 
       // Funzione per reindirizzare alla pagina di login appropriata
       function redirectToLogin(role) {
@@ -672,9 +866,20 @@
         userRole = null;
         updateUI();
 
-        // Pulisci anche il sessionStorage/localStorage
+        // Pulisci il localStorage
+        localStorage.removeItem("tokenCliente");
+        localStorage.removeItem("clienteEmail");
+        localStorage.removeItem("clienteNome");
+        localStorage.removeItem("clienteId");
+        localStorage.removeItem("token");
+        localStorage.removeItem("adminEmail");
+        localStorage.removeItem("adminNome");
+        
+        // Pulisci anche il sessionStorage
         sessionStorage.removeItem("isLoggedIn");
         sessionStorage.removeItem("userRole");
+        
+        console.log("✅ Logout completato");
       }
 
       // Aggiorna l'interfaccia in base allo stato di login
@@ -698,16 +903,17 @@
           loginSection.style.display = "none";
           profileDropdown.style.display = "block";
 
-          // Aggiorna il titolo dell'area personale
-          const roleText = userRole === "admin" ? "Area Admin" : "Area Utente";
-          userRoleElement.textContent = roleText;
+          // Aggiorna il titolo dell'area personale con il nome dell'utente
+          const userName = userRole === "admin" 
+            ? localStorage.getItem("adminNome") || "Admin"
+            : localStorage.getItem("clienteNome") || "Utente";
+          userRoleElement.textContent = `Benvenuto ${userName}`;
 
           // Mobile: nascondi login, mostra profilo
           mobileLoginSection.style.display = "none";
           mobileProfileSection.style.display = "block";
-          mobileUserRole.textContent = roleText;
-          mobileUsername.textContent =
-            userRole === "admin" ? "Admin" : "Utente";
+          mobileUserRole.textContent = `Benvenuto ${userName}`;
+          mobileUsername.textContent = userName;
         } else {
           // Desktop: mostra login, nascondi profilo
           loginSection.style.display = "block";
@@ -719,15 +925,14 @@
         }
       }
 
-      // Controlla se l'utente è già loggato (da sessionStorage o altre pagine)
-      function checkLoginStatus() {
-        const savedLoginStatus = sessionStorage.getItem("isLoggedIn");
-        const savedUserRole = sessionStorage.getItem("userRole");
-
-        if (savedLoginStatus === "true" && savedUserRole) {
-          isLoggedIn = true;
-          userRole = savedUserRole;
-          updateUI();
+      // Funzione per accedere all'area personale
+      function goToPersonalArea() {
+        if (userRole === "admin") {
+          // Reindirizza alla dashboard admin
+          window.location.href = "../carmine/AdminDash.html";
+        } else if (userRole === "utente") {
+          // Reindirizza all'area utente
+          window.location.href = "../carmine/testDashUtente.html";
         }
       }
 

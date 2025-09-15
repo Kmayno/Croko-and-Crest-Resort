@@ -1,0 +1,214 @@
+/* Stile per il wizard del preventivatore */
+.wizard-container {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  overflow: hidden;
+  position: relative;
+}
+
+.wizard-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #006767, #008000, #55dd33);
+}
+
+.wizard-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.wizard-header h2 {
+  font-weight: 700;
+  color: #343a40;
+  font-size: 2.5rem;
+}
+
+.wizard-header p {
+  color: #6c757d;
+  font-size: 1.1rem;
+}
+
+.progress-container {
+  margin-bottom: 40px;
+  padding: 0 20px;
+  position: relative;
+}
+
+.airplane-icon {
+  position: absolute;
+  top: -9px;
+  color: #008000;
+  font-size: 2rem;
+  transition: left 0.4s ease-in-out;
+}
+
+.progress {
+  height: 10px;
+  border-radius: 5px;
+  background-color: #e9ecef;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #008000, #55dd33);
+  transition: width 0.4s ease-in-out;
+  top: -9px;
+}
+
+.wizard-step {
+  display: none;
+  animation: fadeIn 0.5s;
+}
+
+.wizard-step.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.form-control,
+.form-select {
+  height: 50px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  padding: 0 15px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #008000;
+  box-shadow: 0 0 0 0.25rem rgba(0, 128, 0, 0.25);
+}
+
+.wizard-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.btn-wizard {
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-prev {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-prev:hover {
+  background-color: #5a6268;
+}
+
+.btn-next {
+  background-color: #008000;
+  color: white;
+}
+
+.btn-next:hover {
+  background-color: #006767;
+}
+
+.btn-submit {
+  background: linear-gradient(90deg, #006767, #008000);
+  color: white;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 128, 0, 0.3);
+}
+
+.invalid-feedback {
+  display: none;
+  color: #dc3545;
+  margin-top: 5px;
+  font-size: 0.9rem;
+}
+
+.was-validated .form-control:invalid,
+.was-validated .form-select:invalid {
+  border-color: #dc3545;
+}
+
+.was-validated .form-control:invalid ~ .invalid-feedback,
+.was-validated .form-select:invalid ~ .invalid-feedback {
+  display: block;
+}
+
+#price-summary {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+}
+
+#price-summary h3 {
+  font-weight: 700;
+  color: #343a40;
+}
+
+#total-price {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #008000;
+  margin: 15px 0;
+}
+
+#price-details {
+  color: #6c757d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .wizard-container {
+    padding: 25px;
+  }
+
+  .wizard-header h2 {
+    font-size: 2rem;
+  }
+
+  .wizard-buttons {
+    flex-direction: column;
+  }
+
+  .btn-wizard {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

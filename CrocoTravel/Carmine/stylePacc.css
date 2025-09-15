@@ -1,0 +1,228 @@
+/* HEADER E NAVBAR */
+header {
+  box-shadow: 0 2px 10px rgba(2, 47, 64, 0.1);
+  background-color: var(--white);
+  position: relative;
+  z-index: 1000;
+}
+
+.ftco_navbar {
+  background-color: var(--white) !important;
+  padding: 1rem 0;
+}
+
+.navbar-brand img {
+  max-height: 80px;
+  width: auto;
+}
+
+.navbar-nav .nav-link {
+  color: var(--prussian-blue) !important;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem !important;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--blue-ncs) !important;
+}
+
+.navbar-nav .nav-item.active .nav-link {
+  color: var(--blue-ncs) !important;
+  font-weight: 600;
+}
+
+.navbar-toggler {
+  border: 2px solid var(--prussian-blue);
+  color: var(--prussian-blue);
+}
+
+#corpo{
+    background: linear-gradient(135deg, #d7c8ba 0%, #0090c1 100%);
+}
+
+* {
+  font-family: "Mooli", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.modern-footer {
+  background: linear-gradient(135deg, #fdad62 0%, #0090c1 100%);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+.modern-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    rgba(28, 11, 158, 0.1) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 1;
+}
+.footer-content {
+  position: relative;
+  z-index: 2;
+}
+.footer-logo {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #022f40;
+  text-decoration: none;
+}
+.footer {
+  color: #2d3436;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+.footer-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #ebf2fa, transparent);
+}
+.contact-info {
+  list-style: none;
+  padding: 0px;
+}
+.contact-info li {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #022f40;
+}
+.contact-info i {
+  color: #022f40;
+  width: 20px;
+}
+.social-links {
+  display: flex;
+  gap: 15px;
+  color: #022f40;
+}
+.contact-link {
+  color: #022f40;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.contact-link:hover {
+  color: #047ea7e7;
+  text-decoration: underline;
+}
+.social-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background: #ebf2fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px #ebf2fa;
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.social-icon i {
+  display: none;
+}
+.social-links a:nth-child(1) {
+  background-image: url("/marta/img social/facebook.jpg");
+}
+.social-links a:nth-child(2) {
+  background-image: url("/marta/img social/youtube.jpg");
+}
+.social-links a:nth-child(3) {
+  background-image: url("/marta/img social/socialX.jpg");
+}
+.social-links a:nth-child(4) {
+  background-image: url("/marta/img social/instagram.jpg");
+}
+
+.social-icon:hover {
+  transform: translateY(-3px);
+  color: #ebf2fa;
+  box-shadow: 0 5px 15px rgba(108, 92, 231, 0.2);
+}
+.quick-links {
+  flex-flow: column-wrap;
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+.quick-links a {
+  color: #022f40;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.quick-links a:hover {
+  color: #fdad62;
+  transform: translateX(5px);
+}
+.quick-links a::before {
+  content: "→";
+  opacity: 1;
+  transition: all 0.1s ease;
+}
+.quick-links a:hover::before {
+  opacity: 1;
+}
+.newsletter-input {
+  border: none;
+  padding: 1%;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+.btn-subscribe {
+  background: linear-gradient(45deg, #022f40, #fdad62);
+  border: 0.1;
+  box-shadow: 0 2px 10px rgba(108, 92, 231, 0.2);
+  padding: 0.8rem 2rem;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  margin: 1.5%;
+  display: flex;
+  align-self: flex-start;
+}
+.btn-subscribe:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+}
+.footer-bottom {
+  background: white;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+.footer-bottom p {
+  margin: 0;
+  color: #022f40;
+}
+.footer-bottom a {
+  color: #ebf2fa;
+  text-decoration: none;
+}
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+@media (max-width: 768px) {
+  .quick-links {
+    grid-template-columns: 1fr;
+  }
+}
